@@ -38,20 +38,6 @@ export const constantRouterMap = [
     }],
     permission: 'dashboard'
   },
-  // {
-  //   path: '/org',
-  //   component: Layout,
-  //   name: '机构管理',
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       name: 'Org',
-  //       component: () => import('@/views/org/index'),
-  //       meta: { title: '机构管理', icon: 'example' }
-  //     }
-  //   ],
-  //   permission: 'org'
-  // },
   {
     path: '/user',
     component: Layout,
@@ -80,34 +66,34 @@ export const constantRouterMap = [
     ],
     permission: 'role'
   },
-  {
-    path: '/project',
-    component: Layout,
-    name: '项目管理',
-    children: [
-      {
-        path: 'index',
-        name: 'role',
-        component: () => import('@/views/role/index'),
-        meta: { title: '项目管理', icon: 'example' }
-      }
-    ],
-    permission: 'role'
-  },
-  {
-    path: '/shop',
-    component: Layout,
-    name: '组件商店',
-    children: [
-      {
-        path: 'index',
-        name: 'role',
-        component: () => import('@/views/role/index'),
-        meta: { title: '组件商店', icon: 'example' }
-      }
-    ],
-    permission: 'role'
-  },
+  // {
+  //   path: '/project',
+  //   component: Layout,
+  //   name: '项目管理',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'role',
+  //       component: () => import('@/views/role/index'),
+  //       meta: { title: '项目管理', icon: 'example' }
+  //     }
+  //   ],
+  //   permission: 'role'
+  // },
+  // {
+  //   path: '/shop',
+  //   component: Layout,
+  //   name: '组件商店',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'role',
+  //       component: () => import('@/views/role/index'),
+  //       meta: { title: '组件商店', icon: 'example' }
+  //     }
+  //   ],
+  //   permission: 'role'
+  // },
   {
     path: '/test',
     component: Layout,
