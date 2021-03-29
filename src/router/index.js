@@ -29,12 +29,12 @@ export const constantRouterMap = [
   {
     path: '/dashboard',
     component: Layout,
-    name: '仪表盘',
+    name: '产品特性',
     children: [{
       path: 'index',
       name: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '仪表盘', icon: 'example' }
+      meta: { title: '产品特性', icon: 'example' }
     }],
     permission: 'dashboard'
   },
@@ -76,6 +76,34 @@ export const constantRouterMap = [
         name: 'role',
         component: () => import('@/views/role/index'),
         meta: { title: '角色管理', icon: 'example' }
+      }
+    ],
+    permission: 'role'
+  },
+  {
+    path: '/project',
+    component: Layout,
+    name: '项目管理',
+    children: [
+      {
+        path: 'index',
+        name: 'role',
+        component: () => import('@/views/role/index'),
+        meta: { title: '项目管理', icon: 'example' }
+      }
+    ],
+    permission: 'role'
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    name: '组件商店',
+    children: [
+      {
+        path: 'index',
+        name: 'role',
+        component: () => import('@/views/role/index'),
+        meta: { title: '组件商店', icon: 'example' }
       }
     ],
     permission: 'role'

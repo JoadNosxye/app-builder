@@ -9,7 +9,7 @@
           </el-col>
           <el-col :span="8">
             <div style="line-height:60px">
-              <el-input placeholder="请输入内容" v-model="searchInputModel" class="input-with-select">
+              <el-input id="1" placeholder="请输入内容" v-model="searchInputModel" class="input-with-select">
                 <el-select v-model="searchSelectModel" slot="prepend" placeholder="请选择">
                   <el-option label="姓名" value="name"></el-option>
                   <el-option label="邮箱" value="email"></el-option>
