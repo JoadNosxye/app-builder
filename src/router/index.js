@@ -109,21 +109,21 @@ export const constantRouterMap = [
     permission: 'role'
   },
   {
-    path: '/haha',
+    path: '/test',
     component: Layout,
     name: '测试页面',
     meta: { title: '测试页面', icon: 'example' },
     children: [
       {
-        path: 'index',
+        path: 'test1',
         name: 'test1',
-        component: () => import('@/views/test/index'),
+        component: () => import('@/views/test1/index'),
         meta: { title: '测试页面1', icon: 'example' }
       },
       {
-        path: 'index',
+        path: 'test2',
         name: 'test2',
-        component: () => import('@/views/test/index'),
+        component: () => import('@/views/test2/index'),
         meta: { title: '测试页面2', icon: 'example' }
       }
     ],
