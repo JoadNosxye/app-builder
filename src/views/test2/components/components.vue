@@ -8,6 +8,20 @@
       <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
       <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
     </el-tabs>
+    <el-row class='row' id="drag4" draggable="true">
+      <el-col :span="6" class="col" id='drag4-col-1'>
+        a
+      </el-col>
+      <el-col :span="6" class="col" id='drag4-col-2'>
+        b
+      </el-col>
+      <el-col :span="6" class="col" id='drag4-col-3'>
+        c
+      </el-col>
+      <el-col :span="6" class="col" id='drag4-col-4'>
+        d
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>

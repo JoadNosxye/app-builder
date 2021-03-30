@@ -1,9 +1,10 @@
 <template>
   <div id="preview-main" @drop="drop" @dragover="allowDrop" @dragstart="drag">
     <div id="currentPage"></div>
-    <el-row class='row'>
+    <div id="vueTemplate" hidden></div>
+    <!-- <el-row class='row'>
       <el-col :span="6" class="col">
-       a
+        a
       </el-col>
       <el-col :span="6" class="col">
         b
@@ -14,7 +15,7 @@
       <el-col :span="6" class="col">
         d
       </el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 <script>
@@ -42,6 +43,7 @@ export default {
       // 获取html，并根据html生成元素，添加到放置的元素中
       //
       let element = document.getElementById(id)
+      // 若需要clone，则对拖拽的元素进行clone，并为其生成一个id
       if (ifClone === 'true') {
         element = element.cloneNode(true)
         element.setAttribute('id', getCurrentTime())
@@ -54,16 +56,7 @@ export default {
   }
 }
 </script>
-<style scoped>
-.row{
-  height: 100%;
-}
-.col{
-  border: 1px solid red;
-  height: 100%;
-}
 
-</style>
 
 
 
