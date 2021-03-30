@@ -1,6 +1,6 @@
 <template>
   <div @dragover="allowDrop" @dragstart="drag">
-    <el-button data-name="primary-button" type="primary" draggable="true" id="drag1-currentTime">主要按钮</el-button>
+    <el-button data-name="primary-button" type="primary" draggable="true" id="button-currentTime">主要按钮</el-button>
     <i data-name="icon-delete" class="el-icon-delete" draggable="true" id="drag2"></i>
     <el-tabs data-name="tab" id="drag3" draggable="true">
       <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
@@ -46,7 +46,7 @@ export default {
             '    </el-row>'
       },
       button: {
-        template: '<button type="button" class="el-button el-button--primary" data-name="primary-button" draggable="true" id="201842504011"><!----><!----><span>主要按钮</span></button>'
+        template: '<button type="button" class="el-button el-button--primary" data-name="primary-button" draggable="true" id="button-currentTime"><!----><!----><span>主要按钮</span></button>'
       }
     }
   },
@@ -61,7 +61,7 @@ export default {
       // 组件对应的js，用来生成代码
       ev.dataTransfer.setData('components', ev.target.id)
       // ev.dataTransfer.setData('new-id', getCurrentTime())
-      if (ev.target.id === 'drag1-currentTime') {
+      if (ev.target.id === 'button-currentTime') {
         ev.dataTransfer.setData('template', this.button.template)
       }
       if (ev.target.id === 'drag4-currentTime') {

@@ -27,8 +27,6 @@ export default {
       const id = ev.dataTransfer.getData('components')
       // 是否clone
       const ifClone = ev.dataTransfer.getData('if-clone')
-      // clone之后的组件ID
-      // const newId = ev.dataTransfer.getData('new-id')
 
       // 根据组件名称(data-name)获取以下信息
       // 获取html，并根据html生成元素，添加到放置的元素中
@@ -39,7 +37,6 @@ export default {
       const currentTime = getCurrentTime()
       if (ifClone === 'true') {
         element = element.cloneNode(true)
-        // element.setAttribute('id', currentTime)
       }
       const tmpHtml = document.createElement('div')
       tmpHtml.setAttribute('id', 'tmp-html')
@@ -57,15 +54,20 @@ export default {
 
       // 创建临时节点，并添加到vue-template中
       const targetId =
-        ev.target.id === 'preview-main' ? 'vue-template' : ev.target.id
+        ev.target.id === 'preview-main' ? 'vue-template' : ev.target.id + '-vue'
       const targetElement = document.getElementById(targetId)
       const tmpTemplate = document.createElement('div')
       tmpTemplate.setAttribute('id', 'tmp-template')
       targetElement.appendChild(tmpTemplate)
-      tmpTemplate.outerHTML = template.replace(/currentTime/g, currentTime)
+      // TODO**********************************
+      // 预览页面内移动元素时，template为空，移动之后，vue-template下面没有对应元素，需要获取有效的template才能执行此操作
+      tmpTemplate.outerHTML = template.replace(/currentTime/g, currentTime + '-vue')
     },
     drag(ev) {
       ev.dataTransfer.setData('components', ev.target.id)
+      // 删除vue-template下面对应的元素
+      const element = document.getElementById(ev.target.id + '-vue')
+      element.remove()
     }
   }
 }
