@@ -1,8 +1,5 @@
 <template>
-  <div id='app'>
-    <div id="div2" @drop="drop" @dragover="allowDrop">
-    </div>
-  </div>
+  <div @drop="drop" @dragover="allowDrop" @dragstart="drag"></div>
 </template>
 <script>
 export default {
@@ -12,14 +9,22 @@ export default {
     },
     drop(ev) {
       ev.preventDefault()
-      const data = ev.dataTransfer.getData('component')
-      const element = document.getElementById(data)
-      const cloneElement = element.cloneNode(true)
-      cloneElement.removeAttribute('draggable')
-      ev.target.appendChild(cloneElement)
+      const data = ev.dataTransfer.getData('Text')
+      const ifClone = ev.dataTransfer.getData('if-clone')
+      let element = document.getElementById(data)
+      if (ifClone) {
+        element = element.cloneNode(true)
+      }
+      // cloneElement.removeAttribute('draggable')
+      ev.target.appendChild(element)
+    },
+    drag(ev) {
+      ev.dataTransfer.setData('Text', ev.target.id)
     }
   }
 }
 </script>
+
+
 
 
