@@ -1,7 +1,7 @@
 <template>
-<div id='app'>
-  <div id="div2" @drop="drop" @dragover="allowDrop">
-  </div>
+  <div id='app'>
+    <div id="div2" @drop="drop" @dragover="allowDrop">
+    </div>
   </div>
 </template>
 <script>
@@ -17,10 +17,6 @@ export default {
       const cloneElement = element.cloneNode(true)
       cloneElement.removeAttribute('draggable')
       ev.target.appendChild(cloneElement)
-    },
-    getHtml() {
-      const element = document.getElementById('div2')
-      console.log(element.innerHTML)
     }
   }
 }
