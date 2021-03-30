@@ -17,7 +17,7 @@ export default {
       ev.preventDefault()
     },
     drag(ev) {
-      // 根据id找到对应组件的如下内容设置进去
+      // 根据组件名称(data-name)找到对应组件的如下内容设置进去
       // 组件对应的html，用来预览
       // 组件的vue template，用来生成代码
       // 组件对应的js，用来生成代码

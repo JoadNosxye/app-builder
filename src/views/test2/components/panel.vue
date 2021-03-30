@@ -9,7 +9,8 @@ export default {
   methods: {
     getHtml() {
       const element = document.getElementById('preview-main')
-      const html = '<template><div>' + element.innerHTML + '</div></template>'
+      // const html = '<template><div>' + element.innerHTML + '</div></template>'
+      const html = element.innerHTML
       console.log(html)
     }
   }
