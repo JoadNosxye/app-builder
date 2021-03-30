@@ -43,6 +43,9 @@ export default {
             '        d\n' +
             '      </el-col>\n' +
             '    </el-row>'
+      },
+      button: {
+        template: '<button type="button" class="el-button el-button--primary" data-name="primary-button" draggable="true" id="201842504011"><!----><!----><span>主要按钮</span></button>'
       }
     }
   },
@@ -56,7 +59,12 @@ export default {
       // 组件的vue template，用来生成代码
       // 组件对应的js，用来生成代码
       ev.dataTransfer.setData('components', ev.target.id)
-      ev.dataTransfer.setData('template', this.layout.template)
+      if (ev.target.id === 'drag1') {
+        ev.dataTransfer.setData('template', this.button.template)
+      }
+      if (ev.target.id === 'drag4') {
+        ev.dataTransfer.setData('template', this.layout.template)
+      }
       ev.dataTransfer.setData('if-clone', true)
     }
   }

@@ -40,10 +40,12 @@ export default {
       const template = ev.dataTransfer.getData('template')
 
       // 创建临时节点，并添加到vue-template中
-      const vueTemplate = document.getElementById('vue-template')
+      const targetId =
+        ev.target.id === 'preview-main' ? 'vue-template' : ev.target.id
+      const targetElement = document.getElementById(targetId)
       const tmpTemplate = document.createElement('div')
       tmpTemplate.setAttribute('id', 'tmp-template')
-      vueTemplate.appendChild(tmpTemplate)
+      targetElement.appendChild(tmpTemplate)
       tmpTemplate.outerHTML = template
     },
     drag(ev) {
