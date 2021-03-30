@@ -15,7 +15,6 @@ export default {
       if (ifClone) {
         element = element.cloneNode(true)
       }
-      // cloneElement.removeAttribute('draggable')
       ev.target.appendChild(element)
     },
     drag(ev) {
