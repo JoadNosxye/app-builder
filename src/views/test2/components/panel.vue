@@ -1,6 +1,6 @@
 <template>
   <div id="panel">
-    <input id="commitBtn" type="button" value="提起html" @click="getHtml">
+    <input id="commitBtn" type="button" value="html" @click="getHtml">
     </div>
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   methods: {
     getHtml() {
-      const element = document.getElementById('div2')
+      const element = document.getElementById('preview-main')
       console.log(element.innerHTML)
     }
   }

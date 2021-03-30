@@ -14,7 +14,6 @@
       </el-col>
     </el-row>
   </div>
-
 </template>
 
 <script>

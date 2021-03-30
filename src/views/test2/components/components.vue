@@ -11,7 +11,7 @@ export default {
       ev.preventDefault()
     },
     drag(ev) {
-      ev.dataTransfer.setData('Text', ev.target.id)
+      ev.dataTransfer.setData('components', ev.target.id)
       ev.dataTransfer.setData('if-clone', true)
     }
   }
