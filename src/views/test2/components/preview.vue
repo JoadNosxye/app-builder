@@ -2,8 +2,6 @@
   <div id="preview-main" @drop="drop" @dragover="allowDrop" @dragstart="drag">
     <div id="current-page"></div>
     <div id="vue-template" hidden></div>
-    <!-- <div id="tmp-template" hidden></div> -->
-
   </div>
 </template>
 <script>
@@ -42,19 +40,11 @@ export default {
       const template = ev.dataTransfer.getData('template')
 
       // 创建临时节点，并添加到vue-template中
-      // const previewMain = document.getElementById('preview-main')
       const vueTemplate = document.getElementById('vue-template')
       const tmpTemplate = document.createElement('div')
       tmpTemplate.setAttribute('id', 'tmp-template')
-      // tmpTemplate.setAttribute('hidden', true)
       vueTemplate.appendChild(tmpTemplate)
       tmpTemplate.outerHTML = template
-      // const tmpTemplate = document.createElement('tmp-template')
-
-      // vueTemplate.appendChild(tmpTemplate)
-
-      // 将拖拽的节点对应的vue模板赋值给临时模板元素
-      // document.getElementById('tmp-template').outerHTML = template
     },
     drag(ev) {
       ev.dataTransfer.setData('components', ev.target.id)
