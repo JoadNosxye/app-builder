@@ -33,7 +33,6 @@ export default {
       //
       let element = document.getElementById(id)
       // 若需要clone，则对拖拽的元素进行clone，并为其生成一个id，以及对应的vue模板ID
-
       const currentTime = getCurrentTime()
       if (ifClone === 'true') {
         element = element.cloneNode(true)
@@ -43,11 +42,7 @@ export default {
       // 将元素添加到指定的元素中
       ev.target.appendChild(tmpHtml)
       tmpHtml.appendChild(element)
-      console.log(tmpHtml.innerHTML)
-      // element.outerHTML = tmpHtml.innerHTML.replace(/currentTime/g, currentTime)
-      // tmpHtml.outerHTML = element.outerHTML
       const str = tmpHtml.innerHTML.replace(/currentTime/g, currentTime)
-      console.log(str)
       tmpHtml.outerHTML = str
 
       const template = ev.dataTransfer.getData('template')

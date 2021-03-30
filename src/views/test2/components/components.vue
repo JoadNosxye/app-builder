@@ -1,5 +1,7 @@
 <template>
   <div @dragover="allowDrop" @dragstart="drag">
+    {{input}}
+    <el-input v-model="input" placeholder="请输入内容"></el-input>
     <el-button data-name="primary-button" type="primary" draggable="true" id="button-currentTime">主要按钮</el-button>
     <i data-name="icon-delete" class="el-icon-delete" draggable="true" id="drag2"></i>
     <el-tabs data-name="tab" id="drag3" draggable="true">
@@ -29,6 +31,7 @@
 export default {
   data() {
     return {
+      input: '',
       layout: {
         template: "<el-row data-name=\"layout\" class='row' id=\"drag4-currentTime\" draggable=\"true\">\n" +
             "      <el-col :span=\"6\" class=\"col\" id='drag4-col-1-currentTime'>\n" +
