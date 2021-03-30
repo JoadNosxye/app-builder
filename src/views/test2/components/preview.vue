@@ -1,6 +1,6 @@
 <template>
   <div id="preview-main" @drop="drop" @dragover="allowDrop" @dragstart="drag">
-    <div id="current-page"></div>
+    <!-- <div id="current-page"></div> -->
     <div id="vue-template" hidden></div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   },
   mounted() {
     // 将之前设计的页面添加到预览区中
-    document.getElementById('current-page').outerHTML = this.currentPage
+    // document.getElementById('current-page').outerHTML = this.currentPage
   },
   methods: {
     allowDrop(ev) {
@@ -23,19 +23,35 @@ export default {
     },
     drop(ev) {
       ev.preventDefault()
+      // 源组件ID
       const id = ev.dataTransfer.getData('components')
+      // 是否clone
       const ifClone = ev.dataTransfer.getData('if-clone')
+      // clone之后的组件ID
+      // const newId = ev.dataTransfer.getData('new-id')
+
       // 根据组件名称(data-name)获取以下信息
       // 获取html，并根据html生成元素，添加到放置的元素中
       //
       let element = document.getElementById(id)
-      // 若需要clone，则对拖拽的元素进行clone，并为其生成一个id
+      // 若需要clone，则对拖拽的元素进行clone，并为其生成一个id，以及对应的vue模板ID
+
+      const currentTime = getCurrentTime()
       if (ifClone === 'true') {
         element = element.cloneNode(true)
-        element.setAttribute('id', getCurrentTime())
+        // element.setAttribute('id', currentTime)
       }
+      const tmpHtml = document.createElement('div')
+      tmpHtml.setAttribute('id', 'tmp-html')
       // 将元素添加到指定的元素中
-      ev.target.appendChild(element)
+      ev.target.appendChild(tmpHtml)
+      tmpHtml.appendChild(element)
+      console.log(tmpHtml.innerHTML)
+      // element.outerHTML = tmpHtml.innerHTML.replace(/currentTime/g, currentTime)
+      // tmpHtml.outerHTML = element.outerHTML
+      const str = tmpHtml.innerHTML.replace(/currentTime/g, currentTime)
+      console.log(str)
+      tmpHtml.outerHTML = str
 
       const template = ev.dataTransfer.getData('template')
 
@@ -46,7 +62,7 @@ export default {
       const tmpTemplate = document.createElement('div')
       tmpTemplate.setAttribute('id', 'tmp-template')
       targetElement.appendChild(tmpTemplate)
-      tmpTemplate.outerHTML = template
+      tmpTemplate.outerHTML = template.replace(/currentTime/g, currentTime)
     },
     drag(ev) {
       ev.dataTransfer.setData('components', ev.target.id)
