@@ -8,7 +8,7 @@
       <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
       <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
     </el-tabs>
-    <el-row class='row' id="drag4" draggable="true">
+    <el-row data-name="layout" class='row' id="drag4" draggable="true">
       <el-col :span="6" class="col" id='drag4-col-1'>
         a
       </el-col>
@@ -26,6 +26,26 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      layout: {
+        template: "<el-row data-name=\"layout\" class='row' id=\"drag4\" draggable=\"true\">\n" +
+            "      <el-col :span=\"6\" class=\"col\" id='drag4-col-1'>\n" +
+            '        a\n' +
+            '      </el-col>\n' +
+            "      <el-col :span=\"6\" class=\"col\" id='drag4-col-2'>\n" +
+            '        b\n' +
+            '      </el-col>\n' +
+            "      <el-col :span=\"6\" class=\"col\" id='drag4-col-3'>\n" +
+            '        c\n' +
+            '      </el-col>\n' +
+            "      <el-col :span=\"6\" class=\"col\" id='drag4-col-4'>\n" +
+            '        d\n' +
+            '      </el-col>\n' +
+            '    </el-row>'
+      }
+    }
+  },
   methods: {
     allowDrop(ev) {
       ev.preventDefault()
@@ -36,6 +56,7 @@ export default {
       // 组件的vue template，用来生成代码
       // 组件对应的js，用来生成代码
       ev.dataTransfer.setData('components', ev.target.id)
+      ev.dataTransfer.setData('template', this.layout.template)
       ev.dataTransfer.setData('if-clone', true)
     }
   }

@@ -1,6 +1,7 @@
 <template>
   <div id="panel">
     <input id="commitBtn" type="button" value="html" @click="getHtml">
+    <input id="commitBtn" type="button" value="template" @click="getTemplate">
     </div>
   </div>
 </template>
@@ -10,6 +11,11 @@ export default {
     getHtml() {
       const element = document.getElementById('preview-main')
       // const html = '<template><div>' + element.innerHTML + '</div></template>'
+      const html = element.innerHTML
+      console.log(html)
+    },
+    getTemplate() {
+      const element = document.getElementById('vue-template')
       const html = element.innerHTML
       console.log(html)
     }

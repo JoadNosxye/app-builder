@@ -1,21 +1,9 @@
 <template>
   <div id="preview-main" @drop="drop" @dragover="allowDrop" @dragstart="drag">
-    <div id="currentPage"></div>
-    <div id="vueTemplate" hidden></div>
-    <!-- <el-row class='row'>
-      <el-col :span="6" class="col">
-        a
-      </el-col>
-      <el-col :span="6" class="col">
-        b
-      </el-col>
-      <el-col :span="6" class="col">
-        c
-      </el-col>
-      <el-col :span="6" class="col">
-        d
-      </el-col>
-    </el-row> -->
+    <div id="current-page"></div>
+    <div id="vue-template" hidden></div>
+    <!-- <div id="tmp-template" hidden></div> -->
+
   </div>
 </template>
 <script>
@@ -29,7 +17,7 @@ export default {
   },
   mounted() {
     // 将之前设计的页面添加到预览区中
-    document.getElementById('currentPage').outerHTML = this.currentPage
+    document.getElementById('current-page').outerHTML = this.currentPage
   },
   methods: {
     allowDrop(ev) {
@@ -48,7 +36,25 @@ export default {
         element = element.cloneNode(true)
         element.setAttribute('id', getCurrentTime())
       }
+      // 将元素添加到指定的元素中
       ev.target.appendChild(element)
+
+      const template = ev.dataTransfer.getData('template')
+
+      // 创建临时节点，并添加到vue-template中
+      // const previewMain = document.getElementById('preview-main')
+      const vueTemplate = document.getElementById('vue-template')
+      const tmpTemplate = document.createElement('div')
+      tmpTemplate.setAttribute('id', 'tmp-template')
+      // tmpTemplate.setAttribute('hidden', true)
+      vueTemplate.appendChild(tmpTemplate)
+      tmpTemplate.outerHTML = template
+      // const tmpTemplate = document.createElement('tmp-template')
+
+      // vueTemplate.appendChild(tmpTemplate)
+
+      // 将拖拽的节点对应的vue模板赋值给临时模板元素
+      // document.getElementById('tmp-template').outerHTML = template
     },
     drag(ev) {
       ev.dataTransfer.setData('components', ev.target.id)
