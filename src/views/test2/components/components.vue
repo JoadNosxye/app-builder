@@ -1,8 +1,7 @@
 <template>
-  <div id="app">
-    <div id="div1" @dragover="allowDrop">
-      <input type="button" value="xixi" draggable="true" @dragstart="drag" id="drag1">
-    </div>
+  <div id="div1" @dragover="allowDrop" @dragstart="drag">
+    <el-button type="primary" draggable="true" id="drag1">主要按钮</el-button>
+    <i class="el-icon-delete" draggable="true" id="drag2"></i>
   </div>
 </template>
 <script>
@@ -12,20 +11,11 @@ export default {
       ev.preventDefault()
     },
     drag(ev) {
-      ev.dataTransfer.setData('Text', ev.target.id)
+      ev.dataTransfer.setData('component', ev.target.id)
     }
   }
 }
 </script>
-<style>
-#div1{
-  float: left;
-  width: 198px;
-  height: 66px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #aaaaaa;
-}
-</style>
+
 
 
