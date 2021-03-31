@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <p>{{ message }}</p>
-    <button @click="add('component1')">添加A组件</button>
-    <button @click="add('component2')">添加B组件</button>
-    <component :is="item.component" v-for="item in items" :key="item.id"></component>
+    <button @click="add('component1', '我是A')">添加A组件</button>
+    <button @click="add('component2', '我是B')">添加B组件</button>
+    <button @click="add('component3', 'primary')">添加C组件</button>
+    <button @click="add('component3', 'danger')">添加D组件</button>
+    <component :is="item.component" :text="item.text" v-for="item in items" :key="item.id"></component>
   </div>
 </template>
 
@@ -11,6 +13,8 @@
 // 引入要添加的所有组件
 import component1 from './component1.vue'
 import component2 from './component2.vue'
+import component3 from './component3.vue'
+
 export default {
   data() {
     return {
@@ -21,13 +25,15 @@ export default {
   methods: {
     add(name, text) {
       this.items.push({
-        component: name
+        component: name,
+        text: text
       })
     }
   },
   components: {
     component1,
-    component2
+    component2,
+    component3
   }
 }
 </script>

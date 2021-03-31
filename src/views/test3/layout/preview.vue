@@ -1,11 +1,14 @@
 <template>
   <div id="preview-main" @drop="drop" @dragover="allowDrop" @dragstart="drag">
-    <el-row></el-row>
+    
   </div>
 </template>
 <script>
 
 export default {
+  props: {
+    item: []
+  },
   methods: {
     allowDrop(ev) {
       ev.preventDefault()

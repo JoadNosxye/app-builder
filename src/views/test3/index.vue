@@ -25,7 +25,7 @@ import {
   Preview,
   Panel,
   Attributes
-} from '@/views/test3/components'
+} from '@/views/test3/layout'
 
 export default {
   components: {
