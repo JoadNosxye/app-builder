@@ -117,6 +117,12 @@ export const constantRouterMap = [
         name: 'test3',
         component: () => import('@/views/test3/index'),
         meta: { title: '测试页面3', icon: 'example' }
+      },
+      {
+        path: 'test4',
+        name: 'test4',
+        component: () => import('@/views/test4/index'),
+        meta: { title: '测试页面4', icon: 'example' }
       }
     ],
     permission: 'test'
