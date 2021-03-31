@@ -9,11 +9,6 @@
 <script>
 export default {
   props: ['text']
-  // mounted() {
-  //   console.log(this.type)
-  //   // console.log(this.type === 'primary')
-  //   // console.log(this.type === 'danger')
-  // }
 }
 </script>
 

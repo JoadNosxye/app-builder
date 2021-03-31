@@ -1,22 +1,16 @@
-import Cookies from 'js-cookie'
 
 const builder = {
   state: {
-    items: []
+    components: []
   },
   mutations: {
-    ADD_ITEM: state => {
-      if (state.sidebar.opened) {
-        Cookies.set('sidebarStatus', 1)
-      } else {
-        Cookies.set('sidebarStatus', 0)
-      }
-      state.sidebar.opened = !state.sidebar.opened
+    ADD_COMPONENTS: (state, component) => {
+      state.components.push(component)
     }
   },
   actions: {
-    addItem: ({ commit }) => {
-      commit('TOGGLE_SIDEBAR')
+    addComponents: ({ commit }, component) => {
+      commit('ADD_COMPONENTS', component)
     }
   }
 }

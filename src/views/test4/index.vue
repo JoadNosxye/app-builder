@@ -19,7 +19,12 @@ export default {
   data() {
     return {
       message: 'Hello Vue.js!',
-      items: []
+      items: [
+        {
+          component: 'component2',
+          text: '111'
+        }
+      ]
     }
   },
   methods: {
