@@ -7,16 +7,6 @@
 import { mapGetters } from 'vuex'
 import { Component1, Component2, Component3 } from '@/views/test3/components'
 export default {
-  // data() {
-  //   return {
-  //     components: [
-  //       {
-  //         component: 'component2',
-  //         text: '111'
-  //       }
-  //     ]
-  //   }
-  // },
   components: {
     Component1,
     Component2,
