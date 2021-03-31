@@ -24,9 +24,30 @@ export default {
       // 源组件ID
       const id = ev.dataTransfer.getData('components')
 
-      const element = document.getElementById(id).cloneNode(true)
+      if (id === 'a') {
+        this.$store.dispatch('addComponents', {
+          component: 'component1',
+          text: '111'
+        })
+      }
 
-      ev.target.appendChild(element)
+      if (id === 'b') {
+        this.$store.dispatch('addComponents', {
+          component: 'component2',
+          text: '222'
+        })
+      }
+
+      if (id === 'c') {
+        this.$store.dispatch('addComponents', {
+          component: 'component3',
+          text: 'danger'
+        })
+      }
+
+      // const element = document.getElementById(id).cloneNode(true)
+
+      // ev.target.appendChild(element)
     },
     drag(ev) {
       ev.dataTransfer.setData('components', ev.target.id)
