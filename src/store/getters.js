@@ -8,6 +8,7 @@ const getters = {
   currentRole: state => state.user.currentRole,
   currentOrg: state => state.user.currentOrg,
   permissions: state => state.user.permissions,
-  components: state => state.builder.components
+  components: state => state.builder.components,
+  time: state => state.builder.time
 }
 export default getters
