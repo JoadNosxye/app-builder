@@ -1,7 +1,7 @@
 <template>
   <div @dragover="allowDrop" @dragstart="drag">
-    {{input}}
-    <el-input v-model="input" placeholder="请输入内容"></el-input>
+    {{content}}
+    <el-input v-model="content" placeholder="请输入内容" draggable="true" id="input-currentTime"></el-input>
     <el-button data-name="primary-button" type="primary" draggable="true" id="button-currentTime">主要按钮</el-button>
     <i data-name="icon-delete" class="el-icon-delete" draggable="true" id="drag2"></i>
     <el-tabs data-name="tab" id="drag3" draggable="true">
@@ -31,7 +31,7 @@
 export default {
   data() {
     return {
-      input: '',
+      content: '',
       layout: {
         template: "<el-row data-name=\"layout\" class='row' id=\"drag4-currentTime\" draggable=\"true\">\n" +
             "      <el-col :span=\"6\" class=\"col\" id='drag4-col-1-currentTime'>\n" +
@@ -50,6 +50,9 @@ export default {
       },
       button: {
         template: '<button type="button" class="el-button el-button--primary" data-name="primary-button" draggable="true" id="button-currentTime"><!----><!----><span>主要按钮</span></button>'
+      },
+      input: {
+        template: '<el-input v-model="input" placeholder="请输入内容" id="input-currentTime"></el-input>'
       }
     }
   },
@@ -63,13 +66,14 @@ export default {
       // 组件的vue template，用来生成代码
       // 组件对应的js，用来生成代码
       ev.dataTransfer.setData('components', ev.target.id)
-      // ev.dataTransfer.setData('new-id', getCurrentTime())
       if (ev.target.id === 'button-currentTime') {
         ev.dataTransfer.setData('template', this.button.template)
       }
       if (ev.target.id === 'drag4-currentTime') {
-        // const str = this.layout.template.replace(/currentTime/g, getCurrentTime())
         ev.dataTransfer.setData('template', this.layout.template)
+      }
+      if (ev.target.id === 'input-currentTime') {
+        ev.dataTransfer.setData('template', this.input.template)
       }
       ev.dataTransfer.setData('if-clone', true)
     }
