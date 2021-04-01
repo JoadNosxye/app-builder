@@ -1,6 +1,6 @@
 const builder = {
   state: {
-    time: '',
+
     //
     components: {}
     // components: {
@@ -12,7 +12,7 @@ const builder = {
   },
   mutations: {
     // 添加组件
-    ADD_COMPONENTS: (state, { rowId, colId, component }) => {
+    ADD_COMPONENTS: (state, { rowId, colId, component, params }) => {
       if (!state.components[rowId]) {
         state.components[rowId] = {}
       }
@@ -21,8 +21,10 @@ const builder = {
       }
       const ele = {}
       ele.component = component
+      ele.params = params
+      state.components[rowId].watchObj = new Date().toLocaleTimeString()
       state.components[rowId][colId].push(ele)
-      state.time = new Date().toLocaleTimeString()
+      // state.time = new Date().toLocaleTimeString()
     },
 
     MODIFY_TEMPLATE: state => {}

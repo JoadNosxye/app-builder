@@ -1,13 +1,12 @@
 <template>
   <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout">
     <el-row>
-      <el-col :span="12" data-row-id="row1" data-col-id="col1">
-        <component :is="item.component" v-for="item in col1Data" :key="item.id"></component>
-        freelayout : {{col1Data?col1Data.length:0}}
-      </el-col>
-      <el-col :span="12" data-row-id="row1" data-col-id="col2">
-        <component :is="item.component" v-for="item in col2Data" :key="item.id"></component>
-        freelayout : {{col2Data?col2Data.length:0}}
+      <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
+        <!-- <div v-for="item in col.items" >
+        1 {{item.component}} 1
+        2 {{item.params}} 2
+        </div> -->
+        <component :is="item.component" :params="item.params" v-for="item in col.items" :key="item.id"></component>
       </el-col>
     </el-row>
   </div>
@@ -16,45 +15,68 @@
 import Store from '@/store'
 import { mapGetters } from 'vuex'
 export default {
+  props: ['params'],
   computed: {
     ...mapGetters(['components'])
   },
   data() {
     return {
       storeState: Store.state,
-      col1Data: [],
-      col2Data: []
+      cols: [],
+      watchObj: ''
     }
   },
   created() {
-    //
+    console.log('rowname:' + this.params.rowName + ' created')
+    this.hello()
   },
   watch: {
-    'storeState.builder.time': function() {
-      if (this.components['row1']) {
-        this.col1Data = this.components['row1']['col1']
-        this.col2Data = this.components['row1']['col2']
+    watchObj: function() {
+      if (this.components[this.params.rowName]) {
+        // this.items = this.components[this.params.rowName]['preview-main-col']
+        console.log('rowname:' + this.params.rowName + ' watch')
+        this.hello()
       }
     }
   },
   methods: {
+    hello() {
+      console.log('rowname:' + this.params.rowName + ' methods')
+      const rowName = this.params.rowName
+      const colNum = this.params.colNum
+      const spans = this.params.spans
+      const cols = []
+      const spanArray = spans.split(',')
+      for (let i = 0; i < colNum; i++) {
+        const col = {}
+        col.id = i
+        col.num = colNum
+        col.rowName = rowName
+        col.span = Number(spanArray[i])
+        col.items = this.components[rowName] ? this.components[rowName][i] : []
+        cols.push(col)
+      }
+      this.cols = cols
+    },
     allowDrop(ev) {
       ev.preventDefault()
     },
     drop(ev) {
       ev.preventDefault()
       ev.stopPropagation()
-      // 源组件ID
-      // const id = ev.dataTransfer.getData("componentId");
       const name = ev.dataTransfer.getData('componentName')
+      const params = JSON.parse(ev.dataTransfer.getData('params'))
       const rowId = ev.target.getAttribute('data-row-id')
       const colId = ev.target.getAttribute('data-col-id')
 
       this.$store.dispatch('addComponents', {
         rowId: rowId,
         colId: colId,
-        component: name
+        component: name,
+        params: params
       })
+
+      this.watchObj = new Date().toLocaleTimeString()
     },
     drag(ev) {
       ev.dataTransfer.setData('components', ev.target.id)
@@ -69,9 +91,6 @@ export default {
 .el-col {
   height: 100%;
   border: 1px solid red;
-}
-.component {
-  height: 100%;
 }
 </style>
 
