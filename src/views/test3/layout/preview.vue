@@ -1,14 +1,13 @@
 <template>
   <div id="preview-main" @drop="drop" @dragover="allowDrop" @dragstart="drag">
-    <!-- <component id='preview-main-components' :is="item.component" :text="item.text" v-for="item in components" :key="item.id"></component> -->
     <el-row>
-      <el-col :span="12" data-row-id="row1" data-col-id="col1">
-        <component :is="item.component" v-for="item in col1Data" :key="item.id"></component>
-        freelayout : {{col1Data?col1Data.length:0}}
-      </el-col>
-      <el-col :span="12" data-row-id="row1" data-col-id="col2">
-        <component :is="item.component" v-for="item in col2Data" :key="item.id"></component>
-        freelayout : {{col2Data?col2Data.length:0}}
+      <el-col :span="24" data-row-id="preview-main-row" data-col-id="preview-main-col">
+        <component :is="item.component" v-for="item in items" :key="item.id"></component>
+        freelayout : {{items?items.length:0}}
+
+        <div v-for="item in items" :key="item.id">
+          aaa {{item.component}} bbb
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -29,22 +28,63 @@ export default {
   data() {
     return {
       storeState: Store.state,
-      col1Data: [],
-      col2Data: []
+      items: []
     }
   },
   created() {
     //
   },
   watch: {
-    // 观察currentOrg是否变化，若变化，则根据最新的currentOrg获取用户
     'storeState.builder.time': function() {
-      if (this.components['row1']) {
-        this.col1Data = this.components['row1']['col1']
-        this.col2Data = this.components['row1']['col2']
+      if (this.components['preview-main-row']) {
+        this.items = this.components['preview-main-row']['preview-main-col']
       }
     }
   },
+  // methods: {
+  //   allowDrop(ev) {
+  //     ev.preventDefault()
+  //   },
+  //   drop(ev) {
+  //     ev.preventDefault()
+  //     // 源组件ID
+  //     const id = ev.dataTransfer.getData('components')
+  //     const rowId = ev.target.getAttribute('data-row-id')
+  //     const colId = ev.target.getAttribute('data-col-id')
+
+  //     // if (id === 'a') {
+  //     //   this.$store.dispatch('addComponents', {
+  //     //     component: 'freeLayout',
+  //     //     items: this.components
+  //     //   })
+  //     // }
+
+  //     if (id === 'b') {
+  //       this.$store.dispatch('addComponents', {
+  //         rowId: rowId,
+  //         colId: colId,
+  //         component: 'component2',
+  //         text: '222'
+  //       })
+  //     }
+
+  //     if (id === 'c') {
+  //       this.$store.dispatch('addComponents', {
+  //         rowId: rowId,
+  //         colId: colId,
+  //         component: 'component3',
+  //         text: 'danger'
+  //       })
+  //     }
+
+  //     // const element = document.getElementById(id).cloneNode(true)
+
+  //     // ev.target.appendChild(element)
+  //   },
+  //   drag(ev) {
+  //     ev.dataTransfer.setData('components', ev.target.id)
+  //   }
+  // }
   methods: {
     allowDrop(ev) {
       ev.preventDefault()
@@ -52,38 +92,16 @@ export default {
     drop(ev) {
       ev.preventDefault()
       // 源组件ID
-      const id = ev.dataTransfer.getData('components')
+      // const id = ev.dataTransfer.getData("componentId");
+      const name = ev.dataTransfer.getData('componentName')
       const rowId = ev.target.getAttribute('data-row-id')
       const colId = ev.target.getAttribute('data-col-id')
 
-      // if (id === 'a') {
-      //   this.$store.dispatch('addComponents', {
-      //     component: 'freeLayout',
-      //     items: this.components
-      //   })
-      // }
-
-      if (id === 'b') {
-        this.$store.dispatch('addComponents', {
-          rowId: rowId,
-          colId: colId,
-          component: 'component2',
-          text: '222'
-        })
-      }
-
-      if (id === 'c') {
-        this.$store.dispatch('addComponents', {
-          rowId: rowId,
-          colId: colId,
-          component: 'component3',
-          text: 'danger'
-        })
-      }
-
-      // const element = document.getElementById(id).cloneNode(true)
-
-      // ev.target.appendChild(element)
+      this.$store.dispatch('addComponents', {
+        rowId: rowId,
+        colId: colId,
+        component: name
+      })
     },
     drag(ev) {
       ev.dataTransfer.setData('components', ev.target.id)
