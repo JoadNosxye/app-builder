@@ -1,8 +1,9 @@
 <template>
   <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout">
     <el-row>
-      <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
-        <component :is="item.component" :params="item.params" v-for="item in col.items" :key="item.id"></component>
+      <!-- <el-col :span="col.span" :offset="attributes.offset" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id"> -->
+        <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
+        <component :is="item.component" :params="item.params" :attributes="item.attributes" v-for="item in col.items" :key="item.id"></component>
       </el-col>
     </el-row>
   </div>
@@ -11,7 +12,7 @@
 import Store from '@/store'
 import { mapGetters } from 'vuex'
 export default {
-  props: ['params'],
+  props: ['params', 'attributes'],
   computed: {
     ...mapGetters(['components'])
   },
@@ -62,6 +63,7 @@ export default {
       ev.stopPropagation()
       const name = ev.dataTransfer.getData('componentName')
       const params = JSON.parse(ev.dataTransfer.getData('params'))
+      const attributes = JSON.parse(ev.dataTransfer.getData('attributes'))
       const rowId = ev.target.getAttribute('data-row-id')
       const colId = ev.target.getAttribute('data-col-id')
 
@@ -70,7 +72,8 @@ export default {
         rowId: rowId,
         colId: colId,
         componentName: name,
-        params: params
+        params: params,
+        attributes: attributes
       })
       // 更新watch对象，以便当前布局在被放置组件后，重新获取组件列表
       this.watchObj = new Date().toLocaleTimeString()

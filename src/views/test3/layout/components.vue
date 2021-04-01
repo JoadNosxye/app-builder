@@ -18,10 +18,14 @@ export default {
         const params = {}
         params.rowName = Math.round(Math.random() * 100)
         params.colNum = 2
-        params.spans = '12,12'
+        params.spans = '6,6'
+        const attributes = {}
+        attributes.offset = 6
         ev.dataTransfer.setData('params', JSON.stringify(params))
+        ev.dataTransfer.setData('attributes', JSON.stringify(attributes))
       } else {
         ev.dataTransfer.setData('params', JSON.stringify(''))
+        ev.dataTransfer.setData('attributes', JSON.stringify(''))
       }
     }
   }

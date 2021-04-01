@@ -15,6 +15,7 @@ const builder = {
       const colId = component.colId
       const componentName = component.componentName
       const params = component.params
+      const attributes = component.attributes
       // 若该布局不存在，则创建一个布局对象
       if (!state.components[rowId]) {
         state.components[rowId] = {}
@@ -27,7 +28,7 @@ const builder = {
       const ele = {}
       ele.component = componentName
       ele.params = params
-
+      ele.attributes = attributes
       state.components[rowId][colId].push(ele)
     }
   },
