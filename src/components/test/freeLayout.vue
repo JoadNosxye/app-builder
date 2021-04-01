@@ -33,7 +33,6 @@ export default {
   watch: {
     watchObj: function() {
       if (this.components[this.params.rowName]) {
-        // this.items = this.components[this.params.rowName]['preview-main-col']
         console.log('rowname:' + this.params.rowName + ' watch')
         this.hello()
       }
@@ -86,11 +85,11 @@ export default {
 </script>
 <style scoped>
 .el-row {
-  height: 100%;
+  height: 50%;
 }
 .el-col {
   height: 100%;
-  border: 1px solid red;
+  border: 1px dashed red;
 }
 </style>
 
