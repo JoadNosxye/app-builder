@@ -2,10 +2,6 @@
   <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout">
     <el-row>
       <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
-        <!-- <div v-for="item in col.items" >
-        1 {{item.component}} 1
-        2 {{item.params}} 2
-        </div> -->
         <component :is="item.component" :params="item.params" v-for="item in col.items" :key="item.id"></component>
       </el-col>
     </el-row>
@@ -28,18 +24,18 @@ export default {
   },
   created() {
     console.log('rowname:' + this.params.rowName + ' created')
-    this.hello()
+    this.getComponents()
   },
   watch: {
     watchObj: function() {
       if (this.components[this.params.rowName]) {
         console.log('rowname:' + this.params.rowName + ' watch')
-        this.hello()
+        this.getComponents()
       }
     }
   },
   methods: {
-    hello() {
+    getComponents() {
       console.log('rowname:' + this.params.rowName + ' methods')
       const rowName = this.params.rowName
       const colNum = this.params.colNum
