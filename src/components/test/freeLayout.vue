@@ -67,7 +67,7 @@ export default {
       this.$store.dispatch('addComponents', {
         rowId: rowId,
         colId: colId,
-        component: name,
+        componentName: name,
         params: params
       })
 

@@ -18,7 +18,7 @@ export default {
         const params = {}
         params.rowName = Math.round(Math.random() * 100)
         params.colNum = 2
-        params.spans = '12,12';
+        params.spans = '12,12'
         ev.dataTransfer.setData('params', JSON.stringify(params))
       } else {
         ev.dataTransfer.setData('params', JSON.stringify(''))
