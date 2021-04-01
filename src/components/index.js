@@ -1,6 +1,6 @@
-import freeLayout from './test/freeLayout.vue'
-import component2 from './test/component2.vue'
-import component3 from './test/component3.vue'
+import freeLayout from './test/freeLayout'
+import component2 from './test/component2'
+import component3 from './test/component3'
 
 export default (Vue) => {
   Vue.component('freeLayout', freeLayout)
