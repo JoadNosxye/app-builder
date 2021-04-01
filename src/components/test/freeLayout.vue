@@ -23,20 +23,19 @@ export default {
     }
   },
   created() {
-    console.log('rowname:' + this.params.rowName + ' created')
     this.getComponents()
   },
   watch: {
+    // 当向该布局放置组件时，重新获取该布局的组件列表
     watchObj: function() {
       if (this.components[this.params.rowName]) {
-        console.log('rowname:' + this.params.rowName + ' watch')
         this.getComponents()
       }
     }
   },
   methods: {
+    // 获取该布局放置的组件列表
     getComponents() {
-      console.log('rowname:' + this.params.rowName + ' methods')
       const rowName = this.params.rowName
       const colNum = this.params.colNum
       const spans = this.params.spans
@@ -57,23 +56,27 @@ export default {
       ev.preventDefault()
     },
     drop(ev) {
+      // 阻止放置默认事件
       ev.preventDefault()
+      // 阻止向父级元素冒泡传递事件
       ev.stopPropagation()
       const name = ev.dataTransfer.getData('componentName')
       const params = JSON.parse(ev.dataTransfer.getData('params'))
       const rowId = ev.target.getAttribute('data-row-id')
       const colId = ev.target.getAttribute('data-col-id')
 
+      // 将拖拽的组件存储到store中对应的布局中
       this.$store.dispatch('addComponents', {
         rowId: rowId,
         colId: colId,
         componentName: name,
         params: params
       })
-
+      // 更新watch对象，以便当前布局在被放置组件后，重新获取组件列表
       this.watchObj = new Date().toLocaleTimeString()
     },
     drag(ev) {
+      // TODO 需要处理布局之间的拖拽
       ev.dataTransfer.setData('components', ev.target.id)
     }
   }
