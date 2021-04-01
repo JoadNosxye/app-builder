@@ -81,7 +81,7 @@ export default {
 </script>
 <style scoped>
 .el-row {
-  height: 50%;
+  height: 100%;
 }
 .el-col {
   height: 100%;
