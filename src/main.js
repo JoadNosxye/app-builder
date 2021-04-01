@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import components from '@/components'
 // import VueDraggable from 'vuedraggable'
 import 'normalize.css/normalize.css'// A modern alternative to CSS resets
 
@@ -16,6 +17,7 @@ import '@/icons' // icon
 import '@/permission' // permission control
 
 Vue.use(ElementUI, { locale })
+Vue.use(components)
 // Vue.use(VueDraggable)
 
 Vue.config.productionTip = false

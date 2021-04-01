@@ -1,8 +1,8 @@
 <template>
   <div @dragover="allowDrop" @dragstart="drag">
-    <el-button id='a' name="FreeLayout" type="primary" draggable="true">布局组件</el-button>
-    <el-button id='b' name="Component2" type="primary" draggable="true">文字组件</el-button>
-    <el-button id='c' name="Component3" type="primary" draggable="true">按钮组件</el-button>
+    <el-button id='a' name="freeLayout" type="primary" draggable="true">布局组件</el-button>
+    <el-button id='b' name="component2" type="primary" draggable="true">文字组件</el-button>
+    <el-button id='c' name="component3" type="primary" draggable="true">按钮组件</el-button>
   </div>
 </template>
 <script>

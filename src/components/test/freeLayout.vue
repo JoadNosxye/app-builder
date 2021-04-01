@@ -15,21 +15,7 @@
 <script>
 import Store from '@/store'
 import { mapGetters } from 'vuex'
-import { FreeLayout, Component2, Component3 } from '@/views/test3/components'
 export default {
-  components: {
-    FreeLayout,
-    Component2,
-    Component3
-  },
-  // props: {
-  //   rowId: {
-  //     type: String
-  //   },
-  //   colIds: {
-  //     type: Array
-  //   }
-  // },
   computed: {
     ...mapGetters(['components'])
   },
