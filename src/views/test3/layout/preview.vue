@@ -25,27 +25,17 @@ export default {
   },
   computed: {
     ...mapGetters(['components'])
-    // col1Data() {
-    //   this.components['row1'] ? this.components['row1']['col1'] : []
-    // },
-    // col2Data() {
-    //   this.components['row1'] ? this.components['row1']['col2'] : []
-    // }
   },
   data() {
     return {
       storeState: Store.state,
       col1Data: [],
       col2Data: []
-      // col2Data: [{ component: 'component3' }]
     }
   },
-  // created() {
-  //   if (this.components['row1']) {
-  //     this.col1Data = this.components['row1']['col1']
-  //     this.col2Data = this.components['row1']['col2']
-  //   }
-  // },
+  created() {
+    //
+  },
   watch: {
     // 观察currentOrg是否变化，若变化，则根据最新的currentOrg获取用户
     'storeState.builder.time': function() {
