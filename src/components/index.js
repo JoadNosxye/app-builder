@@ -1,9 +1,11 @@
 import srkjLayout from './test/srkjLayout'
-import component2 from './test/component2'
+import srkjLayoutConfig from './test/srkjLayoutConfig'
 import srkjButton from './test/srkjButton'
+import srkjButtonConfig from './test/srkjButtonConfig'
 
 export default (Vue) => {
   Vue.component('srkj-layout', srkjLayout)
-  Vue.component('component2', component2)
+  Vue.component('srkj-layout-config', srkjLayoutConfig)
   Vue.component('srkj-button', srkjButton)
+  Vue.component('srkj-button-config', srkjButtonConfig)
 }
