@@ -12,11 +12,12 @@ export default {
       ev.preventDefault()
     },
     drag(ev) {
-      // ev.dataTransfer.setData('componentId', ev.target.id)
       ev.dataTransfer.setData('componentName', ev.target.name)
+      const id = ev.target.name + '-' + Math.round(Math.random() * 1000)
+      ev.dataTransfer.setData('componentId', id)
       if (ev.target.id === 'a') {
         const params = {}
-        params.rowName = Math.round(Math.random() * 100)
+        params.rowName = 'row-' + Math.round(Math.random() * 1000)
         params.colNum = 2
         params.spans = '12,12'
         const attributes = {}
