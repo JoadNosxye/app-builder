@@ -1,6 +1,6 @@
 <template>
   <div id="preview-main">
-    <freeLayout :params='params' :attributes="attributes"></freeLayout>
+    <srkj-layout :params='params' :attributes="attributes"></srkj-layout>
   </div>
 </template>
 <script>

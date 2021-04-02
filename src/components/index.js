@@ -1,9 +1,9 @@
-import freeLayout from './test/freeLayout'
+import srkjLayout from './test/srkjLayout'
 import component2 from './test/component2'
-import component3 from './test/component3'
+import srkjButton from './test/srkjButton'
 
 export default (Vue) => {
-  Vue.component('freeLayout', freeLayout)
+  Vue.component('srkj-layout', srkjLayout)
   Vue.component('component2', component2)
-  Vue.component('component3', component3)
+  Vue.component('srkj-button', srkjButton)
 }
