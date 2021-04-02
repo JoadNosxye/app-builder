@@ -50,11 +50,16 @@ const builder = {
       // 存储组件的属性
       state.componentsAttributes[componentId] = attributes
     },
-    SET_CURRENT_COMPONENT: state => {}
+    SET_CURRENT_COMPONENT: (state, component) => {
+      state.currentComponent = component
+    }
   },
   actions: {
     addComponents: ({ commit }, component) => {
       commit('ADD_COMPONENTS', component)
+    },
+    setCurrentComponent: ({ commit }, component) => {
+      commit('SET_CURRENT_COMPONENT', component)
     }
   }
 }

@@ -7,11 +7,15 @@
 
 </template>
 <script>
+// import Store from '@/store'
 export default {
   props: ['params', 'attributes'],
   methods: {
     config() {
-      alert('haha')
+      this.$store.dispatch('setCurrentComponent', {
+        componentId: this.params.componentId,
+        componentName: this.params.componentName
+      })
     }
   }
 
