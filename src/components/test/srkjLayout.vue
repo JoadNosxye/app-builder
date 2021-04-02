@@ -118,7 +118,6 @@ export default {
     config(ev) {
       // 阻止向父级元素冒泡传递事件
       ev.stopPropagation()
-      alert('11111')
       this.$store.dispatch('setCurrentComponent', {
         componentId: this.params.componentId,
         componentName: this.params.componentName
