@@ -20,7 +20,7 @@ export default {
         params.colNum = 2
         params.spans = '12,12'
         const attributes = {}
-        attributes.gutter = 5
+        attributes.gutter = 0
         ev.dataTransfer.setData('params', JSON.stringify(params))
         ev.dataTransfer.setData('attributes', JSON.stringify(attributes))
       } else {

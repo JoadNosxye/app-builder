@@ -15,7 +15,7 @@ export default {
     },
     attributes() {
       const attributes = {}
-      attributes.gutter = 20
+      attributes.gutter = 0
       return attributes
     }
   }
