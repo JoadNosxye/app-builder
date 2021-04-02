@@ -10,6 +10,7 @@ const getters = {
   permissions: state => state.user.permissions,
   componentsLayouts: state => state.builder.componentsLayouts,
   componentsParams: state => state.builder.componentsParams,
-  componentsAttributes: state => state.builder.componentsAttributes
+  componentsAttributes: state => state.builder.componentsAttributes,
+  currentComponent: state => state.builder.currentComponent
 }
 export default getters

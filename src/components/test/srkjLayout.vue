@@ -101,6 +101,13 @@ export default {
         params: params,
         attributes: attributes
       })
+
+      // 设置当前组件为刚拖拽过来的组件
+      this.$store.dispatch('setCurrentComponent', {
+        componentId: id,
+        componentName: name
+      })
+
       // 更新watch对象，以便当前布局在被放置组件后，重新获取组件列表
       this.watchObj = new Date().toLocaleTimeString()
     },
