@@ -11,7 +11,10 @@
 export default {
   props: ['params', 'attributes'],
   methods: {
-    config() {
+    config(ev) {
+      // 阻止向父级元素冒泡传递事件
+      ev.stopPropagation()
+      alert('22222')
       this.$store.dispatch('setCurrentComponent', {
         componentId: this.params.componentId,
         componentName: this.params.componentName

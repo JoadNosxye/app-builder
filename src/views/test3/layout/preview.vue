@@ -17,7 +17,7 @@ export default {
       params.rowName = 'preview-main-row'
       params.colNum = 1
       params.spans = '24'
-      params.componentId = 0
+      params.componentId = this.componentId
       params.componentName = this.componentName
       return params
     },

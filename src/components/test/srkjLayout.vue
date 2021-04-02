@@ -1,5 +1,5 @@
 <template>
-  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper">
+  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" @click="config">
     <el-row :gutter="attributes.gutter">
       <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
         <component :is="item.componentName" :params="item.params" :attributes="item.attributes" v-for="item in col.items" :key="item.id"></component>
@@ -114,6 +114,15 @@ export default {
     drag(ev) {
       // TODO 需要处理布局之间的拖拽
       ev.dataTransfer.setData('components', ev.target.id)
+    },
+    config(ev) {
+      // 阻止向父级元素冒泡传递事件
+      ev.stopPropagation()
+      alert('11111')
+      this.$store.dispatch('setCurrentComponent', {
+        componentId: this.params.componentId,
+        componentName: this.params.componentName
+      })
     }
   }
 }
