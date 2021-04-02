@@ -1,8 +1,18 @@
 <template>
   <el-row :gutter="20">
-  <el-col :span="6">a</div></el-col>
-  <el-col :span="6" :offset="12">b</div></el-col>
-</el-row>
+    <el-col :span="6">
+      a
+    </el-col>
+    <el-col :span="6">
+     b
+    </el-col>
+    <el-col :span="6">
+     c
+    </el-col>
+    <el-col :span="6">
+     d
+    </el-col>
+  </el-row>
 </template>
 
 <script>

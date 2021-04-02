@@ -1,6 +1,6 @@
 <template>
   <div id="preview-main">
-    <freeLayout :params='params'></freeLayout>
+    <freeLayout :params='params' :attributes="attributes"></freeLayout>
   </div>
 </template>
 <script>
@@ -12,6 +12,11 @@ export default {
       params.colNum = 1
       params.spans = '24'
       return params
+    },
+    attributes() {
+      const attributes = {}
+      attributes.gutter = 20
+      return attributes
     }
   }
 }

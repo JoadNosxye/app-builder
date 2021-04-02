@@ -1,8 +1,7 @@
 <template>
   <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout">
-    <el-row>
-      <!-- <el-col :span="col.span" :offset="attributes.offset" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id"> -->
-        <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
+    <el-row :gutter="attributes.gutter">
+      <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
         <component :is="item.component" :params="item.params" :attributes="item.attributes" v-for="item in col.items" :key="item.id"></component>
       </el-col>
     </el-row>
@@ -24,6 +23,7 @@ export default {
     }
   },
   created() {
+    console.log(this.attributes.gutter)
     this.getComponents()
   },
   watch: {
@@ -62,8 +62,16 @@ export default {
       // 阻止向父级元素冒泡传递事件
       ev.stopPropagation()
       const name = ev.dataTransfer.getData('componentName')
-      const params = JSON.parse(ev.dataTransfer.getData('params'))
-      const attributes = JSON.parse(ev.dataTransfer.getData('attributes'))
+      const params = JSON.parse(
+        ev.dataTransfer.getData('params')
+          ? ev.dataTransfer.getData('params')
+          : ''
+      )
+      const attributes = JSON.parse(
+        ev.dataTransfer.getData('attributes')
+          ? ev.dataTransfer.getData('attributes')
+          : ''
+      )
       const rowId = ev.target.getAttribute('data-row-id')
       const colId = ev.target.getAttribute('data-col-id')
 
