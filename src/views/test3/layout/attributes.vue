@@ -1,6 +1,5 @@
 <template>
-  <!-- <div>{{currentComponent.componentId}},{{currentComponent.componentName}}</div> -->
-  <component :is="component" :params="params" :attributes="attributes"></component>
+  <component :is="component" :params="params"></component>
 
 </template>
 <script>
@@ -17,9 +16,6 @@ export default {
     },
     params() {
       return this.componentsParams[this.currentComponent.componentId]
-    },
-    attributes() {
-      return this.componentsAttributes[this.currentComponent.componentId]
     }
   }
 }

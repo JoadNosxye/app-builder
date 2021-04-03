@@ -9,14 +9,14 @@
 <script>
 // import Store from '@/store'
 export default {
-  props: ['params', 'attributes'],
+  props: ['params'],
   methods: {
-    config() {
-      this.$store.dispatch('setCurrentComponent', {
-        componentId: this.params.componentId,
-        componentName: this.params.componentName
-      })
-    }
+    // config() {
+    //   this.$store.dispatch('setCurrentComponent', {
+    //     componentId: this.params.componentId,
+    //     componentName: this.params.componentName
+    //   })
+    // }
   }
 }
 </script>

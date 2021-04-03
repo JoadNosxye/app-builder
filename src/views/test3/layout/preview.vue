@@ -1,6 +1,6 @@
 <template>
   <div id="preview-main">
-    <srkj-layout :params='params' :attributes="attributes"></srkj-layout>
+    <srkj-layout :params='params'></srkj-layout>
   </div>
 </template>
 <script>
