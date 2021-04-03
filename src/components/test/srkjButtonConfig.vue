@@ -84,17 +84,18 @@ export default {
     }
   },
   watch: {
-    // 当前组件变化时，获取store中当前组件的属性
+    // 当前组件变化时，获取store中当前组件的属性，对从store中取出的属性进行clone，使buttonConfigModel和store中的属性不是同一个引用
     currentComponent: function() {
-      this.buttonConfigModel = this.componentsAttributes[
+      this.buttonConfigModel = deepCopy(this.componentsAttributes[
         this.params.componentId
-      ].attributes
+      ].attributes)
     }
   },
   created() {
-    this.buttonConfigModel = this.componentsAttributes[
+    // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonConfigModel和store中的属性不是同一个引用
+    this.buttonConfigModel = deepCopy(this.componentsAttributes[
       this.params.componentId
-    ].attributes
+    ].attributes)
   },
   methods: {
     setComponentAttributes() {

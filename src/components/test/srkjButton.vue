@@ -15,7 +15,6 @@ export default {
       'time'
     ]),
     watchObj() {
-      console.log(this.params.componentId)
       return this.time
     }
   },
