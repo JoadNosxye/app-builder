@@ -101,6 +101,7 @@ export default {
       const componentAttributes = {
         componentId: this.params.componentId
       }
+      // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，这样在第一次提交后，只要修改model对象的值，不需要触发setComponentAttributes方法也会自动改变store中的值，因为他们使用的是相同的引用
       componentAttributes[this.params.componentId] = deepCopy(this.buttonConfigModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
       this.$refs['buttonConfigModel'].resetFields()
