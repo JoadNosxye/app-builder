@@ -1,20 +1,28 @@
 <template>
   <div>
-   {{this.params.componentId}} : {{this.$store.state.builder.componentsAttributes[
-        this.params.componentId
-      ].timestamp}}
+    {{this.params.componentName}}:{{this.params.componentId}}:{{watchObj}}:{{haha}}
     <el-button :type="attributes.type" :size="attributes.size" :plain="attributes.plain" @click="openAttributesPanel">{{attributes.name}}</el-button>
   </div>
-
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: ['params'],
   computed: {
+    ...mapGetters([
+      'currentComponent',
+      'componentsParams',
+      'componentsAttributes',
+      'time'
+    ]),
     watchObj() {
-      return this.$store.state.builder.componentsAttributes[
-        this.params.componentId
-      ].timestamp
+      console.log(
+        'button ' + this.componentsAttributes[this.params.componentId].timestamp
+      )
+      return this.componentsAttributes[this.params.componentId].timestamp
+    },
+    haha() {
+      return this.time
     }
   },
   data() {
@@ -33,17 +41,14 @@ export default {
       this.attributes = this.$store.state.builder.componentsAttributes[
         this.params.componentId
       ].attributes
-      // this.setAttributes()
+    },
+    haha: function() {
+      console.log('haha-' + this.params.componentId)
+      console.log('button-' + this.$store.state.builder.componentsAttributes[this.params.componentId].attributes)
+      this.attributes = this.$store.state.builder.componentsAttributes[this.params.componentId].attributes
     }
   },
   methods: {
-    // 设置属性
-    // setAttributes() {
-    //   this.content = this.attributes.content ? this.attributes.content : '按钮'
-    //   this.type = this.attributes.type ? this.attributes.type : 'primary'
-    //   this.size = this.attributes.size ? this.attributes.size : 'medium'
-    //   this.plain = this.attributes.plain ? this.attributes.plain : false
-    // },
     // 打开属性配置面板
     openAttributesPanel(ev) {
       // 阻止点击事件向父级layout元素冒泡传递事件

@@ -11,6 +11,8 @@ const getters = {
   componentsLayouts: state => state.builder.componentsLayouts,
   componentsParams: state => state.builder.componentsParams,
   componentsAttributes: state => state.builder.componentsAttributes,
-  currentComponent: state => state.builder.currentComponent
+  currentComponent: state => state.builder.currentComponent,
+  time: state => state.builder.time
+
 }
 export default getters
