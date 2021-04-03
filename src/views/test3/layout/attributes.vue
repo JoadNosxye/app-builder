@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{this.currentComponent.componentName}}:{{this.currentComponent.componentId}}:{{watchObj}}
     <component :is="component" :params="params"></component>
   </div>
 </template>
@@ -20,7 +19,6 @@ export default {
       return this.componentsParams[this.currentComponent.componentId]
     },
     watchObj() {
-      console.log('attribute ' + this.componentsAttributes[this.params.componentId].timestamp)
       return this.componentsAttributes[this.params.componentId].timestamp
     }
   }

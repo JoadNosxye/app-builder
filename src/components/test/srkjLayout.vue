@@ -2,7 +2,7 @@
   <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" @click="config">
     <el-row>
       <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
-        <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.id"></component>
+        <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
       </el-col>
     </el-row>
   </div>

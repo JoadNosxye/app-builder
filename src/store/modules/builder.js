@@ -2,7 +2,7 @@ import { getCurrentTime } from '@/utils'
 
 const builder = {
   state: {
-    time: '',
+    time: {},
     currentComponent: '',
     componentsParams: {},
     // params: {
@@ -54,8 +54,7 @@ const builder = {
       state.componentsAttributes[componentId] = {}
       state.componentsAttributes[componentId].attributes = attributes
 
-      // 给属性增加一个时间戳，每次属性变化时都需要更新该时间戳，以便组件可以watch这个时间戳，及时更新组件的属性设置
-      state.componentsAttributes[componentId].timestamp = getCurrentTime()
+      // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       state.time = getCurrentTime()
     },
     // 设置当前选择的组件
@@ -71,8 +70,7 @@ const builder = {
       // 将用户设置的属性存储到store中
       state.componentsAttributes[component.componentId].attributes =
         component[component.componentId]
-      // 给属性增加一个时间戳，每次属性变化时都需要更新该时间戳，以便组件可以watch这个时间戳，及时更新组件的属性设置
-      state.componentsAttributes[component.componentId].timestamp = getCurrentTime()
+      // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       state.time = getCurrentTime()
     }
   },

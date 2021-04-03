@@ -3,20 +3,20 @@
     <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="80px" :model="buttonConfigModel">
-      <el-form-item label="名称" prop='name'>
+      <el-form-item label="名称">
         <el-input v-model="buttonConfigModel.name"></el-input>
       </el-form-item>
-      <el-form-item label="尺寸" prop='size'>
+      <el-form-item label="尺寸">
         <el-select v-model="buttonConfigModel.size" placeholder="请选择">
           <el-option v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="类型" prop='type'>
+      <el-form-item label="类型">
         <el-select v-model="buttonConfigModel.type" placeholder="请选择">
           <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="是否朴素" prop='plain'>
+      <el-form-item label="是否朴素">
         <el-checkbox v-model="buttonConfigModel.plain"></el-checkbox>
       </el-form-item>
     </el-form>
@@ -104,7 +104,6 @@ export default {
       // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，这样在第一次提交后，只要修改model对象的值，不需要触发setComponentAttributes方法也会自动改变store中的值，因为他们使用的是相同的引用
       componentAttributes[this.params.componentId] = deepCopy(this.buttonConfigModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
-      this.$refs['buttonConfigModel'].resetFields()
     }
   }
 }

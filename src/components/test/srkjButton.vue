@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{this.params.componentName}}:{{this.params.componentId}}:{{watchObj}}:{{haha}}
     <el-button :type="attributes.type" :size="attributes.size" :plain="attributes.plain" @click="openAttributesPanel">{{attributes.name}}</el-button>
   </div>
 </template>
@@ -16,12 +15,7 @@ export default {
       'time'
     ]),
     watchObj() {
-      console.log(
-        'button ' + this.componentsAttributes[this.params.componentId].timestamp
-      )
-      return this.componentsAttributes[this.params.componentId].timestamp
-    },
-    haha() {
+      console.log(this.params.componentId)
       return this.time
     }
   },
@@ -36,16 +30,11 @@ export default {
     }
   },
   watch: {
-    // 观察store中该组件的属性的时间戳是否发生变化，若变化则将最新的属性设置到当前组件上
+    // 观察store中是否有任何组件的属性发生变化，若有，则从store中取出自己的属性，并进行设置
     watchObj: function() {
       this.attributes = this.$store.state.builder.componentsAttributes[
         this.params.componentId
       ].attributes
-    },
-    haha: function() {
-      console.log('haha-' + this.params.componentId)
-      console.log('button-' + this.$store.state.builder.componentsAttributes[this.params.componentId].attributes)
-      this.attributes = this.$store.state.builder.componentsAttributes[this.params.componentId].attributes
     }
   },
   methods: {
