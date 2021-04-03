@@ -1,9 +1,12 @@
 <template>
-  <component :is="component" :params="params"></component>
-
+  <div>
+    {{this.currentComponent.componentName}}:{{this.currentComponent.componentId}}
+    <component :is="component" :params="params"></component>
+    
+  </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters([
@@ -12,7 +15,7 @@ export default {
       'componentsAttributes'
     ]),
     component() {
-      return this.currentComponent.componentName + '-config'
+      return this.currentComponent.componentName + '-config';
     },
     params() {
       return this.componentsParams[this.currentComponent.componentId]

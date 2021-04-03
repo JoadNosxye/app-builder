@@ -24,8 +24,15 @@
 
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: ['params'],
+  computed: {
+    ...mapGetters([
+      'currentComponent',
+      'componentsAttributes'
+    ])
+  },
   data() {
     return {
       labelPosition: 'right',
@@ -78,9 +85,14 @@ export default {
       ]
     }
   },
-  created() {
-    this.buttonConfigModel = this.$store.state.builder.componentsAttributes[this.params.componentId].attributes
+  watch: {
+    currentComponent: function() {
+      this.buttonConfigModel = this.componentsAttributes[this.params.componentId].attributes
+    }
   },
+  // created() {
+  //   this.buttonConfigModel = this.componentsAttributes[this.params.componentId].attributes
+  // },
   methods: {
     setComponentAttributes() {
       const componentAttributes = {

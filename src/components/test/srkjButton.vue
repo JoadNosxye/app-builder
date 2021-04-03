@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{this.$store.state.builder.componentsAttributes[
+   {{this.params.componentId}} : {{this.$store.state.builder.componentsAttributes[
         this.params.componentId
       ].timestamp}}
     <el-button :type="attributes.type" :size="attributes.size" :plain="attributes.plain" @click="openAttributesPanel">{{attributes.name}}</el-button>
@@ -26,9 +26,6 @@ export default {
         plain: false
       }
     }
-  },
-  created() {
-    // TODO 获取该组件的默认属性配置，并对data中的attributes进行赋值
   },
   watch: {
     // 观察store中该组件的属性的时间戳是否发生变化，若变化则将最新的属性设置到当前组件上
