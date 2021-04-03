@@ -1,3 +1,5 @@
+import { getCurrentTime } from '@/utils';
+
 const builder = {
   state: {
     currentComponent: '',
@@ -47,11 +49,28 @@ const builder = {
       // 存储组件的参数
       state.componentsParams[componentId] = params
 
+      // 给属性增加一个时间戳，每次属性变化时都需要更新该时间戳，以便组件可以watch这个时间戳，及时更新组件的属性设置
+      attributes.timestamp = getCurrentTime()
       // 存储组件的属性
       state.componentsAttributes[componentId] = attributes
     },
+    // 设置当前选择的组件
     SET_CURRENT_COMPONENT: (state, component) => {
       state.currentComponent = component
+    },
+    // 设置组件的属性
+    SET_COMPONENT_ATTRIBUTES: (state, component) => {
+      // 若该组件的属性不存在，则为该组件创建属性对象
+      if (!state.componentsAttributes[component.componentId]) {
+        state.componentsAttributes[component.componentId] = {}
+      }
+      // 将用户设置的属性存储到store中
+      state.componentsAttributes[component.componentId] =
+        component[component.componentId]
+      // 给属性增加一个时间戳，每次属性变化时都需要更新该时间戳，以便组件可以watch这个时间戳，及时更新组件的属性设置
+      state.componentsAttributes[
+        component.componentId
+      ].timestamp = getCurrentTime()
     }
   },
   actions: {
@@ -60,6 +79,9 @@ const builder = {
     },
     setCurrentComponent: ({ commit }, component) => {
       commit('SET_CURRENT_COMPONENT', component)
+    },
+    setComponentAttributes: ({ commit }, component) => {
+      commit('SET_COMPONENT_ATTRIBUTES', component)
     }
   }
 }

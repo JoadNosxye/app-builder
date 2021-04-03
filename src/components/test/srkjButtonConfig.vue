@@ -2,7 +2,7 @@
   <div>
     <!-- buttonConfig {{params.componentId}} {{params.componentName}} -->
 
-    <el-button type="primary" size="small" plain @click="save">保存</el-button>
+    <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="80px" :model="buttonConfigModel">
       <el-form-item label="尺寸">
@@ -34,7 +34,6 @@ export default {
         size: '',
         type: '',
         plain: ''
-
       },
       size: '',
       sizeOptions: [
@@ -80,14 +79,18 @@ export default {
     }
   },
   methods: {
-    config() {
-      this.$store.dispatch('setCurrentComponent', {
-        componentId: this.params.componentId,
-        componentName: this.params.componentName
-      })
-    },
-    save() {
-      alert('haha')
+    // config() {
+    //   this.$store.dispatch('setCurrentComponent', {
+    //     componentId: this.params.componentId,
+    //     componentName: this.params.componentName
+    //   })
+    // },
+    setComponentAttributes() {
+      const componentAttributes = {
+        componentId: this.params.componentId
+      }
+      componentAttributes[this.params.componentId] = this.buttonConfigModel
+      this.$store.dispatch('setComponentAttributes', componentAttributes)
     }
   }
 }
