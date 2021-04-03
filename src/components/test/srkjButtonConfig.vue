@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- buttonConfig {{params.componentId}} {{params.componentName}} -->
-
     <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="80px" :model="buttonConfigModel">
@@ -15,8 +13,8 @@
           <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="是否朴素按钮">
-        <el-checkbox v-model="buttonConfigModel.plain">是</el-checkbox>
+      <el-form-item label="是否朴素">
+        <el-checkbox v-model="buttonConfigModel.plain"></el-checkbox>
       </el-form-item>
     </el-form>
 
@@ -24,7 +22,6 @@
 
 </template>
 <script>
-// import Store from '@/store'
 export default {
   props: ['params', 'attributes'],
   data() {
@@ -33,7 +30,7 @@ export default {
       buttonConfigModel: {
         size: '',
         type: '',
-        plain: ''
+        plain: false
       },
       size: '',
       sizeOptions: [
@@ -79,12 +76,6 @@ export default {
     }
   },
   methods: {
-    // config() {
-    //   this.$store.dispatch('setCurrentComponent', {
-    //     componentId: this.params.componentId,
-    //     componentName: this.params.componentName
-    //   })
-    // },
     setComponentAttributes() {
       const componentAttributes = {
         componentId: this.params.componentId
