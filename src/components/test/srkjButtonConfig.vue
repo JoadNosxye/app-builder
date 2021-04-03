@@ -3,20 +3,20 @@
     <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="80px" :model="buttonConfigModel">
-      <el-form-item label="名称">
-      <el-input v-model="buttonConfigModel.name"></el-input>
-    </el-form-item>
-      <el-form-item label="尺寸">
+      <el-form-item label="名称" prop='name'>
+        <el-input v-model="buttonConfigModel.name"></el-input>
+      </el-form-item>
+      <el-form-item label="尺寸" prop='size'>
         <el-select v-model="buttonConfigModel.size" placeholder="请选择">
           <el-option v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="类型">
+      <el-form-item label="类型" prop='type'>
         <el-select v-model="buttonConfigModel.type" placeholder="请选择">
           <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="是否朴素">
+      <el-form-item label="是否朴素" prop='plain'>
         <el-checkbox v-model="buttonConfigModel.plain"></el-checkbox>
       </el-form-item>
     </el-form>
@@ -25,13 +25,11 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { deepCopy } from '@/utils'
 export default {
   props: ['params'],
   computed: {
-    ...mapGetters([
-      'currentComponent',
-      'componentsAttributes'
-    ])
+    ...mapGetters(['currentComponent', 'componentsAttributes'])
   },
   data() {
     return {
@@ -86,20 +84,26 @@ export default {
     }
   },
   watch: {
+    // 当前组件变化时，获取store中当前组件的属性
     currentComponent: function() {
-      this.buttonConfigModel = this.componentsAttributes[this.params.componentId].attributes
+      this.buttonConfigModel = this.componentsAttributes[
+        this.params.componentId
+      ].attributes
     }
   },
-  // created() {
-  //   this.buttonConfigModel = this.componentsAttributes[this.params.componentId].attributes
-  // },
+  created() {
+    this.buttonConfigModel = this.componentsAttributes[
+      this.params.componentId
+    ].attributes
+  },
   methods: {
     setComponentAttributes() {
       const componentAttributes = {
         componentId: this.params.componentId
       }
-      componentAttributes[this.params.componentId] = this.buttonConfigModel
+      componentAttributes[this.params.componentId] = deepCopy(this.buttonConfigModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
+      this.$refs['buttonConfigModel'].resetFields()
     }
   }
 }
