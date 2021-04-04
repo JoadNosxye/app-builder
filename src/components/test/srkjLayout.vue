@@ -52,7 +52,7 @@ export default {
         col.num = colNum
         col.rowName = rowName
         col.span = Number(spanArray[i])
-        // 若store中存在该布局的数据，则从布局中取出当前列的数据(使用contact方法是返回数组的副本，因为这里要对数组元素进行赋值，但不希望修改原来数组的内容)
+        // 若store中存在该布局的数据，则从布局中取出当前列的数据
         col.items = this.componentsLayouts[rowName]
           ? this.componentsLayouts[rowName][i]
           : []
