@@ -1,6 +1,6 @@
 <template>
   <div id="preview-main">
-    <srkj-layout :params="params"></srkj-layout>
+    <srkj-layout :params='params'></srkj-layout>
   </div>
 </template>
 <script>
@@ -10,26 +10,27 @@ export default {
       return 'srkj-layout'
     },
     componentId() {
-      return 'preview-main-row'
-      // return this.componentName + '-' + Math.round(Math.random() * 1000)
+      return this.componentName + '-' + Math.round(Math.random() * 1000)
     },
     params() {
       const params = {}
+      params.rowName = 'preview-main-row'
+      params.colNum = 1
+      params.spans = '24'
       params.componentId = this.componentId
       params.componentName = this.componentName
       return params
     },
     attributes() {
       const attributes = {}
-      attributes.row = { id: this.componentId }
-      attributes.cols = [{ id: 0, span: 24 }]
+      attributes.gutter = 0
       return attributes
     }
   },
   created() {
     this.$store.dispatch('addComponents', {
-      rowId: 'preview-init-row',
-      colId: 0,
+      rowId: 'preview-main-row',
+      colId: 1,
       componentName: this.componentName,
       componentId: this.componentId,
       params: this.params,

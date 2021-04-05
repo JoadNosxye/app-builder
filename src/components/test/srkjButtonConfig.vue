@@ -88,14 +88,14 @@ export default {
     currentComponent: function() {
       this.buttonConfigModel = deepCopy(this.componentsAttributes[
         this.params.componentId
-      ].attributes)
+      ])
     }
   },
   created() {
     // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonConfigModel和store中的属性不是同一个引用
     this.buttonConfigModel = deepCopy(this.componentsAttributes[
       this.params.componentId
-    ].attributes)
+    ])
   },
   methods: {
     setComponentAttributes() {

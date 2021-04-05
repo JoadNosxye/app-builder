@@ -52,7 +52,7 @@ const builder = {
 
       // 存储组件的属性
       state.componentsAttributes[componentId] = {}
-      state.componentsAttributes[componentId].attributes = attributes
+      state.componentsAttributes[componentId] = attributes
 
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       state.time = getCurrentTime()

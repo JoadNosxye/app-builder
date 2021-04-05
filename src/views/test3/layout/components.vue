@@ -19,10 +19,27 @@ export default {
       const params = {}
       let attributes = {}
       if (ev.target.id === 'a') {
-        params.rowName = 'row-' + Math.round(Math.random() * 1000)
-        params.colNum = 2
-        params.spans = '12,12'
-        attributes.gutter = 0
+        // params.rowName = 'row-' + Math.round(Math.random() * 1000)
+        // params.colNum = 2
+        // params.spans = '12,12'
+        attributes = {
+          row: {
+            id: 'row-' + Math.round(Math.random() * 1000)
+          },
+          cols: [
+            {
+              // 第一列的id一定要从0开始
+              id: '0',
+              span: 12,
+              offset: ''
+            },
+            {
+              id: '1',
+              span: 12,
+              offset: ''
+            }
+          ]
+        }
       }
       if (ev.target.id === 'b') {
         attributes = {

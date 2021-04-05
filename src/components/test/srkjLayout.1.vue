@@ -1,14 +1,14 @@
 <template>
   <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" @click="config">
     <el-row>
-      <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
+      <el-col :span="col.span" :data-row-id="params.rowName" :data-col-id="col.id" v-for="col in cols" :key="col.id">
         <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
-        <!-- {{attributes}} -->
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
+// import Store from '@/store';
 import { mapGetters } from 'vuex'
 export default {
   props: ['params'],
@@ -21,39 +21,35 @@ export default {
   },
   data() {
     return {
+      // storeState: Store.state,
+      cols: [],
       watchObj: '',
-      // attributes: {
-      //   row: {},
-      //   cols: []
-      // },
-      attributes: {}
-      // attributes: {
-      //   row: {
-      //     id: ''
-      //   },
-      //   cols: [
-      //     {
-      //       id: '',
-      //       span: '',
-      //       offset: ''
-      //     },
-      //     {
-      //       id: '',
-      //       span: '',
-      //       offset: ''
-      //     }
-      //   ]
-      // }
+      attributes: {
+        row: {
+          name: ''
+        },
+        cols: [
+          {
+            name: '',
+            span: '',
+            offset: ''
+          },
+          {
+            name: '',
+            span: '',
+            offset: ''
+          }
+        ]
+      }
     }
   },
   created() {
-    // 从store中获取当前布局组件的属性配置
     this.getComponents()
   },
   watch: {
     // 当向该布局放置组件时，重新获取该布局的组件列表
     watchObj: function() {
-      if (this.componentsLayouts[this.params.componentId]) {
+      if (this.componentsLayouts[this.params.rowName]) {
         this.getComponents()
       }
     }
@@ -61,20 +57,21 @@ export default {
   methods: {
     // 获取该布局放置的组件列表
     getComponents() {
-      const componentAttributes = this.componentsAttributes[
-        this.params.componentId
-      ]
-      if (!componentAttributes) {
-        return
-      }
-      const colNum = componentAttributes.cols.length
-      // const rowId = componentAttributes.row.id
-      const componentId = this.params.componentId
+      const rowName = this.params.rowName
+      const colNum = this.params.colNum
+      const spans = this.params.spans
+      const cols = []
+      const spanArray = spans.split(',')
+
       for (let i = 0; i < colNum; i++) {
-        const col = componentAttributes.cols[i]
+        const col = {}
+        col.id = i
+        col.num = colNum
+        col.rowName = rowName
+        col.span = Number(spanArray[i])
         // 若store中存在该布局的数据，则从布局中取出当前列的数据
-        col.items = this.componentsLayouts[componentId]
-          ? this.componentsLayouts[componentId][i]
+        col.items = this.componentsLayouts[rowName]
+          ? this.componentsLayouts[rowName][i]
           : []
         if (col.items) {
           for (let index = 0; index < col.items.length; index++) {
@@ -85,8 +82,9 @@ export default {
             element.attributes = this.componentsAttributes[element.componentId]
           }
         }
+        cols.push(col)
       }
-      this.attributes = componentAttributes
+      this.cols = cols
     },
     allowDrop(ev) {
       ev.preventDefault()
@@ -108,7 +106,7 @@ export default {
           ? ev.dataTransfer.getData('attributes')
           : ''
       )
-      const rowId = ev.target.getAttribute('data-component-id')
+      const rowId = ev.target.getAttribute('data-row-id')
       const colId = ev.target.getAttribute('data-col-id')
 
       // 将拖拽的组件存储到store中对应的布局中
