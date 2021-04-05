@@ -81,8 +81,6 @@ export default {
             const element = col.items[index]
             // 从store中取出该组件的参数配置
             element.params = this.componentsParams[element.componentId]
-            // 从store中取出该组件的属性配置
-            element.attributes = this.componentsAttributes[element.componentId]
           }
         }
       }
