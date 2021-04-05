@@ -33,7 +33,7 @@ export default {
     watchObj: function() {
       this.attributes = this.$store.state.builder.componentsAttributes[
         this.params.componentId
-      ].attributes
+      ]
     }
   },
   methods: {

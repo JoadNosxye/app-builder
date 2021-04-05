@@ -23,9 +23,6 @@ export default {
         // params.colNum = 2
         // params.spans = '12,12'
         attributes = {
-          row: {
-            id: 'row-' + Math.round(Math.random() * 1000)
-          },
           cols: [
             {
               // 第一列的id一定要从0开始

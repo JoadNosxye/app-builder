@@ -3,7 +3,6 @@
     <el-row>
       <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
         <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
-        <!-- {{attributes}} -->
       </el-col>
     </el-row>
   </div>
@@ -22,32 +21,10 @@ export default {
   data() {
     return {
       watchObj: '',
-      // attributes: {
-      //   row: {},
-      //   cols: []
-      // },
       attributes: {}
-      // attributes: {
-      //   row: {
-      //     id: ''
-      //   },
-      //   cols: [
-      //     {
-      //       id: '',
-      //       span: '',
-      //       offset: ''
-      //     },
-      //     {
-      //       id: '',
-      //       span: '',
-      //       offset: ''
-      //     }
-      //   ]
-      // }
     }
   },
   created() {
-    // 从store中获取当前布局组件的属性配置
     this.getComponents()
   },
   watch: {
@@ -61,17 +38,15 @@ export default {
   methods: {
     // 获取该布局放置的组件列表
     getComponents() {
-      const componentAttributes = this.componentsAttributes[
-        this.params.componentId
-      ]
-      if (!componentAttributes) {
+      this.attributes = this.componentsAttributes[this.params.componentId]
+      if (!this.attributes) {
         return
       }
-      const colNum = componentAttributes.cols.length
-      // const rowId = componentAttributes.row.id
+      const colNum = this.attributes.cols.length
       const componentId = this.params.componentId
+
       for (let i = 0; i < colNum; i++) {
-        const col = componentAttributes.cols[i]
+        const col = this.attributes.cols[i]
         // 若store中存在该布局的数据，则从布局中取出当前列的数据
         col.items = this.componentsLayouts[componentId]
           ? this.componentsLayouts[componentId][i]
@@ -83,8 +58,8 @@ export default {
             element.params = this.componentsParams[element.componentId]
           }
         }
+        this.$set(this.attributes.cols, i, col)
       }
-      this.attributes = componentAttributes
     },
     allowDrop(ev) {
       ev.preventDefault()

@@ -68,7 +68,7 @@ const builder = {
         state.componentsAttributes[component.componentId] = {}
       }
       // 将用户设置的属性存储到store中
-      state.componentsAttributes[component.componentId].attributes =
+      state.componentsAttributes[component.componentId] =
         component[component.componentId]
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       state.time = getCurrentTime()

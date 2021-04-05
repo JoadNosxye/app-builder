@@ -11,7 +11,6 @@ export default {
     },
     componentId() {
       return 'preview-main-row'
-      // return this.componentName + '-' + Math.round(Math.random() * 1000)
     },
     params() {
       const params = {}
