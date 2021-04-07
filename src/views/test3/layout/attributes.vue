@@ -16,7 +16,6 @@ export default {
       return this.currentComponent.componentName + '-config'
     },
     params() {
-      console.log(this.currentComponent.componentId)
       return this.componentsParams[this.currentComponent.componentId]
     }
   }
