@@ -44,18 +44,18 @@ export default {
         // },
         // cols: []
       },
-      spanOptions: [
+      sizeOptions: [
         {
-          value: '12',
-          label: '12'
+          value: 'medium',
+          label: 'medium'
         },
         {
-          value: '6',
-          label: '6'
+          value: 'small',
+          label: 'small'
         },
         {
-          value: '8',
-          label: '8'
+          value: 'mini',
+          label: 'mini'
         }
       ]
     }
@@ -63,14 +63,14 @@ export default {
   watch: {
     // 当前组件变化时，获取store中当前组件的属性，对从store中取出的属性进行clone，使buttonConfigModel和store中的属性不是同一个引用
     currentComponent: function() {
-      this.layoutModel = deepCopy(
+      this.buttonConfigModel = deepCopy(
         this.componentsAttributes[this.params.componentId]
       )
     }
   },
   created() {
     // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonConfigModel和store中的属性不是同一个引用
-    this.layoutModel = deepCopy(
+    this.buttonConfigModel = deepCopy(
       this.componentsAttributes[this.params.componentId]
     )
   },
@@ -81,13 +81,17 @@ export default {
       }
       // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，这样在第一次提交后，只要修改model对象的值，不需要触发setComponentAttributes方法也会自动改变store中的值，因为他们使用的是相同的引用
       componentAttributes[this.params.componentId] = deepCopy(
-        this.layoutModel
+        this.buttonConfigModel
       )
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     }
   }
 }
 </script>
+
+
+
+
 
 
 

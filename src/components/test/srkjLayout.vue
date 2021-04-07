@@ -9,18 +9,23 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { deepCopy } from '@/utils'
 export default {
   props: ['params'],
   computed: {
     ...mapGetters([
       'componentsLayouts',
       'componentsParams',
-      'componentsAttributes'
-    ])
+      'componentsAttributes',
+      'time'
+    ]),
+    watchObj() {
+      return this.time
+    }
   },
   data() {
     return {
-      watchObj: '',
+      dropTime: '',
       attributes: {}
     }
   },
@@ -29,16 +34,23 @@ export default {
   },
   watch: {
     // 当向该布局放置组件时，重新获取该布局的组件列表
-    watchObj: function() {
+    dropTime: function() {
       if (this.componentsLayouts[this.params.componentId]) {
         this.getComponents()
       }
+    },
+    watchObj: function() {
+      this.getComponents()
     }
   },
   methods: {
     // 获取该布局放置的组件列表
     getComponents() {
-      this.attributes = this.componentsAttributes[this.params.componentId]
+      // 获取该组件的属性，使用deepCopy对store中的对象进行clone，避免这里设置的内容污染了store中的数据
+      this.attributes = deepCopy(
+        this.componentsAttributes[this.params.componentId]
+      )
+      // 如果没有获取到任贺属性配置，则退出
       if (!this.attributes) {
         return
       }
@@ -47,10 +59,18 @@ export default {
 
       for (let i = 0; i < colNum; i++) {
         const col = this.attributes.cols[i]
-        // 若store中存在该布局的数据，则从布局中取出当前列的数据
-        col.items = this.componentsLayouts[componentId]
+        // 若store中存在该布局的数据，则从布局中取出当前列的数据，并放到列的items中
+        col.items = []
+        const itemsInStore = this.componentsLayouts[componentId]
           ? this.componentsLayouts[componentId][i]
+            ? this.componentsLayouts[componentId][i]
+            : []
           : []
+        for (let index = 0; index < itemsInStore.length; index++) {
+          const element = deepCopy(itemsInStore[index])
+          col.items.push(element)
+        }
+
         if (col.items) {
           for (let index = 0; index < col.items.length; index++) {
             const element = col.items[index]
@@ -101,7 +121,7 @@ export default {
       })
 
       // 更新watch对象，以便当前布局在被放置组件后，重新获取组件列表
-      this.watchObj = new Date().toLocaleTimeString()
+      this.dropTime = new Date().toLocaleTimeString()
     },
     drag(ev) {
       // TODO 需要处理布局之间的拖拽

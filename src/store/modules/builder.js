@@ -51,7 +51,6 @@ const builder = {
       state.componentsParams[componentId] = params
 
       // 存储组件的属性
-      state.componentsAttributes[componentId] = {}
       state.componentsAttributes[componentId] = attributes
 
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
@@ -63,13 +62,10 @@ const builder = {
     },
     // 设置组件的属性
     SET_COMPONENT_ATTRIBUTES: (state, component) => {
-      // 若该组件的属性不存在，则为该组件创建属性对象
-      if (!state.componentsAttributes[component.componentId]) {
-        state.componentsAttributes[component.componentId] = {}
-      }
+      const componentId = component.componentId
       // 将用户设置的属性存储到store中
-      state.componentsAttributes[component.componentId] =
-        component[component.componentId]
+      state.componentsAttributes[componentId] =
+        component[componentId]
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       state.time = getCurrentTime()
     }

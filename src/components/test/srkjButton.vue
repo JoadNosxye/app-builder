@@ -20,6 +20,7 @@ export default {
   },
   data() {
     return {
+      // 按钮组件的属性默认值
       attributes: {
         name: '按钮',
         type: 'primary',
