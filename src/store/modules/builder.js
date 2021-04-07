@@ -1,4 +1,4 @@
-import { getCurrentTime } from '@/utils'
+import { getCurrentTime } from '@/utils';
 
 const builder = {
   state: {
@@ -37,24 +37,27 @@ const builder = {
       if (!state.componentsLayouts[rowId]) {
         state.componentsLayouts[rowId] = {}
       }
-      // 若该列不存在，则在布局中创建该列
-      if (!state.componentsLayouts[rowId][colId]) {
-        state.componentsLayouts[rowId][colId] = []
+
+      if (componentId && componentName) {
+        // 若该列不存在，则在布局中创建该列
+        if (!state.componentsLayouts[rowId][colId]) {
+          state.componentsLayouts[rowId][colId] = []
+        }
+        // 将放置到该列的组件和参数存储到state的layouts中
+        const ele = {}
+        ele.componentName = componentName
+        ele.componentId = componentId
+        state.componentsLayouts[rowId][colId].push(ele)
+
+        // 存储组件的参数
+        state.componentsParams[componentId] = params
+
+        // 存储组件的属性
+        state.componentsAttributes[componentId] = attributes
+
+        // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
+        state.time = getCurrentTime()
       }
-      // 将放置到该列的组件和参数存储到state的layouts中
-      const ele = {}
-      ele.componentName = componentName
-      ele.componentId = componentId
-      state.componentsLayouts[rowId][colId].push(ele)
-
-      // 存储组件的参数
-      state.componentsParams[componentId] = params
-
-      // 存储组件的属性
-      state.componentsAttributes[componentId] = attributes
-
-      // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
-      state.time = getCurrentTime()
     },
     // 设置当前选择的组件
     SET_CURRENT_COMPONENT: (state, component) => {
@@ -64,8 +67,7 @@ const builder = {
     SET_COMPONENT_ATTRIBUTES: (state, component) => {
       const componentId = component.componentId
       // 将用户设置的属性存储到store中
-      state.componentsAttributes[componentId] =
-        component[componentId]
+      state.componentsAttributes[componentId] = component[componentId]
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       state.time = getCurrentTime()
     }
