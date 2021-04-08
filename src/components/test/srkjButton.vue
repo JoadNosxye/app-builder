@@ -30,20 +30,14 @@ export default {
     }
   },
   created() {
-    if (
-      this.$store.state.builder.componentsAttributes[this.params.componentId]
-    ) {
-      this.attributes = this.$store.state.builder.componentsAttributes[
-        this.params.componentId
-      ]
+    if (this.componentsAttributes[this.params.componentId]) {
+      this.attributes = this.componentsAttributes[this.params.componentId]
     }
   },
   watch: {
     // 观察store中是否有任何组件的属性发生变化，若有，则从store中取出自己的属性，并进行设置
     watchObj: function() {
-      this.attributes = this.$store.state.builder.componentsAttributes[
-        this.params.componentId
-      ]
+      this.attributes = this.componentsAttributes[this.params.componentId]
     }
   },
   methods: {
