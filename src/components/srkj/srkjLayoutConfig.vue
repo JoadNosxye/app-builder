@@ -31,7 +31,12 @@ import { deepCopy } from '@/utils'
 export default {
   props: ['params'],
   computed: {
-    ...mapGetters(['currentComponent', 'componentsAttributes', 'time'])
+    ...mapGetters([
+      'currentComponent',
+      'componentsAttributes',
+      'time',
+      'componentsLayouts'
+    ])
   },
   data() {
     return {
@@ -126,7 +131,48 @@ export default {
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
     deleteComponent() {
-      this.$store.dispatch('deleteComponent', this.params.componentId)
+      // 删除布局组件时，需要将布局中的所有组件都删除，通过递归的方式，查找出当前布局组件中的所有组件
+
+      const list = this.findAllComponents(
+        this.params.componentId, { componentIdList: [], layoutIdList: [] }
+      )
+      // // 将要删除的布局组件ID也添加到被删除的组件ID列表中
+      // componentIdList.push(this.params.componentId)
+      for (let index = 0; index < list.componentIdList.length; index++) {
+        this.$store.dispatch('deleteComponent', list.componentIdList[index])
+      }
+
+      for (let index = 0; index < list.layoutIdList.length; index++) {
+        this.$store.dispatch('deleteLayout', list.layoutIdList[index])
+      }
+    },
+    findAllComponents(componentId, list) {
+      // 从state的componentsLayouts中查找布局组件对应的数据
+      const layoutComponent = this.componentsLayouts[componentId]
+      // 若找到了，则代表该组件是一个布局组件，则需要将布局组件内部的所有组件添加到componentIdList中
+      if (layoutComponent) {
+        list.layoutIdList.push(componentId)
+        // 遍历该布局组件的所有列
+        for (const col in layoutComponent) {
+          // 获取到该列中所有的组件
+          const components = layoutComponent[col]
+          // 遍历该列中的所有组件
+          for (let index = 0; index < components.length; index++) {
+            // 若该组件还是一个布局组件，则递归调用findAllComponents方法
+            if (this.componentsLayouts[components[index].componentId]) {
+              this.findAllComponents(
+                components[index].componentId,
+                list
+              )
+            } else {
+              // 若该组件不是布局组件，则将该组件添加到componentIdList中
+              list.componentIdList.push(components[index].componentId)
+            }
+          }
+        }
+      }
+      list.componentIdList.push(componentId)
+      return list
     }
   }
 }

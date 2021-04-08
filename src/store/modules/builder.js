@@ -66,7 +66,7 @@ const builder = {
       // 将用户设置的属性存储到store中
       state.componentsAttributes[componentId] = component[componentId]
     },
-    // 删除该组件的布局数据
+    // 删除该组件所在布局中的数据
     DELETE_COMPONENT_LAYOUT: (state, componentId) => {
       const rowId = state.componentsParams[componentId].rowId
       const colId = state.componentsParams[componentId].colId
@@ -87,6 +87,10 @@ const builder = {
       // 从布局中的组件数组中删除指定的组件
       components.splice(pos, 1)
     },
+    // 删除布局组件时，需要将这个布局组件从componentsLayouts中彻底清除
+    DELETE_COMPONENT_LAYOUT_SELF: (state, componentId) => {
+      delete state.componentsLayouts[componentId]
+    },
     // 删除该组件的属性数据
     DELETE_COMPONENT_ATTRIBUTES: (state, componentId) => {
       delete state.componentsAttributes[componentId]
@@ -95,26 +99,6 @@ const builder = {
     DELETE_COMPONENT_PARAMS: (state, componentId) => {
       delete state.componentsParams[componentId]
     },
-    // // 移动组件
-    // MOVE_COMPONENT: (state, componentId) => {
-    //   const oldPosition = state.componentsParams[componentId]
-    //   const components =
-    //     state.componentsLayouts[oldPosition.rowId][oldPosition.colId]
-    //   // 删除componentsLayouts中对应的该组件数据
-    //   let pos = -1
-    //   for (let index = 0; index < components.length; index++) {
-    //     const element = components[index]
-    //     if (element.componentId === componentId) {
-    //       pos = index
-    //       break
-    //     }
-    //   }
-    //   if (pos === -1) {
-    //     console.log('在state.componentsLayouts中没有找到要删除的元素')
-    //     return
-    //   }
-    //   components.splice(pos, 1)
-    // },
     UPDATE_TIME: state => {
       state.time = getCurrentTime()
     }
@@ -133,13 +117,36 @@ const builder = {
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       commit('UPDATE_TIME')
     },
-    deleteComponent: ({ commit }, componentId) => {
-      // 如果删除的是布局组件，需要将布局中的所有组件全部删除
+    deleteComponent: ({ commit, state }, componentId) => {
+      // const layoutComponent = state.componentsLayouts[componentId]
+      // if (layoutComponent) {
+      //   // 如果删除的是布局组件，需要将布局中的所有组件全部删除
+      //   const componentList = []
+      //   for (const col in layoutComponent) {
+      //     const components = layoutComponent[col]
+      //     for (let index = 0; index < components.length; index++) {
+      //       componentList.push(components[index].componentId)
+      //     }
+      //   }
+      //   for (let index = 0; index < componentList.length; index++) {
+      //     commit('DELETE_COMPONENT_LAYOUT', componentList[index])
+      //     commit('DELETE_COMPONENT_ATTRIBUTES', componentList[index])
+      //     commit('DELETE_COMPONENT_PARAMS', componentList[index])
+      //   }
+      //   commit('DELETE_COMPONENT_LAYOUT', componentId)
+      //   commit('DELETE_COMPONENT_ATTRIBUTES', componentId)
+      //   commit('DELETE_COMPONENT_PARAMS', componentId)
+      //   commit('DELETE_COMPONENT_LAYOUT_SELF', componentId)
+      // } else {
       // 如果删除的是其他组件，则只删除该组件相关数据
       commit('DELETE_COMPONENT_LAYOUT', componentId)
       commit('DELETE_COMPONENT_ATTRIBUTES', componentId)
       commit('DELETE_COMPONENT_PARAMS', componentId)
       // 删除组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
+      commit('UPDATE_TIME')
+    },
+    deleteLayout: ({ commit }, componentId) => {
+      commit('DELETE_COMPONENT_LAYOUT_SELF', componentId)
       commit('UPDATE_TIME')
     },
     moveComponent: ({ commit }, componentId) => {
