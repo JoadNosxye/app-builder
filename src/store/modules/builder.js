@@ -1,4 +1,4 @@
-import { getCurrentTime } from '@/utils';
+import { getCurrentTime } from '@/utils'
 
 const builder = {
   state: {
@@ -32,6 +32,8 @@ const builder = {
       const componentId = component.componentId
       const componentName = component.componentName
       const params = component.params
+      params.rowId = rowId
+      params.colId = colId
       const attributes = component.attributes
       // 若该布局不存在，则创建一个布局对象
       if (!state.componentsLayouts[rowId]) {
@@ -70,6 +72,30 @@ const builder = {
       state.componentsAttributes[componentId] = component[componentId]
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       state.time = getCurrentTime()
+    },
+    // 删除组件
+    DELETE_COMPONENT: (state, componentId) => {
+      const rowId = state.componentsParams[componentId].rowId
+      const colId = state.componentsParams[componentId].colId
+      const components = state.componentsLayouts[rowId][colId]
+      // 删除componentsLayouts中对应的该组件数据
+      let pos = -1
+      for (let index = 0; index < components.length; index++) {
+        const element = components[index]
+        if (element.componentId === componentId) {
+          pos = index
+          break
+        }
+      }
+      if (pos === -1) {
+        console.log('在state.componentsLayouts中没有找到要删除的元素')
+        return
+      }
+      components.splice(pos, 1)
+      delete state.componentsAttributes[componentId]
+      delete state.componentsParams[componentId]
+      // 删除组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
+      state.time = getCurrentTime()
     }
   },
   actions: {
@@ -81,6 +107,9 @@ const builder = {
     },
     setComponentAttributes: ({ commit }, component) => {
       commit('SET_COMPONENT_ATTRIBUTES', component)
+    },
+    deleteComponent: ({ commit }, componentId) => {
+      commit('DELETE_COMPONENT', componentId)
     }
   }
 }

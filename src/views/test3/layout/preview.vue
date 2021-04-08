@@ -35,10 +35,10 @@ export default {
       attributes: this.attributes
     })
 
-    this.$store.dispatch('addComponents', {
-      rowId: 'preview-main-row',
-      colId: 0
-    })
+    // this.$store.dispatch('addComponents', {
+    //   rowId: 'preview-main-row',
+    //   colId: 0
+    // })
 
     // 设置当前组件为刚拖拽过来的组件
     this.$store.dispatch('setCurrentComponent', {

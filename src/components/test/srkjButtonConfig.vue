@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
+    <el-button type="primary" size="small" plain @click="deleteComponent">删除</el-button>
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="80px" :model="buttonModel">
       <el-form-item label="名称">
@@ -100,6 +101,9 @@ export default {
       // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，这样在第一次提交后，只要修改model对象的值，不需要触发setComponentAttributes方法也会自动改变store中的值，因为他们使用的是相同的引用
       componentAttributes[this.params.componentId] = deepCopy(this.buttonModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
+    },
+    deleteComponent() {
+      this.$store.dispatch('deleteComponent', this.params.componentId)
     }
   }
 }
