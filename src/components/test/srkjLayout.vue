@@ -90,17 +90,7 @@ export default {
       // 阻止向父级元素冒泡传递事件
       ev.stopPropagation()
       const id = ev.dataTransfer.getData('componentId')
-      const name = ev.dataTransfer.getData('componentName')
-      const params = JSON.parse(
-        ev.dataTransfer.getData('params')
-          ? ev.dataTransfer.getData('params')
-          : ''
-      )
-      const attributes = JSON.parse(
-        ev.dataTransfer.getData('attributes')
-          ? ev.dataTransfer.getData('attributes')
-          : ''
-      )
+      const isMove = ev.dataTransfer.getData('move')
       // 获取布局的行和列ID，如果没有获取到，则循环查找其父级节点的行列ID，直到找到为止
       let node = ev.target
       let rowId = node.getAttribute('data-component-id')
@@ -112,10 +102,36 @@ export default {
       }
       // 如果遍历了所有的父节点还没有找到行列ID，则退出该方法，放置元素失败
       if (rowId === null || colId === null) {
-        console.log('没有找到合适的列放置该元素')
+        console.log('没有找到合适的列放置该组件')
         return
       }
-
+      let name = ''
+      let params = ''
+      let attributes = ''
+      // 如果是从其他布局中移动过来的组件
+      if (isMove) {
+        // 从store中获取该组件的参数和属性
+        params = this.componentsParams[id]
+        name = params.componentName
+        // 将该组件参数的行列ID更新为组件移动后的最新行列ID
+        params.rowId = rowId
+        params.colId = colId
+        attributes = this.componentsAttributes[id]
+      } else {
+        name = ev.dataTransfer.getData('componentName')
+        params = JSON.parse(
+          ev.dataTransfer.getData('params')
+            ? ev.dataTransfer.getData('params')
+            : ''
+        )
+        params.rowId = rowId
+        params.colId = colId
+        attributes = JSON.parse(
+          ev.dataTransfer.getData('attributes')
+            ? ev.dataTransfer.getData('attributes')
+            : ''
+        )
+      }
       // 将拖拽的组件存储到store中对应的布局中
       this.$store.dispatch('addComponents', {
         rowId: rowId,
@@ -125,19 +141,37 @@ export default {
         params: params,
         attributes: attributes
       })
-
       // 设置当前组件为刚拖拽过来的组件
       this.$store.dispatch('setCurrentComponent', {
         componentId: id,
         componentName: name
       })
-
       // 更新watch对象，以便当前布局在被放置组件后，重新获取组件列表
       this.dropTime = new Date().toLocaleTimeString()
     },
     drag(ev) {
-      // TODO 需要处理布局之间的拖拽
-      ev.dataTransfer.setData('components', ev.target.id)
+      // 阻止向父级元素冒泡传递事件
+      ev.stopPropagation()
+      const node = ev.target
+      const componentId = node.getAttribute('data-component-id')
+
+      // 标识该组件是从其他布局中移动过来的
+      ev.dataTransfer.setData('move', true)
+      ev.dataTransfer.setData('componentId', componentId)
+
+      // 如果被移动的组件上没有找到data-component-id，则循环查找其父级元素上是否有该属性
+      // while (componentId === null) {
+      //   node = node.parentElement
+      //   componentId = node.getAttribute('data-component-id')
+      // }
+      // // 如果遍历了所有的父节点还没有找到行列ID，则退出该方法，放置元素失败
+      // if (componentId === null) {
+      //   console.log('没有找到要移动的组件ID')
+      //   return
+      // }
+
+      // 将store中被移动的组件布局数据删除
+      this.$store.dispatch('moveComponent', componentId)
     },
     config(ev) {
       // 阻止向父级元素冒泡传递事件
