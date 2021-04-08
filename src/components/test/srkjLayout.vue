@@ -101,8 +101,20 @@ export default {
           ? ev.dataTransfer.getData('attributes')
           : ''
       )
-      const rowId = ev.target.getAttribute('data-component-id')
-      const colId = ev.target.getAttribute('data-col-id')
+      // 获取布局的行和列ID，如果没有获取到，则循环查找其父级节点的行列ID，直到找到为止
+      let node = ev.target
+      let rowId = node.getAttribute('data-component-id')
+      let colId = node.getAttribute('data-col-id')
+      while (rowId === null || colId === null) {
+        node = node.parentElement
+        rowId = node.getAttribute('data-component-id')
+        colId = node.getAttribute('data-col-id')
+      }
+      // 如果遍历了所有的父节点还没有找到行列ID，则退出该方法，放置元素失败
+      if (rowId === null || colId === null) {
+        console.log('没有找到合适的列放置该元素')
+        return
+      }
 
       // 将拖拽的组件存储到store中对应的布局中
       this.$store.dispatch('addComponents', {
