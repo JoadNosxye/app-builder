@@ -1,7 +1,7 @@
-import srkjLayout from './test/srkjLayout'
-import srkjLayoutConfig from './test/srkjLayoutConfig'
-import srkjButton from './test/srkjButton'
-import srkjButtonConfig from './test/srkjButtonConfig'
+import srkjLayout from './srkj/srkjLayout'
+import srkjLayoutConfig from './srkj/srkjLayoutConfig'
+import srkjButton from './srkj/srkjButton'
+import srkjButtonConfig from './srkj/srkjButtonConfig'
 
 export default (Vue) => {
   Vue.component('srkj-layout', srkjLayout)

@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
+    <el-button type="primary" size="small" plain @click="deleteComponent">删除</el-button>
     <div style="margin: 20px;">行属性配置</div>
     <el-form :label-position="labelPosition" label-width="80px" :model="layoutModel">
       <el-form-item label="栅格间隔">
@@ -123,6 +124,9 @@ export default {
       attributes.cols.splice(pos, 1)
       componentAttributes[this.params.componentId] = attributes
       this.$store.dispatch('setComponentAttributes', componentAttributes)
+    },
+    deleteComponent() {
+      this.$store.dispatch('deleteComponent', this.params.componentId)
     }
   }
 }

@@ -98,12 +98,14 @@ const builder = {
       delete state.componentsAttributes[componentId]
       // 删除该组件的参数数据
       delete state.componentsParams[componentId]
+
       // 删除组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
       state.time = getCurrentTime()
     },
     MOVE_COMPONENT: (state, componentId) => {
       const oldPosition = state.componentsParams[componentId]
-      const components = state.componentsLayouts[oldPosition.rowId][oldPosition.colId]
+      const components =
+        state.componentsLayouts[oldPosition.rowId][oldPosition.colId]
       // 删除componentsLayouts中对应的该组件数据
       let pos = -1
       for (let index = 0; index < components.length; index++) {
@@ -133,6 +135,8 @@ const builder = {
       commit('SET_COMPONENT_ATTRIBUTES', component)
     },
     deleteComponent: ({ commit }, componentId) => {
+      // 如果删除的是布局组件，需要将布局中的所有组件全部删除
+      // 如果删除的是其他组件，则只删除该组件相关数据
       commit('DELETE_COMPONENT', componentId)
     },
     moveComponent: ({ commit }, componentId) => {
