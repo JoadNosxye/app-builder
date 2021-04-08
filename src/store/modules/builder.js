@@ -95,26 +95,26 @@ const builder = {
     DELETE_COMPONENT_PARAMS: (state, componentId) => {
       delete state.componentsParams[componentId]
     },
-    // 移动组件
-    MOVE_COMPONENT: (state, componentId) => {
-      const oldPosition = state.componentsParams[componentId]
-      const components =
-        state.componentsLayouts[oldPosition.rowId][oldPosition.colId]
-      // 删除componentsLayouts中对应的该组件数据
-      let pos = -1
-      for (let index = 0; index < components.length; index++) {
-        const element = components[index]
-        if (element.componentId === componentId) {
-          pos = index
-          break
-        }
-      }
-      if (pos === -1) {
-        console.log('在state.componentsLayouts中没有找到要删除的元素')
-        return
-      }
-      components.splice(pos, 1)
-    },
+    // // 移动组件
+    // MOVE_COMPONENT: (state, componentId) => {
+    //   const oldPosition = state.componentsParams[componentId]
+    //   const components =
+    //     state.componentsLayouts[oldPosition.rowId][oldPosition.colId]
+    //   // 删除componentsLayouts中对应的该组件数据
+    //   let pos = -1
+    //   for (let index = 0; index < components.length; index++) {
+    //     const element = components[index]
+    //     if (element.componentId === componentId) {
+    //       pos = index
+    //       break
+    //     }
+    //   }
+    //   if (pos === -1) {
+    //     console.log('在state.componentsLayouts中没有找到要删除的元素')
+    //     return
+    //   }
+    //   components.splice(pos, 1)
+    // },
     UPDATE_TIME: state => {
       state.time = getCurrentTime()
     }
@@ -143,7 +143,7 @@ const builder = {
       commit('UPDATE_TIME')
     },
     moveComponent: ({ commit }, componentId) => {
-      commit('MOVE_COMPONENT', componentId)
+      commit('DELETE_COMPONENT_LAYOUT', componentId)
       // 移动组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
       commit('UPDATE_TIME')
     }
