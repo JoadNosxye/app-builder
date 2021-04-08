@@ -138,13 +138,15 @@ export default {
       )
       // // 将要删除的布局组件ID也添加到被删除的组件ID列表中
       // componentIdList.push(this.params.componentId)
-      for (let index = 0; index < list.componentIdList.length; index++) {
-        this.$store.dispatch('deleteComponent', list.componentIdList[index])
-      }
+      // for (let index = 0; index < list.componentIdList.length; index++) {
+      //   this.$store.dispatch('deleteComponent', list.componentIdList[index])
+      // }
 
-      for (let index = 0; index < list.layoutIdList.length; index++) {
-        this.$store.dispatch('deleteLayout', list.layoutIdList[index])
-      }
+      // for (let index = 0; index < list.layoutIdList.length; index++) {
+      //   this.$store.dispatch('deleteLayout', list.layoutIdList[index])
+      // }
+      this.$store.dispatch('deleteComponent', list.componentIdList)
+      this.$store.dispatch('deleteLayout', list.layoutIdList)
     },
     findAllComponents(componentId, list) {
       // 从state的componentsLayouts中查找布局组件对应的数据

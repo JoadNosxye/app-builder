@@ -117,36 +117,19 @@ const builder = {
       // 属性发生变化时，更新state.time，以便组件watch，及时更新组件的属性
       commit('UPDATE_TIME')
     },
-    deleteComponent: ({ commit, state }, componentId) => {
-      // const layoutComponent = state.componentsLayouts[componentId]
-      // if (layoutComponent) {
-      //   // 如果删除的是布局组件，需要将布局中的所有组件全部删除
-      //   const componentList = []
-      //   for (const col in layoutComponent) {
-      //     const components = layoutComponent[col]
-      //     for (let index = 0; index < components.length; index++) {
-      //       componentList.push(components[index].componentId)
-      //     }
-      //   }
-      //   for (let index = 0; index < componentList.length; index++) {
-      //     commit('DELETE_COMPONENT_LAYOUT', componentList[index])
-      //     commit('DELETE_COMPONENT_ATTRIBUTES', componentList[index])
-      //     commit('DELETE_COMPONENT_PARAMS', componentList[index])
-      //   }
-      //   commit('DELETE_COMPONENT_LAYOUT', componentId)
-      //   commit('DELETE_COMPONENT_ATTRIBUTES', componentId)
-      //   commit('DELETE_COMPONENT_PARAMS', componentId)
-      //   commit('DELETE_COMPONENT_LAYOUT_SELF', componentId)
-      // } else {
-      // 如果删除的是其他组件，则只删除该组件相关数据
-      commit('DELETE_COMPONENT_LAYOUT', componentId)
-      commit('DELETE_COMPONENT_ATTRIBUTES', componentId)
-      commit('DELETE_COMPONENT_PARAMS', componentId)
+    deleteComponent: ({ commit, state }, list) => {
+      list.forEach(componentId => {
+        commit('DELETE_COMPONENT_LAYOUT', componentId)
+        commit('DELETE_COMPONENT_ATTRIBUTES', componentId)
+        commit('DELETE_COMPONENT_PARAMS', componentId)
+      })
       // 删除组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
       commit('UPDATE_TIME')
     },
-    deleteLayout: ({ commit }, componentId) => {
-      commit('DELETE_COMPONENT_LAYOUT_SELF', componentId)
+    deleteLayout: ({ commit }, list) => {
+      list.forEach(componentId => {
+        commit('DELETE_COMPONENT_LAYOUT_SELF', componentId)
+      })
       commit('UPDATE_TIME')
     },
     moveComponent: ({ commit }, componentId) => {
