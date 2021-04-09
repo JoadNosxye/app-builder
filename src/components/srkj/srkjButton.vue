@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <el-button draggable="true" :data-component-id="params.componentId" :type="attributes.type" :size="attributes.size" :plain="attributes.plain" @click="openAttributesPanel">{{attributes.name}}</el-button>
-  </div>
+  <el-button draggable="true" :data-component-id="params.componentId" :type="attributes.type" :size="attributes.size" :plain="attributes.plain" @click="openAttributesPanel">{{attributes.name}}</el-button>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 export default {
   props: ['params'],
   computed: {
