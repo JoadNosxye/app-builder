@@ -1,39 +1,21 @@
 <template>
-  <div class="page-build">
-    <el-row class="page-build">
-      <el-col :span="4" class="components">
-        <Components/>
-      </el-col>
-      <el-col :span="16" class="preiview">
-        <el-row class="preview-panel">
-          <Panel/>
-        </el-row>
-        <el-row class="preview-main">
-          <Preview class="preview-drop" />
-        </el-row>
-      </el-col>
-      <el-col :span="4" class="attributes">
-        <Attributes/>
-      </el-col>
-    </el-row>
-  </div>
+  <layout>
+    <div slot="a1"><test-button :attributes='attributes1' @click="a"/></div>
+    <div slot="a2"><test-button :attributes='attributes2' @click="b"/></div>
+    <div slot="b">bbbbbbb</div>
+    <div slot="c">ccccccc</div>
+  </layout>
 </template>
-
 <script>
-import {
-  Components,
-  Preview,
-  Panel,
-  Attributes
-} from '@/views/test2/components';
-
+import layout from './layout'
+import test from './test'
 export default {
+  ...test,
   components: {
-    Components,
-    Preview,
-    Panel,
-    Attributes
+    layout
   }
+
 }
 </script>
+
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <test-button :attributes='attributes' >a</test-button>
+    <test-button :attributes='attributes'>a</test-button>
     <test-button :attributes='attributes' @click="xixi">b</test-button>
   </div>
 </template>
