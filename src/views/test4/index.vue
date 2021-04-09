@@ -5,14 +5,14 @@
 <script>
 export default {
   props: {
-    a: {
-      type: String
-    }
+    // a: {
+    //   type: String
+    // }
   },
   methods: {
-    handle() {
-      alert('haha')
-    }
+    // handle() {
+    //   alert('haha')
+    // }
   }
 }
 </script>

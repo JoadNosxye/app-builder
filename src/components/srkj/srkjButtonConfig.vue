@@ -103,7 +103,9 @@ export default {
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
     deleteComponent() {
-      this.$store.dispatch('deleteComponent', this.params.componentId)
+      const list = []
+      list.push(this.params.componentId)
+      this.$store.dispatch('deleteComponent', list)
     }
   }
 }
