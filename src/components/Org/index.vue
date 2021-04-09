@@ -72,7 +72,7 @@ export default {
           console.log(error)
         })
     },
-    // 处理机构数节点点击事件
+    // 处理机构树节点点击事件
     handleNodeClick(data) {
       this.$store.dispatch('SwitchOrg', data.id)
     },

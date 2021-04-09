@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="handle">默认按钮</el-button>
+  <srkj-button></srkj-button>
 </template>
 
 <script>
