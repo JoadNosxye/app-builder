@@ -11,3 +11,4 @@ export default (Vue) => {
   Vue.component('srkj-button-config', srkjButtonConfig)
   Vue.component('test-button', testButton)
 }
+
