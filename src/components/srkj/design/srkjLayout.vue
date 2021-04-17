@@ -1,5 +1,5 @@
 <template>
-  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" @click="config">
+  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" :style='layoutStyle' @click="config">
     <el-row>
       <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
         <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
@@ -25,6 +25,7 @@ export default {
   },
   data() {
     return {
+      layoutStyle: '',
       dropTime: '',
       attributes: {}
     }
@@ -191,6 +192,10 @@ export default {
 .el-col {
   height: 100%;
   border: 1px dashed red;
+}
+.layout-wrapper{
+  width: 100%;
+  height: 100%;
 }
 </style>
 
