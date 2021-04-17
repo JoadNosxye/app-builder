@@ -22,7 +22,9 @@
           </div>
         </el-form>
       </el-tab-pane>
-      <el-tab-pane label="样式" name="cssTab">样式配置</el-tab-pane>
+      <el-tab-pane label="样式" name="cssTab">
+        <style-editor></style-editor>
+      </el-tab-pane>
     </el-tabs>
   </div>
 
