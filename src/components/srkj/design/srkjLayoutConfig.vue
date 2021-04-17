@@ -55,9 +55,6 @@ export default {
       this.layoutModel = deepCopy(
         this.componentsAttributes[this.params.componentId]
       )
-      const topic = this.params.componentId + '-'
-      getBus().$on(topic + 'save', this.save)
-      getBus().$on(topic + 'delete', this.delete)
     },
     time: function() {
       this.layoutModel = deepCopy(

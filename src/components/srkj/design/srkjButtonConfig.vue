@@ -84,9 +84,6 @@ export default {
       this.buttonModel = deepCopy(
         this.componentsAttributes[this.params.componentId]
       )
-      const topic = this.params.componentId + '-'
-      getBus().$on(topic + 'save', this.save)
-      getBus().$on(topic + 'delete', this.delete)
     }
   },
   created() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="component" :params="params"></component>
+    <component :is="component" :params="params" :key="currentComponent.componentId"/>
   </div>
 </template>
 <script>
