@@ -2,26 +2,30 @@
   <div>
     <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
     <el-button type="primary" size="small" plain @click="deleteComponent">删除</el-button>
-    <div style="margin: 20px;">行属性配置</div>
-    <el-form :label-position="labelPosition" label-width="80px" :model="layoutModel">
-      <el-form-item label="栅格间隔">
-        <el-input v-model="layoutModel.gutter"></el-input>
-      </el-form-item>
-      <el-form-item label="布局模式">
-        <el-checkbox v-model="layoutModel.type"></el-checkbox>
-      </el-form-item>
-      <el-button type="primary" size="small" plain @click="addCols">增加列</el-button>
-      <div style="margin: 20px;" v-for="col in layoutModel.cols">
-        <div>列序号:{{col.id}}</div>
-        <el-button type="primary" size="small" plain @click="deleteCols(col.id)">删除列</el-button>
-        <el-form-item label="栅格占据的列数">
-          <el-select v-model="col.span" placeholder="请选择">
-            <el-option v-for="item in spanOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-        </el-form-item>
-      </div>
-
-    </el-form>
+    <el-tabs v-model="activeTab" type="card">
+      <el-tab-pane label="属性" name="attributeTab">
+        <div style="margin: 20px;">行属性配置</div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="layoutModel">
+          <el-form-item label="栅格间隔">
+            <el-input v-model="layoutModel.gutter"></el-input>
+          </el-form-item>
+          <el-form-item label="布局模式">
+            <el-checkbox v-model="layoutModel.type"></el-checkbox>
+          </el-form-item>
+          <el-button type="primary" size="small" plain @click="addCols">增加列</el-button>
+          <div style="margin: 20px;" v-for="col in layoutModel.cols">
+            <div>列序号:{{col.id}}</div>
+            <el-button type="primary" size="small" plain @click="deleteCols(col.id)">删除列</el-button>
+            <el-form-item label="栅格占据的列数">
+              <el-select v-model="col.span" placeholder="请选择">
+                <el-option v-for="item in spanOptions" :key="item.value" :label="item.label" :value="item.value" />
+              </el-select>
+            </el-form-item>
+          </div>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="样式" name="cssTab">样式配置</el-tab-pane>
+    </el-tabs>
   </div>
 
 </template>
@@ -41,29 +45,25 @@ export default {
   data() {
     return {
       labelPosition: 'right',
-      layoutModel: {
-        // row: {
-        //   gutter: 0,
-        //   type: '',
-        //   justify: 'start',
-        //   align: 'top',
-        //   tag: 'div'
-        // },
-        // cols: []
-      },
+      activeTab: 'attributeTab',
+      layoutModel: {},
       spanOptions: [
-        {
-          value: 12,
-          label: 12
-        },
-        {
-          value: 6,
-          label: 6
-        },
-        {
-          value: 8,
-          label: 8
-        }
+        // {
+        //   value: 24,
+        //   label: 24
+        // },
+        // {
+        //   value: 12,
+        //   label: 12
+        // },
+        // {
+        //   value: 8,
+        //   label: 8
+        // },
+        // {
+        //   value: 6,
+        //   label: 6
+        // }
       ]
     }
   },
@@ -81,6 +81,12 @@ export default {
     }
   },
   created() {
+    for (let index = 0; index < 24; index++) {
+      const option = {}
+      option.label = index
+      option.value = index
+      this.spanOptions.push(option)
+    }
     // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonConfigModel和store中的属性不是同一个引用
     this.layoutModel = deepCopy(
       this.componentsAttributes[this.params.componentId]
@@ -133,9 +139,10 @@ export default {
     deleteComponent() {
       // 删除布局组件时，需要将布局中的所有组件都删除，通过递归的方式，查找出当前布局组件中的所有组件
 
-      const list = this.findAllComponents(
-        this.params.componentId, { componentIdList: [], layoutIdList: [] }
-      )
+      const list = this.findAllComponents(this.params.componentId, {
+        componentIdList: [],
+        layoutIdList: []
+      })
       // // 将要删除的布局组件ID也添加到被删除的组件ID列表中
       // componentIdList.push(this.params.componentId)
       // for (let index = 0; index < list.componentIdList.length; index++) {
@@ -162,10 +169,7 @@ export default {
           for (let index = 0; index < components.length; index++) {
             // 若该组件还是一个布局组件，则递归调用findAllComponents方法
             if (this.componentsLayouts[components[index].componentId]) {
-              this.findAllComponents(
-                components[index].componentId,
-                list
-              )
+              this.findAllComponents(components[index].componentId, list)
             } else {
               // 若该组件不是布局组件，则将该组件添加到componentIdList中
               list.componentIdList.push(components[index].componentId)
