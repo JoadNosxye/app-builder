@@ -1,29 +1,43 @@
 <template>
   <div id="panel">
-    <input id="commitBtn" type="button" value="html" @click="getHtml">
-    <input id="commitBtn" type="button" value="template" @click="getTemplate">
-    </div>
+    <el-row>
+      <el-col :span=16>
+        <!-- <el-button type="primary">水平居左</el-button>
+        <el-button type="primary">水平居中</el-button>
+        <el-button type="primary">水平居右</el-button>
+        <el-button type="primary">垂直置顶</el-button>
+        <el-button type="primary">垂直居中</el-button>
+        <el-button type="primary">垂直置底</el-button> -->
+      </el-col>
+      <el-col :span=8>
+        <el-button type="primary" @click="saveComponent">保存</el-button>
+        <el-button type="primary" @click="deleteComponent">删除</el-button>
+      </el-col>
+    </el-row>
+
+  </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { getBus } from '@/utils/bus'
 export default {
+  computed: {
+    ...mapGetters(['currentComponent'])
+  },
   methods: {
-    getHtml() {
-      const element = document.getElementById('preview-main')
-      // const html = '<template><div>' + element.innerHTML + '</div></template>'
-      const html = element.innerHTML
-      console.log(html)
+    saveComponent() {
+      getBus().$emit(this.currentComponent.componentId + '-save', '')
     },
-    getTemplate() {
-      const element = document.getElementById('vue-template')
-      const html = element.innerHTML
-      console.log(html)
+    deleteComponent() {
+      getBus().$emit(this.currentComponent.componentId + '-delete', '')
     }
   }
 }
 </script>
 <style scoped>
-#commitBtn {
+.el-button {
+  margin: 3px;
   float: right;
 }
 </style>

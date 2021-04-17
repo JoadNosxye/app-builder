@@ -1,7 +1,5 @@
 <template>
   <div>
-    <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
-    <el-button type="primary" size="small" plain @click="deleteComponent">删除</el-button>
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="80px" :model="buttonModel">
       <el-form-item label="名称">
@@ -27,6 +25,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { deepCopy } from '@/utils'
+import { getBus } from '@/utils/bus'
 export default {
   props: ['params'],
   computed: {
@@ -82,19 +81,27 @@ export default {
   watch: {
     // 当前组件变化时，获取store中当前组件的属性，对从store中取出的属性进行clone，使buttonModel和store中的属性不是同一个引用
     currentComponent: function() {
-      this.buttonModel = deepCopy(this.componentsAttributes[
-        this.params.componentId
-      ])
+      this.buttonModel = deepCopy(
+        this.componentsAttributes[this.params.componentId]
+      )
+      const topic = this.params.componentId + '-'
+      getBus().$on(topic + 'save', this.save)
+      getBus().$on(topic + 'delete', this.delete)
     }
   },
   created() {
     // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonModel和store中的属性不是同一个引用
-    this.buttonModel = deepCopy(this.componentsAttributes[
-      this.params.componentId
-    ])
+    this.buttonModel = deepCopy(
+      this.componentsAttributes[this.params.componentId]
+    )
+  },
+  mounted() {
+    const topic = this.params.componentId + '-'
+    getBus().$on(topic + 'save', this.save)
+    getBus().$on(topic + 'delete', this.delete)
   },
   methods: {
-    setComponentAttributes() {
+    save() {
       const componentAttributes = {
         componentId: this.params.componentId
       }
@@ -102,7 +109,7 @@ export default {
       componentAttributes[this.params.componentId] = deepCopy(this.buttonModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
-    deleteComponent() {
+    delete() {
       const list = []
       list.push(this.params.componentId)
       this.$store.dispatch('deleteComponent', list)

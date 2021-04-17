@@ -16,11 +16,18 @@ const builder = {
     //     name: 'abc'
     //   }
     // },
-    componentsLayouts: {}
+    componentsLayouts: {},
     // components: {
-    //   row1: {
+    //   layout1: {
     //     col1: [{ component: '1' }],
     //     col2: [{ component: '2' }]
+    //   }
+    // }
+    componentsStyles: {}
+    // components: {
+    //   componentId: {
+    //     buttonStyle1: 'color:red;font-size:20px',
+    //     buttonStyle2: 'color:blue;font-size:5px',
     //   }
     // }
   },

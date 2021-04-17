@@ -1,7 +1,5 @@
 <template>
   <div>
-    <el-button type="primary" size="small" plain @click="setComponentAttributes">保存</el-button>
-    <el-button type="primary" size="small" plain @click="deleteComponent">删除</el-button>
     <el-tabs v-model="activeTab" type="card">
       <el-tab-pane label="属性" name="attributeTab">
         <div style="margin: 20px;">行属性配置</div>
@@ -32,6 +30,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { deepCopy } from '@/utils'
+import { getBus } from '@/utils/bus'
 export default {
   props: ['params'],
   computed: {
@@ -47,24 +46,7 @@ export default {
       labelPosition: 'right',
       activeTab: 'attributeTab',
       layoutModel: {},
-      spanOptions: [
-        // {
-        //   value: 24,
-        //   label: 24
-        // },
-        // {
-        //   value: 12,
-        //   label: 12
-        // },
-        // {
-        //   value: 8,
-        //   label: 8
-        // },
-        // {
-        //   value: 6,
-        //   label: 6
-        // }
-      ]
+      spanOptions: []
     }
   },
   watch: {
@@ -73,6 +55,9 @@ export default {
       this.layoutModel = deepCopy(
         this.componentsAttributes[this.params.componentId]
       )
+      const topic = this.params.componentId + '-'
+      getBus().$on(topic + 'save', this.save)
+      getBus().$on(topic + 'delete', this.delete)
     },
     time: function() {
       this.layoutModel = deepCopy(
@@ -92,8 +77,13 @@ export default {
       this.componentsAttributes[this.params.componentId]
     )
   },
+  mounted() {
+    const topic = this.params.componentId + '-'
+    getBus().$on(topic + 'save', this.save)
+    getBus().$on(topic + 'delete', this.delete)
+  },
   methods: {
-    setComponentAttributes() {
+    save() {
       const componentAttributes = {
         componentId: this.params.componentId
       }
@@ -136,7 +126,7 @@ export default {
       componentAttributes[this.params.componentId] = attributes
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
-    deleteComponent() {
+    delete() {
       // 删除布局组件时，需要将布局中的所有组件都删除，通过递归的方式，查找出当前布局组件中的所有组件
 
       const list = this.findAllComponents(this.params.componentId, {
