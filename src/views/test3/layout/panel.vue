@@ -2,12 +2,12 @@
   <div id="panel">
     <el-row>
       <el-col :span=16>
-        <!-- <el-button type="primary">水平居左</el-button>
-        <el-button type="primary">水平居中</el-button>
-        <el-button type="primary">水平居右</el-button>
-        <el-button type="primary">垂直置顶</el-button>
-        <el-button type="primary">垂直居中</el-button>
-        <el-button type="primary">垂直置底</el-button> -->
+        <el-button type="primary" size="small">水平居左</el-button>
+        <el-button type="primary" size="small">水平居中</el-button>
+        <el-button type="primary" size="small">水平居右</el-button>
+        <el-button type="primary" size="small">垂直置顶</el-button>
+        <el-button type="primary" size="small">垂直居中</el-button>
+        <el-button type="primary" size="small">垂直置底</el-button>
       </el-col>
       <el-col :span=8>
         <el-button type="primary" @click="saveComponent">保存</el-button>
