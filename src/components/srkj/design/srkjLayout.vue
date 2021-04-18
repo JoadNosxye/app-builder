@@ -17,6 +17,7 @@ export default {
       'componentsLayouts',
       'componentsParams',
       'componentsAttributes',
+      'componentsStyles',
       'time'
     ]),
     watchObj() {
@@ -31,20 +32,27 @@ export default {
     }
   },
   created() {
-    this.getComponents()
+    this.refresh()
   },
   watch: {
     // 当向该布局放置组件时，重新获取该布局的组件列表
     dropTime: function() {
       if (this.componentsLayouts[this.params.componentId]) {
-        this.getComponents()
+        this.refresh()
       }
     },
     watchObj: function() {
-      this.getComponents()
+      this.refresh()
     }
   },
   methods: {
+    refresh() {
+      this.getStyle()
+      this.getComponents()
+    },
+    getStyle() {
+      this.layoutStyle = this.componentsStyles[this.params.componentId]
+    },
     // 获取该布局放置的组件列表
     getComponents() {
       // 获取该组件的属性，使用deepCopy对store中的对象进行clone，避免这里设置的内容污染了store中的数据

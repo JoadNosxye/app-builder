@@ -108,6 +108,9 @@ const builder = {
     },
     UPDATE_TIME: state => {
       state.time = getCurrentTime()
+    },
+    SET_COMPONENT_STYLES: (state, component) => {
+      state.componentsStyles[component.componentId] = component.styles
     }
   },
   actions: {
@@ -143,6 +146,9 @@ const builder = {
       commit('DELETE_COMPONENT_LAYOUT', componentId)
       // 移动组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
       commit('UPDATE_TIME')
+    },
+    setComponentStyles: ({ commit }, component) => {
+      commit('SET_COMPONENT_STYLES', component)
     }
   }
 }
