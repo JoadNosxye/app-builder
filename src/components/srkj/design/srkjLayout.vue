@@ -199,6 +199,7 @@ export default {
 }
 .el-col {
   height: 100%;
+  overflow: auto;
   border: 1px dashed red;
 }
 .layout-wrapper{
