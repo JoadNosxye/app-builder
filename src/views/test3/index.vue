@@ -1,7 +1,7 @@
 <template>
   <div class="page-build">
     <el-row class="page-build">
-      <el-col :span="4" class="components">
+      <el-col :span="3" class="components">
         <Components/>
       </el-col>
       <el-col :span="16" class="preiview">
@@ -12,7 +12,7 @@
           <Preview class="preview-drop" />
         </el-row>
       </el-col>
-      <el-col :span="4" class="attributes">
+      <el-col :span="5" class="attributes">
         <Attributes/>
       </el-col>
     </el-row>
