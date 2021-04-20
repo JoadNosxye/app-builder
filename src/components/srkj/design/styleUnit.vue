@@ -4,7 +4,7 @@
           <el-input-number controls-position="right" :min="0" v-model="unitModel.number" style="width:90%" @change="change"></el-input-number>
         </el-col>
         <el-col :span=10>
-          <el-select v-model="unitModel.unit" placeholder="请选择" @change="change">
+          <el-select v-model="unitModel.unit" placeholder="" @change="change">
             <el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -19,9 +19,13 @@ export default {
     return {
       unitModel: {
         number: '',
-        unit: 'px'
+        unit: ''
       },
       unitOptions: [
+        {
+          value: '%',
+          label: '%'
+        },
         {
           value: 'px',
           label: 'px'
@@ -53,10 +57,6 @@ export default {
         {
           value: 'in',
           label: 'in'
-        },
-        {
-          value: '%',
-          label: '%'
         }
       ]
     }
