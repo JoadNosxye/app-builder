@@ -14,10 +14,21 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
 import { getBus } from '@/utils/bus'
 import { deepCopy } from '@/utils'
 export default {
   props: ['params'],
+  computed: {
+    ...mapGetters([
+      'componentsStyles'
+    ])
+  },
+  created() {
+    if (this.componentsStyles[this.params.componentId]) {
+      this.styleModel = this.componentsStyles[this.params.componentId]
+    }
+  },
   mounted() {
     getBus().$on(this.params.componentId + '-' + 'save', this.save)
     $('#color').colorpicker()
