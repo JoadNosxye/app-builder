@@ -4,10 +4,13 @@
       <el-input type="textarea" v-model="styleModel.style"></el-input>
     </el-form-item> -->
     <el-form-item label="字体颜色">
-      <el-input id="color" v-model="styleModel.color" class="form-control input-lg" @blur='setColor'></el-input>
+      <el-input id="color" size="small" v-model="styleModel.color" class="form-control input-lg" @blur='setColor'></el-input>
     </el-form-item>
     <el-form-item label="背景颜色">
-      <el-input id="backgroundColor" v-model="styleModel.backgroundColor" class="form-control input-lg" @blur='setBackgroundColor'></el-input>
+      <el-input id="backgroundColor" size="small" v-model="styleModel.backgroundColor" class="form-control input-lg" @blur='setBackgroundColor'></el-input>
+    </el-form-item>
+    <el-form-item label="边框宽度">
+      <el-input-number size="small" v-model="styleModel.borderWidth"></el-input-number>
     </el-form-item>
   </el-form>
 </template>
@@ -38,7 +41,8 @@ export default {
     return {
       styleModel: {
         color: '',
-        backgroundColor: ''
+        backgroundColor: '',
+        borderWidth: ''
       }
     }
   },

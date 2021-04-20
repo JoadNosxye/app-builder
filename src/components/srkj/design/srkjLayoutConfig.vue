@@ -3,17 +3,17 @@
     <el-tabs v-model="activeTab" type="card">
       <el-tab-pane label="属性" name="attributeTab">
         <div style="margin: 20px;">行属性配置</div>
-        <el-form :label-position="labelPosition" label-width="80px" :model="layoutModel">
+        <el-form :label-position="labelPosition" label-width="80px" size='small' :model="layoutModel">
           <el-form-item label="栅格间隔">
             <el-input v-model="layoutModel.gutter"></el-input>
           </el-form-item>
           <el-form-item label="布局模式">
             <el-checkbox v-model="layoutModel.type"></el-checkbox>
           </el-form-item>
-          <el-button type="primary" size="small" plain @click="addCols">增加列</el-button>
+          <el-button type="primary" plain @click="addCols">增加列</el-button>
           <div style="margin: 20px;" v-for="col in layoutModel.cols">
             <div>列序号:{{col.id}}</div>
-            <el-button type="primary" size="small" plain @click="deleteCols(col.id)">删除列</el-button>
+            <el-button type="primary" plain @click="deleteCols(col.id)">删除列</el-button>
             <el-form-item label="栅格占据的列数">
               <el-select v-model="col.span" placeholder="请选择">
                 <el-option v-for="item in spanOptions" :key="item.value" :label="item.label" :value="item.value" />
@@ -30,9 +30,9 @@
 
 </template>
 <script>
-import { mapGetters } from 'vuex'
-import { deepCopy } from '@/utils'
-import { getBus } from '@/utils/bus'
+import { mapGetters } from 'vuex';
+import { deepCopy } from '@/utils';
+import { getBus } from '@/utils/bus';
 export default {
   props: ['params'],
   computed: {
@@ -77,7 +77,7 @@ export default {
     )
   },
   mounted() {
-    const topic = this.params.componentId + '-'
+    const topic = this.params.componentId + '-';
     getBus().$on(topic + 'save', this.save)
     getBus().$on(topic + 'delete', this.delete)
   },
@@ -112,13 +112,13 @@ export default {
         const element = attributes.cols[index]
         if (element.id === id) {
           pos = index
-          break
+          break;
         }
       }
       // 没有匹配到要删除的列
       if (pos === -1) {
         console.log('没有匹配到要删除的列')
-        return
+        return;
       }
       // 删除指定列
       attributes.cols.splice(pos, 1)
@@ -130,7 +130,7 @@ export default {
 
       if (this.params.componentId === 'preview-main-row') {
         console.log('不能删除preview-main-row')
-        return
+        return;
       }
       const list = this.findAllComponents(this.params.componentId, {
         componentIdList: [],

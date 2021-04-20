@@ -1,18 +1,18 @@
 <template>
   <el-tabs v-model="activeTab" type="card">
     <el-tab-pane label="属性" name="attributeTab">
-      <el-form :label-position="labelPosition" label-width="80px" :model="buttonModel">
+      <el-form :label-position="labelPosition" label-width="80px" size='small' :model="buttonModel">
         <el-form-item label="名称">
-          <el-input v-model="buttonModel.name"></el-input>
+          <el-input  v-model="buttonModel.name"></el-input>
         </el-form-item>
         <el-form-item label="尺寸">
-          <el-select v-model="buttonModel.size" placeholder="请选择">
-            <el-option v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select  v-model="buttonModel.size" placeholder="请选择">
+            <el-option  v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="类型">
-          <el-select v-model="buttonModel.type" placeholder="请选择">
-            <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select  v-model="buttonModel.type" placeholder="请选择">
+            <el-option  v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="是否朴素">
