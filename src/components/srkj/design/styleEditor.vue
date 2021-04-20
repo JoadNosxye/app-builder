@@ -8,17 +8,9 @@
     </el-form-item>
     <el-form-item label="背景颜色">
       <el-input id="backgroundColor" v-model="styleModel.backgroundColor" class="form-control input-lg" @blur='setBackgroundColor'></el-input>
-    </el-form-item>
-    <el-form-item label="边框宽度">
-      <el-col :span=14>
-        <el-input-number controls-position="right" :min="0" v-model="styleModel.borderWidth" style="width:90%"></el-input-number>
-      </el-col>
-      <el-col :span=10>
-        <el-select v-model="styleModel.borderWidthUnit" placeholder="请选择">
-          <el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-      </el-col>
+    </el-form-item> 
+     <el-form-item label="边框宽度">
+      <style-unit @change='styleModel.borderWidth=$event'></style-unit>
     </el-form-item>
   </el-form>
 </template>
@@ -49,46 +41,7 @@ export default {
         color: '',
         backgroundColor: '',
         borderWidth: ''
-      },
-      borderWidthUnit: 'px',
-      unitOptions: [
-        {
-          value: 'px',
-          label: 'px'
-        },
-        {
-          value: 'pt',
-          label: 'pt'
-        },
-        {
-          value: 'em',
-          label: 'em'
-        },
-        {
-          value: 'ex',
-          label: 'ex'
-        },
-        {
-          value: 'pc',
-          label: 'pc'
-        },
-        {
-          value: 'cm',
-          label: 'cm'
-        },
-        {
-          value: 'mm',
-          label: 'mm'
-        },
-        {
-          value: 'in',
-          label: 'in'
-        },
-        {
-          value: '%',
-          label: '%'
-        }
-      ]
+      }
     }
   },
   methods: {
@@ -102,6 +55,9 @@ export default {
     },
     setBackgroundColor(e) {
       this.styleModel.backgroundColor = e.srcElement.value
+    },
+    xixi(unit, e) {
+      unit = e
     }
   }
 }
