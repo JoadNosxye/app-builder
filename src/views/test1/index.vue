@@ -1,39 +1,30 @@
 <template>
-  <div>
-    <el-button type="primary" :class='c'>主要按钮</el-button>
-    <el-row :class="a" :style="b">
-      <el-col :span="24" class="col">bbb</el-col>
-    </el-row>
-  </div>
+  <el-row>
+    <el-col :span=24>
+      <div id="cp2" class="input-group colorpicker-component" title="Using input value">
+        <input type="text" class="form-control input-lg" value="#DD0F20" />
+        <span class="input-group-addon">
+          <i></i>
+        </span>
+      </div>
+    </el-col>
+  </el-row>
+
 </template>
 <script>
 export default {
-  data() {
-    return {
-      a: 'row1 row2',
-      b: 'border:1px solid  black',
-      c: 'button'
-    }
+  mounted() {
+    $('#cp2').colorpicker()
   }
 }
 </script>
-
-
 <style scoped>
-.button{
-  font-size:50px
-}
-.row1 {
-  background-color: brown;
-  border: 1px solid red;
-}
-.row2 {
-  border: 1px solid yellow;
-}
-.col {
-  background-color: white;
-}
+
 </style>
+
+
+
+
 
 
 
