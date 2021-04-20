@@ -18,12 +18,68 @@
           </el-select>
         </el-form-item>
       </el-tab-pane>
+      <el-tab-pane label="定位" name="location">
+        <el-form-item label="资源定位">
+          <el-select v-model="styleModel.position" placeholder="">
+            <el-option v-for="item in positionOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="显示属性">
+          <el-select v-model="styleModel.display" placeholder="">
+            <el-option v-for="item in displayOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="是否可见">
+          <el-select v-model="styleModel.visibility" placeholder="">
+            <el-option v-for="item in visibilityOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="距离顶部">
+          <style-unit @change='styleModel.top=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="距离左边">
+          <style-unit @change='styleModel.left=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="距离右边">
+          <style-unit @change='styleModel.right=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="距离底边">
+          <style-unit @change='styleModel.bottom=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="优先等级">
+          <el-input-number v-model="styleModel.zIndex" :min="0" :max="10" label="优先等级"></el-input-number>
+        </el-form-item>
+        <el-form-item label="清除属性">
+          <el-select v-model="styleModel.clear" placeholder="">
+            <el-option v-for="item in clearOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="浮动属性">
+          <el-select v-model="styleModel.float" placeholder="">
+            <el-option v-for="item in floatOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="水平排列">
+          <el-select v-model="styleModel.textAlign" placeholder="">
+            <el-option v-for="item in textAlignOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="垂直排列">
+          <el-select v-model="styleModel.verticalAlign" placeholder="">
+            <el-option v-for="item in verticalAlignOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-tab-pane>
       <el-tab-pane label="颜色" name="color">
         <el-form-item label="字体颜色">
           <el-input id="color" v-model="styleModel.color" class="form-control input-lg" @blur='styleModel.color = $event.srcElement.value'></el-input>
-        </el-form-item>
-        <el-form-item label="背景颜色">
-          <el-input id="backgroundColor" v-model="styleModel.backgroundColor" class="form-control input-lg" @blur='styleModel.backgroundColor = $event.srcElement.value'></el-input>
         </el-form-item>
         <el-form-item label="边框颜色">
           <el-input id="borderColor" v-model="styleModel.borderColor" class="form-control input-lg" @blur='styleModel.borderColor = $event.srcElement.value'></el-input>
@@ -139,7 +195,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-         <el-form-item label="文字样式">
+        <el-form-item label="文字样式">
           <el-select v-model="styleModel.fontStyle" placeholder="">
             <el-option v-for="item in fontStyleOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
@@ -151,8 +207,55 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="文字修饰">
+          <el-select v-model="styleModel.textDecoration" placeholder="">
+            <el-option v-for="item in textDecorationOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="文字行高">
           <style-unit @change='styleModel.lineHeight=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="文本缩进">
+          <style-unit @change='styleModel.textIndent=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="文字间距">
+          <style-unit @change='styleModel.letterSpacing=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="字母间距">
+          <style-unit @change='styleModel.wordSpacing=$event'></style-unit>
+        </el-form-item>
+        <el-form-item label="文字转换">
+          <el-select v-model="styleModel.textTransform" placeholder="">
+            <el-option v-for="item in textTransformOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-tab-pane>
+      <el-tab-pane label="背景" name="background">
+        <el-form-item label="背景颜色">
+          <el-input id="backgroundColor" v-model="styleModel.backgroundColor" class="form-control input-lg" @blur='styleModel.backgroundColor = $event.srcElement.value'></el-input>
+        </el-form-item>
+        <el-form-item label="背景图片">
+          <el-input v-model="styleModel.backgroundImage" placeholder=""></el-input>
+        </el-form-item>
+        <el-form-item label="背景拉伸">
+          <el-select v-model="styleModel.backgroundRepeat" placeholder="">
+            <el-option v-for="item in backgroundRepeatOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="背景定位">
+          <el-select v-model="styleModel.backgroundPosition" placeholder="">
+            <el-option v-for="item in backgroundPositionOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="附加属性">
+          <el-select v-model="styleModel.backgroundAttachment" placeholder="">
+            <el-option v-for="item in backgroundAttachmentOptions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-tab-pane>
     </el-tabs>
@@ -161,9 +264,9 @@
 
 
 <script>
-import { mapGetters } from 'vuex'
-import { getBus } from '@/utils/bus'
-import { deepCopy } from '@/utils'
+import { mapGetters } from 'vuex';
+import { getBus } from '@/utils/bus';
+import { deepCopy } from '@/utils';
 export default {
   props: ['params'],
   computed: {
@@ -223,7 +326,28 @@ export default {
         fontWeight: '',
         fontStyle: '',
         fontVariant: '',
-        lineHeight: ''
+        lineHeight: '',
+        textDecoration: '',
+        textIndent: '',
+        letterSpacing: '',
+        wordSpacing: '',
+        textTransform: '',
+        clear: '',
+        float: '',
+        textAlign: '',
+        verticalAlign: '',
+        position: '',
+        display: '',
+        top: '',
+        left: '',
+        visibility: '',
+        right: '',
+        bottom: '',
+        zIndex: '',
+        backgroundImage: '',
+        backgroundRepeat: '',
+        backgroundPosition: '',
+        backgroundAttachment: ''
       },
       borderStyleOptions: [
         {
@@ -382,6 +506,302 @@ export default {
           value: 'small-caps',
           label: 'small-caps'
         }
+      ],
+      textDecorationOptions: [
+        {
+          value: 'none',
+          label: 'none'
+        },
+        {
+          value: 'underline',
+          label: 'underline'
+        },
+        {
+          value: 'overline',
+          label: 'overline'
+        },
+        {
+          value: 'underline overline',
+          label: 'underline overline'
+        },
+        {
+          value: 'line-through',
+          label: 'line-through'
+        },
+        {
+          value: 'blink',
+          label: 'blink'
+        }
+      ],
+      textTransformOptions: [
+        {
+          value: 'none',
+          label: 'none'
+        },
+        {
+          value: 'capitalize',
+          label: 'capitalize'
+        },
+        {
+          value: 'lowercase',
+          label: 'lowercase'
+        },
+        {
+          value: 'uppercase',
+          label: 'uppercase'
+        }
+      ],
+      clearOptions: [
+        {
+          value: 'none',
+          label: 'none'
+        },
+        {
+          value: 'left',
+          label: 'left'
+        },
+        {
+          value: 'right',
+          label: 'right'
+        },
+        {
+          value: 'both',
+          label: 'both'
+        }
+      ],
+      floatOptions: [
+        {
+          value: 'none',
+          label: 'none'
+        },
+        {
+          value: 'left',
+          label: 'left'
+        },
+        {
+          value: 'right',
+          label: 'right'
+        }
+      ],
+      textAlignOptions: [
+        {
+          value: 'left',
+          label: 'left'
+        },
+        {
+          value: 'right',
+          label: 'right'
+        },
+        {
+          value: 'center',
+          label: 'center'
+        },
+        {
+          value: 'justify',
+          label: 'justify'
+        }
+      ],
+      verticalAlignOptions: [
+        {
+          value: 'baseline',
+          label: 'baseline'
+        },
+        {
+          value: 'top',
+          label: 'top'
+        },
+        {
+          value: 'middle',
+          label: 'middle'
+        },
+        {
+          value: 'bottom',
+          label: 'bottom'
+        },
+        {
+          value: 'text-top',
+          label: 'text-top'
+        },
+        {
+          value: 'text-bottom',
+          label: 'text-bottom'
+        },
+        {
+          value: 'super',
+          label: 'super'
+        },
+        {
+          value: 'sub',
+          label: 'sub'
+        },
+        {
+          value: 'inherit',
+          label: 'inherit'
+        },
+        {
+          value: '30%',
+          label: '30%'
+        }
+      ],
+      positionOptions: [
+        {
+          value: 'static',
+          label: 'static'
+        },
+        {
+          value: 'relative',
+          label: 'relative'
+        },
+        {
+          value: 'absolute',
+          label: 'absolute'
+        },
+        {
+          value: 'fixed',
+          label: 'fixed'
+        }
+      ],
+      visibilityOptions: [
+        {
+          value: 'visible',
+          label: 'visible'
+        },
+        {
+          value: 'hidden',
+          label: 'hidden'
+        }
+      ],
+      displayOptions: [
+        {
+          value: 'none',
+          label: 'none'
+        },
+        {
+          value: 'block',
+          label: 'block'
+        },
+        {
+          value: 'inline',
+          label: 'inline'
+        },
+        {
+          value: 'inline-block',
+          label: 'inline-block'
+        },
+        {
+          value: 'list-item',
+          label: 'list-item'
+        },
+        {
+          value: 'run-in',
+          label: 'run-in'
+        },
+        {
+          value: 'table',
+          label: 'table'
+        },
+        {
+          value: 'table-row-group',
+          label: 'table-row-group'
+        },
+        {
+          value: 'table-header-group',
+          label: 'table-header-group'
+        },
+        {
+          value: 'table-footer-group',
+          label: 'table-footer-group'
+        },
+        {
+          value: 'table-row',
+          label: 'table-row'
+        },
+        {
+          value: 'table-column-group',
+          label: 'table-column-group'
+        },
+        {
+          value: 'table-column',
+          label: 'table-column'
+        },
+        {
+          value: 'table-cell',
+          label: 'table-cell'
+        },
+        {
+          value: 'table-caption',
+          label: 'table-caption'
+        }
+      ],
+      backgroundRepeatOptions: [
+        {
+          value: 'repeat',
+          label: 'repeat'
+        },
+        {
+          value: 'repeat-x',
+          label: 'repeat-x'
+        },
+        {
+          value: 'repeat-y',
+          label: 'repeat-y'
+        },
+        {
+          value: 'no-repeat',
+          label: 'no-repeat'
+        },
+        {
+          value: 'inherit',
+          label: 'inherit'
+        }
+      ],
+      backgroundPositionOptions: [
+        {
+          value: 'top left',
+          label: 'top left'
+        },
+        {
+          value: 'top center',
+          label: 'top center'
+        },
+        {
+          value: 'top right',
+          label: 'top right'
+        },
+        {
+          value: 'center left',
+          label: 'center left'
+        },
+        {
+          value: 'center center',
+          label: 'center center'
+        },
+        {
+          value: 'center right',
+          label: 'center right'
+        },
+        {
+          value: 'bottom left',
+          label: 'bottom left'
+        },
+        {
+          value: 'bottom center',
+          label: 'bottom center'
+        },
+        {
+          value: 'bottom right',
+          label: 'bottom right'
+        }
+      ],
+      backgroundAttachmentOptions: [
+        {
+          value: 'fixed',
+          label: 'fixed'
+        },
+        {
+          value: 'scroll',
+          label: 'scroll'
+        }
       ]
     }
   },
@@ -390,16 +810,17 @@ export default {
       const component = { componentId: this.params.componentId }
       component.styles = deepCopy(this.styleModel)
       this.$store.dispatch('setComponentStyles', component)
-    },
-    setColor(e) {
-      this.styleModel.color = e.srcElement.value
-    },
-    setBackgroundColor(e) {
-      this.styleModel.backgroundColor = e.srcElement.value
-    },
-    xixi(unit, e) {
-      unit = e
     }
+    // ,
+    // setColor(e) {
+    //   this.styleModel.color = e.srcElement.value
+    // },
+    // setBackgroundColor(e) {
+    //   this.styleModel.backgroundColor = e.srcElement.value
+    // },
+    // xixi(unit, e) {
+    //   unit = e
+    // }
   }
 }
 </script>
