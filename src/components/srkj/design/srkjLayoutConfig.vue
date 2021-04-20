@@ -128,6 +128,10 @@ export default {
     delete() {
       // 删除布局组件时，需要将布局中的所有组件都删除，通过递归的方式，查找出当前布局组件中的所有组件
 
+      if (this.params.componentId === 'preview-main-row') {
+        console.log('不能删除preview-main-row')
+        return
+      }
       const list = this.findAllComponents(this.params.componentId, {
         componentIdList: [],
         layoutIdList: []

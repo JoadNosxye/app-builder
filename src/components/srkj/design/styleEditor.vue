@@ -6,7 +6,7 @@
     <el-form-item label="字体颜色">
       <el-input id="color" v-model="styleModel.color" class="form-control input-lg" @blur='setColor'></el-input>
     </el-form-item>
-    <el-form-item label="字体颜色">
+    <el-form-item label="背景颜色">
       <el-input id="backgroundColor" v-model="styleModel.backgroundColor" class="form-control input-lg" @blur='setBackgroundColor'></el-input>
     </el-form-item>
   </el-form>

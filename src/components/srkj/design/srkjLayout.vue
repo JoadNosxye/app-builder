@@ -1,5 +1,5 @@
 <template>
-  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" :style='layoutStyle' @click="config">
+  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" :style='style' @click="config">
     <el-row>
       <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
         <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      layoutStyle: '',
+      style: '',
       dropTime: '',
       attributes: {}
     }
@@ -51,7 +51,7 @@ export default {
       this.getComponents()
     },
     getStyle() {
-      this.layoutStyle = this.componentsStyles[this.params.componentId]
+      this.style = this.componentsStyles[this.params.componentId]
     },
     // 获取该布局放置的组件列表
     getComponents() {
