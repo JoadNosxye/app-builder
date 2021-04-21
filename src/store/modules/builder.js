@@ -106,6 +106,10 @@ const builder = {
     DELETE_COMPONENT_PARAMS: (state, componentId) => {
       delete state.componentsParams[componentId]
     },
+    // 删除该组件的样式数据
+    DELETE_COMPONENT_STYLES: (state, componentId) => {
+      delete state.componentsStyles[componentId]
+    },
     UPDATE_TIME: state => {
       state.time = getCurrentTime()
     },
@@ -132,6 +136,7 @@ const builder = {
         commit('DELETE_COMPONENT_LAYOUT', componentId)
         commit('DELETE_COMPONENT_ATTRIBUTES', componentId)
         commit('DELETE_COMPONENT_PARAMS', componentId)
+        commit('DELETE_COMPONENT_STYLES', componentId)
       })
       // 删除组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
       commit('UPDATE_TIME')

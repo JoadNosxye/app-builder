@@ -60,10 +60,12 @@ export default {
     openAttributesPanel(ev) {
       // 阻止点击事件向父级layout元素冒泡传递事件
       ev.stopPropagation()
-      this.$store.dispatch('setCurrentComponent', {
-        componentId: this.params.componentId,
-        componentName: this.params.componentName
-      })
+      if (this.currentComponent.componentId !== this.params.componentId) {
+        this.$store.dispatch('setCurrentComponent', {
+          componentId: this.params.componentId,
+          componentName: this.params.componentName
+        })
+      }
     }
   }
 }

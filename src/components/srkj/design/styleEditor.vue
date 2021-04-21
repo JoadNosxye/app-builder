@@ -1,15 +1,12 @@
 <template>
   <el-form size="small" ref="form" :model="styleModel" label-width="80px">
-    <!-- <el-form-item label="样式">
-      <el-input type="textarea" v-model="styleModel.style"></el-input>
-    </el-form-item> -->
     <el-tabs v-model="activeTab">
       <el-tab-pane label="宽高" name="heightWidth">
         <el-form-item label="整体宽度">
-          <style-unit @change='styleModel.width=$event'></style-unit>
+          <el-input v-model="styleModel.width" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="整体高度">
-          <style-unit @change='styleModel.height=$event'></style-unit>
+          <el-input v-model="styleModel.height" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="溢出选项">
           <el-select v-model="styleModel.overflow" placeholder="">
@@ -38,16 +35,16 @@
           </el-select>
         </el-form-item>
         <el-form-item label="距离顶部">
-          <style-unit @change='styleModel.top=$event'></style-unit>
+          <el-input v-model="styleModel.top" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="距离左边">
-          <style-unit @change='styleModel.left=$event'></style-unit>
+          <el-input v-model="styleModel.left" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="距离右边">
-          <style-unit @change='styleModel.right=$event'></style-unit>
+          <el-input v-model="styleModel.right" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="距离底边">
-          <style-unit @change='styleModel.bottom=$event'></style-unit>
+          <el-input v-model="styleModel.bottom" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="优先等级">
           <el-input-number v-model="styleModel.zIndex" :min="0" :max="10" label="优先等级"></el-input-number>
@@ -99,51 +96,51 @@
       </el-tab-pane>
       <el-tab-pane label="边距" name="padding">
         <el-form-item label="内侧边距">
-          <style-unit @change='styleModel.padding=$event'></style-unit>
+          <el-input v-model="styleModel.padding" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="上内边距">
-          <style-unit @change='styleModel.paddingTop=$event'></style-unit>
+          <el-input v-model="styleModel.paddingTop" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="左内边距">
-          <style-unit @change='styleModel.paddingLeft=$event'></style-unit>
+          <el-input v-model="styleModel.paddingLeft" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="右内边距">
-          <style-unit @change='styleModel.paddingRight=$event'></style-unit>
+          <el-input v-model="styleModel.paddingRight" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="底内边距">
-          <style-unit @change='styleModel.paddingBottom=$event'></style-unit>
+          <el-input v-model="styleModel.paddingBottom" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="外侧边距">
-          <style-unit @change='styleModel.padding=$event'></style-unit>
+          <el-input v-model="styleModel.padding" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="上外边距">
-          <style-unit @change='styleModel.marginTop=$event'></style-unit>
+          <el-input v-model="styleModel.marginTop" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="左外边距">
-          <style-unit @change='styleModel.marginLeft=$event'></style-unit>
+          <el-input v-model="styleModel.marginLeft" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="右外边距">
-          <style-unit @change='styleModel.marginRight=$event'></style-unit>
+          <el-input v-model="styleModel.marginRight" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="底外边距">
-          <style-unit @change='styleModel.marginBottom=$event'></style-unit>
+          <el-input v-model="styleModel.marginBottom" placeholder=""></el-input>
         </el-form-item>
       </el-tab-pane>
       <el-tab-pane label="边框" name="border">
         <el-form-item label="边框宽度">
-          <style-unit @change='styleModel.borderWidth=$event'></style-unit>
+          <el-input v-model="styleModel.borderWidth" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="上边宽度">
-          <style-unit @change='styleModel.borderTopWidth=$event'></style-unit>
+          <el-input v-model="styleModel.borderTopWidth" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="左边宽度">
-          <style-unit @change='styleModel.borderLeftWidth=$event'></style-unit>
+          <el-input v-model="styleModel.borderLeftWidth" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="右边宽度">
-          <style-unit @change='styleModel.borderRightWidth=$event'></style-unit>
+          <el-input v-model="styleModel.borderRightWidth" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="底边宽度">
-          <style-unit @change='styleModel.borderBottomWidth=$event'></style-unit>
+          <el-input v-model="styleModel.borderBottomWidth" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="边框样式">
           <el-select v-model="styleModel.borderStyle" placeholder="">
@@ -214,16 +211,16 @@
           </el-select>
         </el-form-item>
         <el-form-item label="文字行高">
-          <style-unit @change='styleModel.lineHeight=$event'></style-unit>
+          <el-input v-model="styleModel.lineHeight" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="文本缩进">
-          <style-unit @change='styleModel.textIndent=$event'></style-unit>
+          <el-input v-model="styleModel.textIndent" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="文字间距">
-          <style-unit @change='styleModel.letterSpacing=$event'></style-unit>
+          <el-input v-model="styleModel.letterSpacing" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="字母间距">
-          <style-unit @change='styleModel.wordSpacing=$event'></style-unit>
+          <el-input v-model="styleModel.wordSpacing" placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="文字转换">
           <el-select v-model="styleModel.textTransform" placeholder="">
@@ -264,21 +261,23 @@
 
 
 <script>
-import { mapGetters } from 'vuex';
-import { getBus } from '@/utils/bus';
-import { deepCopy } from '@/utils';
+import { mapGetters } from 'vuex'
+import { getBus } from '@/utils/bus'
+import { deepCopy } from '@/utils'
 export default {
-  props: ['params'],
+  // props: ['component'],
   computed: {
-    ...mapGetters(['componentsStyles'])
+    ...mapGetters(['componentsStyles', 'currentComponent'])
   },
   created() {
-    if (this.componentsStyles[this.params.componentId]) {
-      this.styleModel = this.componentsStyles[this.params.componentId]
-    }
+    this.getStyles()
   },
   mounted() {
-    getBus().$on(this.params.componentId + '-' + 'save', this.save)
+    if (this.currentComponent.componentId) {
+      getBus().$off(this.currentComponent.componentId + '-' + 'save')
+      getBus().$on(this.currentComponent.componentId + '-' + 'save', this.save)
+      this.lastComponent = this.currentComponent
+    }
     $('#color').colorpicker()
     $('#backgroundColor').colorpicker()
     $('#borderColor').colorpicker()
@@ -287,22 +286,38 @@ export default {
     $('#borderRightColor').colorpicker()
     $('#borderBottomColor').colorpicker()
   },
+  watch: {
+    currentComponent: function() {
+      if (
+        this.lastComponent.componentId !== this.currentComponent.componentId
+      ) {
+        getBus().$off(this.lastComponent.componentId + '-' + 'save')
+        getBus().$on(
+          this.currentComponent.componentId + '-' + 'save',
+          this.save
+        )
+        this.lastComponent = this.currentComponent
+        this.getStyles()
+      }
+    }
+  },
   data() {
     return {
+      lastComponent: '',
       activeTab: 'heightWidth',
       styleModel: {
-        color: '#000000',
-        backgroundColor: 'transparent',
+        color: '',
+        backgroundColor: '',
         borderWidth: '',
         borderTopWidth: '',
         borderLeftWidth: '',
         borderRightWidth: '',
         borderBottomWidth: '',
-        borderColor: 'transparent',
-        borderTopColor: 'transparent',
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: 'transparent',
+        borderColor: '',
+        borderTopColor: '',
+        borderLeftColor: '',
+        borderRightColor: '',
+        borderBottomColor: '',
         borderStyle: '',
         borderTopStyle: '',
         borderLeftStyle: '',
@@ -806,21 +821,28 @@ export default {
     }
   },
   methods: {
+    // 保存当前组件设置的样式
     save() {
-      const component = { componentId: this.params.componentId }
+      const component = { componentId: this.currentComponent.componentId }
       component.styles = deepCopy(this.styleModel)
       this.$store.dispatch('setComponentStyles', component)
+    },
+    getStyles() {
+      // 从store中获取当前组件的样式，若获取到则对styleModel赋值，若没有获取到则重置styleModel的所有属性值为初始值
+      if (this.componentsStyles[this.currentComponent.componentId]) {
+        this.styleModel = deepCopy(this.componentsStyles[
+          this.currentComponent.componentId
+        ])
+      } else {
+        this.restStyleModel(this.styleModel)
+      }
+    },
+    // 重置styleModel的属性值为初始值
+    restStyleModel(model) {
+      for (const key in model) {
+        model[key] = ''
+      }
     }
-    // ,
-    // setColor(e) {
-    //   this.styleModel.color = e.srcElement.value
-    // },
-    // setBackgroundColor(e) {
-    //   this.styleModel.backgroundColor = e.srcElement.value
-    // },
-    // xixi(unit, e) {
-    //   unit = e
-    // }
   }
 }
 </script>

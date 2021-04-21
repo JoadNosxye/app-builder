@@ -18,6 +18,7 @@ export default {
       'componentsParams',
       'componentsAttributes',
       'componentsStyles',
+      'currentComponent',
       'time'
     ]),
     watchObj() {
@@ -185,10 +186,12 @@ export default {
     config(ev) {
       // 阻止向父级元素冒泡传递事件
       ev.stopPropagation()
-      this.$store.dispatch('setCurrentComponent', {
-        componentId: this.params.componentId,
-        componentName: this.params.componentName
-      })
+      if (this.currentComponent.componentId !== this.params.componentId) {
+        this.$store.dispatch('setCurrentComponent', {
+          componentId: this.params.componentId,
+          componentName: this.params.componentName
+        })
+      }
     }
   }
 }

@@ -1,30 +1,22 @@
 <template>
-  <el-tabs v-model="activeTab" type="card">
-    <el-tab-pane label="属性" name="attributeTab">
-      <el-form :label-position="labelPosition" label-width="80px" size='small' :model="buttonModel">
-        <el-form-item label="名称">
-          <el-input  v-model="buttonModel.name"></el-input>
-        </el-form-item>
-        <el-form-item label="尺寸">
-          <el-select  v-model="buttonModel.size" placeholder="请选择">
-            <el-option  v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="类型">
-          <el-select  v-model="buttonModel.type" placeholder="请选择">
-            <el-option  v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="是否朴素">
-          <el-checkbox v-model="buttonModel.plain"></el-checkbox>
-        </el-form-item>
-      </el-form>
-    </el-tab-pane>
-    <el-tab-pane label="样式" name="cssTab">
-      <style-editor :params="params"></style-editor>
-    </el-tab-pane>
-  </el-tabs>
-
+  <el-form :label-position="labelPosition" label-width="80px" size='small' :model="buttonModel">
+    <el-form-item label="名称">
+      <el-input v-model="buttonModel.name"></el-input>
+    </el-form-item>
+    <el-form-item label="尺寸">
+      <el-select v-model="buttonModel.size" placeholder="请选择">
+        <el-option v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="类型">
+      <el-select v-model="buttonModel.type" placeholder="请选择">
+        <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="是否朴素">
+      <el-checkbox v-model="buttonModel.plain"></el-checkbox>
+    </el-form-item>
+  </el-form>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -37,7 +29,6 @@ export default {
   },
   data() {
     return {
-      activeTab: 'attributeTab',
       labelPosition: 'right',
       buttonModel: {},
       size: '',
@@ -83,14 +74,14 @@ export default {
       ]
     }
   },
-  watch: {
-    // 当前组件变化时，获取store中当前组件的属性，对从store中取出的属性进行clone，使buttonModel和store中的属性不是同一个引用
-    currentComponent: function() {
-      this.buttonModel = deepCopy(
-        this.componentsAttributes[this.params.componentId]
-      )
-    }
-  },
+  // watch: {
+  //   // 当前组件变化时，获取store中当前组件的属性，对从store中取出的属性进行clone，使buttonModel和store中的属性不是同一个引用
+  //   currentComponent: function() {
+  //     this.buttonModel = deepCopy(
+  //       this.componentsAttributes[this.params.componentId]
+  //     )
+  //   }
+  // },
   created() {
     // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonModel和store中的属性不是同一个引用
     this.buttonModel = deepCopy(
@@ -99,6 +90,8 @@ export default {
   },
   mounted() {
     const topic = this.params.componentId + '-'
+    getBus().$off(topic + 'save')
+    getBus().$off(topic + 'delete')
     getBus().$on(topic + 'save', this.save)
     getBus().$on(topic + 'delete', this.delete)
   },
