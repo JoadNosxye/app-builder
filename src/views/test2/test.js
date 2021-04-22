@@ -35,6 +35,20 @@ export default {
             name: 'da',
             address: '上海市普陀区金沙江路 1516 弄'
           }
+        ],
+        tableColumns: [
+          {
+            prop: 'date',
+            label: '日期11'
+          },
+          {
+            prop: 'name',
+            label: '姓名22'
+          },
+          {
+            prop: 'address',
+            label: '地址33'
+          }
         ]
       }
     }

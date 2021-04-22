@@ -19,7 +19,7 @@ export default {
       ev.dataTransfer.setData('componentId', componentId)
       const params = {}
       let attributes = {}
-      const datas = {}
+      let datas = {}
       if (ev.target.id === 'a') {
         attributes = {
           row: {
@@ -49,29 +49,44 @@ export default {
         }
       }
       if (ev.target.id === 'c') {
-        datas[componentId] = {}
-        datas[componentId]['tableData'] = [
-          {
-            date: '2016-05-02',
-            name: 'aa',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },
-          {
-            date: '2016-05-04',
-            name: 'a',
-            address: '上海市普陀区金沙江路 1517 弄'
-          },
-          {
-            date: '2016-05-01',
-            name: '123',
-            address: '上海市普陀区金沙江路 1519 弄'
-          },
-          {
-            date: '2016-05-03',
-            name: 'da',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }
-        ]
+        datas = {
+          tableData: [
+            {
+              date: '2016-05-02',
+              name: 'a',
+              address: 'aa'
+            },
+            {
+              date: '2016-05-04',
+              name: 'b',
+              address: 'bb'
+            },
+            {
+              date: '2016-05-01',
+              name: 'c',
+              address: 'cc'
+            },
+            {
+              date: '2016-05-03',
+              name: 'd',
+              address: 'dd'
+            }
+          ],
+          tableColumns: [
+            {
+              prop: 'date',
+              label: '日期'
+            },
+            {
+              prop: 'name',
+              label: '姓名'
+            },
+            {
+              prop: 'address',
+              label: '地址'
+            }
+          ]
+        }
       }
       params.componentId = componentId
       params.componentName = componentName

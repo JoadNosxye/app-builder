@@ -72,7 +72,7 @@ const builder = {
         state.componentsAttributes[componentId] = attributes
 
         // 存储组件的数据
-        state.componentsDatas = datas
+        state.componentsDatas[componentId] = datas
       }
     },
     // 设置当前选择的组件

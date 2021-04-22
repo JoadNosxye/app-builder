@@ -104,6 +104,10 @@ export default {
       // 阻止向父级元素冒泡传递事件
       // ev.stopPropagation()
       const id = ev.dataTransfer.getData('componentId')
+      if (!id || id === 'null') {
+        console.log('移动的组件的html中缺少data-component-id')
+        return
+      }
       const isMove = ev.dataTransfer.getData('move')
       // 获取布局的行和列ID，如果没有获取到，则循环查找其父级节点的行列ID，直到找到为止
       let node = ev.target
@@ -132,7 +136,7 @@ export default {
         params.rowId = rowId
         params.colId = colId
         attributes = this.componentsAttributes[id]
-        datas = this.componentsDatas[id]
+        datas = this.componentsDatas[id] ? this.componentsDatas[id] : ''
       } else {
         name = ev.dataTransfer.getData('componentName')
         params = JSON.parse(
@@ -177,6 +181,10 @@ export default {
       // ev.stopPropagation()
       const node = ev.target
       const componentId = node.getAttribute('data-component-id')
+      if (!componentId) {
+        console.log('移动的组件的html中缺少data-component-id')
+        return
+      }
 
       // 标识该组件是从其他布局中移动过来的
       ev.dataTransfer.setData('move', true)
