@@ -1,5 +1,5 @@
 <template>
-  <el-form size="small" ref="form" :model="styleModel" label-width="80px">
+  <el-form size="small" ref="form" :model="styleModel" label-width="70px">
     <el-tabs v-model="activeTab">
       <el-tab-pane label="宽高" name="heightWidth">
         <el-form-item label="整体宽度">

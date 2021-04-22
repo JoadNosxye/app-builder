@@ -1,10 +1,12 @@
 <template>
-  <el-table draggable="true" :data-component-id="params.componentId" border stripe highlight-current-row :data="datas.tableData" tooltip-effect="dark" style="width: 100%" max-height="600" @selection-change="handleSelectionChange" @click.stop="openAttributesPanel">
-    <el-table-column :prop="column.prop" :label="column.label" v-for="column in datas.tableColumns" :key="column.prop"></el-table-column>
-  </el-table>
+  <div draggable="true" :data-component-id="params.componentId" @click.stop="openAttributesPanel">
+    <el-table border stripe highlight-current-row :data="datas.tableData" tooltip-effect="dark" style="width: 100%" max-height="600" @selection-change="handleSelectionChange">
+      <el-table-column :prop="column.prop" :label="column.label" v-for="column in datas.tableColumns" :key="column.prop"></el-table-column>
+    </el-table>
+  </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 export default {
   props: ['params', 'datas'],
   computed: {
@@ -34,9 +36,7 @@ export default {
       // tableData: [],
       style: '',
       // 表格组件的属性默认值
-      attributes: {
-      }
-
+      attributes: {}
     }
   },
   methods: {

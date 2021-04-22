@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin: 20px;">行属性配置</div>
-    <el-form :label-position="labelPosition" label-width="80px" size='small' :model="layoutModel">
+    <el-form :label-position="labelPosition" label-width="70px" size='small' :model="layoutModel">
       <el-form-item label="栅格间隔">
         <el-input v-model="layoutModel.gutter"></el-input>
       </el-form-item>
@@ -9,13 +9,11 @@
         <el-checkbox v-model="layoutModel.type"></el-checkbox>
       </el-form-item>
       <el-button type="primary" plain @click="addCols">增加列</el-button>
-      <div style="margin: 20px;" v-for="col in layoutModel.cols">
+      <div  v-for="col in layoutModel.cols">
         <div>列序号:{{col.id}}</div>
         <el-button type="primary" plain @click="deleteCols(col.id)">删除列</el-button>
-        <el-form-item label="栅格占据的列数">
-          <el-select v-model="col.span" placeholder="请选择">
-            <el-option v-for="item in spanOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+        <el-form-item label="列宽">
+           <el-input-number v-model="col.span" :min="1" :max="24"></el-input-number>
         </el-form-item>
       </div>
     </el-form>
@@ -40,8 +38,8 @@ export default {
       lastComponent: '',
       labelPosition: 'right',
       activeTab: 'attributeTab',
-      layoutModel: {},
-      spanOptions: []
+      layoutModel: {}
+      // spanOptions: []
     }
   },
   watch: {
@@ -60,12 +58,12 @@ export default {
   },
   created() {
     // 初始化spanOptions
-    for (let index = 0; index < 24; index++) {
-      const option = {}
-      option.label = index
-      option.value = index
-      this.spanOptions.push(option)
-    }
+    // for (let index = 1; index <= 24; index++) {
+    //   const option = {}
+    //   option.label = index
+    //   option.value = index
+    //   this.spanOptions.push(option)
+    // }
     // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonConfigModel和store中的属性不是同一个引用
     this.layoutModel = deepCopy(
       this.componentsAttributes[this.params.componentId]
