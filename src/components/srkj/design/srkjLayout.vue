@@ -1,5 +1,5 @@
 <template>
-  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" :style='style' @click="config">
+  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" :style='style' @click="openAttributesPanel">
     <el-row>
       <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
         <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
@@ -60,7 +60,7 @@ export default {
       this.attributes = deepCopy(
         this.componentsAttributes[this.params.componentId]
       )
-      // 如果没有获取到任贺属性配置，则退出
+      // 如果没有获取到任何属性配置，则退出
       if (!this.attributes) {
         return
       }
@@ -94,6 +94,7 @@ export default {
     allowDrop(ev) {
       ev.preventDefault()
     },
+    // 向该布局中放置组件时触发
     drop(ev) {
       // 阻止放置默认事件
       ev.preventDefault()
@@ -159,6 +160,7 @@ export default {
       // 更新watch对象，以便当前布局在被放置组件后，重新获取组件列表
       this.dropTime = new Date().toLocaleTimeString()
     },
+    // 从该布局组件中向其他布局拖拽组件时触发
     drag(ev) {
       // 阻止向父级元素冒泡传递事件
       ev.stopPropagation()
@@ -183,7 +185,7 @@ export default {
       // 将store中被移动的组件布局数据删除
       this.$store.dispatch('moveComponent', componentId)
     },
-    config(ev) {
+    openAttributesPanel(ev) {
       // 阻止向父级元素冒泡传递事件
       ev.stopPropagation()
       if (this.currentComponent.componentId !== this.params.componentId) {

@@ -89,6 +89,7 @@ export default {
     )
   },
   mounted() {
+    // 注册保存组件和删除组件的事件
     const topic = this.params.componentId + '-'
     getBus().$off(topic + 'save')
     getBus().$off(topic + 'delete')
@@ -96,6 +97,7 @@ export default {
     getBus().$on(topic + 'delete', this.delete)
   },
   methods: {
+    // 保存组件属性
     save() {
       const componentAttributes = {
         componentId: this.params.componentId
@@ -104,6 +106,7 @@ export default {
       componentAttributes[this.params.componentId] = deepCopy(this.buttonModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
+    // 删除组件
     delete() {
       const list = []
       list.push(this.params.componentId)

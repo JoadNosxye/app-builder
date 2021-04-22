@@ -20,7 +20,6 @@
       </div>
     </el-form>
   </div>
-
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -52,6 +51,7 @@ export default {
     //     this.componentsAttributes[this.params.componentId]
     //   )
     // },
+    // 当前组件变化时，获取store中当前组件的属性，对从store中取出的属性进行clone，使layoutModel和store中的属性不是同一个引用
     time: function() {
       this.layoutModel = deepCopy(
         this.componentsAttributes[this.params.componentId]
@@ -59,6 +59,7 @@ export default {
     }
   },
   created() {
+    // 初始化spanOptions
     for (let index = 0; index < 24; index++) {
       const option = {}
       option.label = index
@@ -71,14 +72,16 @@ export default {
     )
   },
   mounted() {
+    // 注册保存组件和删除组件事件
     const topic = this.params.componentId + '-'
-    // 因为mounted方法会被回调多次，所以这里先删除之前注册的事件，再重新注册事件，以免事件注册多次，事件触发时就执行了多次，应确保同一个事件只注册一次
+    // 因为config类组件每次都需要重新渲染，所以mounted方法会被回调多次，所以这里先删除之前注册的事件，再重新注册事件，以免事件注册多次，事件触发时就执行了多次，应确保同一个事件只注册一次
     getBus().$off(topic + 'save')
     getBus().$off(topic + 'delete')
     getBus().$on(topic + 'save', this.save)
     getBus().$on(topic + 'delete', this.delete)
   },
   methods: {
+    // 保存组件属性
     save() {
       const componentAttributes = {
         componentId: this.params.componentId
@@ -87,6 +90,7 @@ export default {
       componentAttributes[this.params.componentId] = deepCopy(this.layoutModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
+    // 添加列
     addCols() {
       const componentAttributes = {
         componentId: this.params.componentId
@@ -98,6 +102,7 @@ export default {
       componentAttributes[this.params.componentId] = attributes
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
+    // 删除列
     deleteCols(id) {
       const componentAttributes = {
         componentId: this.params.componentId
@@ -122,6 +127,7 @@ export default {
       componentAttributes[this.params.componentId] = attributes
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
+    // 删除组件
     delete() {
       // 删除布局组件时，需要将布局中的所有组件都删除，通过递归的方式，查找出当前布局组件中的所有组件
 
@@ -145,6 +151,7 @@ export default {
       this.$store.dispatch('deleteComponent', list.componentIdList)
       this.$store.dispatch('deleteLayout', list.layoutIdList)
     },
+    // 查找布局中所有的组件
     findAllComponents(componentId, list) {
       // 从state的componentsLayouts中查找布局组件对应的数据
       const layoutComponent = this.componentsLayouts[componentId]
