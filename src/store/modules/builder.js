@@ -23,11 +23,18 @@ const builder = {
     //     col2: [{ component: '2' }]
     //   }
     // }
-    componentsStyles: {}
+    componentsStyles: {},
     // components: {
     //   componentId: {
     //     buttonStyle1: 'color:red;font-size:20px',
     //     buttonStyle2: 'color:blue;font-size:5px',
+    //   }
+    // }
+    componentsDatas: {}
+    // components: {
+    //   componentId: {
+    //     data1: '',
+    //     data2: '',
     //   }
     // }
   },
@@ -40,6 +47,8 @@ const builder = {
       const componentName = component.componentName
       const params = component.params
       const attributes = component.attributes
+      const datas = component.datas
+
       // 若该布局不存在，则创建一个布局对象
       if (!state.componentsLayouts[rowId]) {
         state.componentsLayouts[rowId] = {}
@@ -61,6 +70,9 @@ const builder = {
 
         // 存储组件的属性
         state.componentsAttributes[componentId] = attributes
+
+        // 存储组件的数据
+        state.componentsDatas = datas
       }
     },
     // 设置当前选择的组件

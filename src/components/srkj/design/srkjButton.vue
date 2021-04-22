@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <el-button draggable="true" :data-component-id="params.componentId" :type="attributes.type" :size="attributes.size" :plain="attributes.plain" :style='style' @click="openAttributesPanel">{{attributes.name}}</el-button>
-  </div>
+  <el-button draggable="true" :data-component-id="params.componentId" :type="attributes.type" :size="attributes.size" :plain="attributes.plain" :style='style' @click.stop="openAttributesPanel">{{attributes.name}}</el-button>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -54,7 +52,7 @@ export default {
     // 打开属性配置面板
     openAttributesPanel(ev) {
       // 阻止点击事件向父级layout元素冒泡传递事件
-      ev.stopPropagation()
+      // ev.stopPropagation()
       if (this.currentComponent.componentId !== this.params.componentId) {
         this.$store.dispatch('setCurrentComponent', {
           componentId: this.params.componentId,

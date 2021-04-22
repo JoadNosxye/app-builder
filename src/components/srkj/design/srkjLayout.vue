@@ -1,5 +1,5 @@
 <template>
-  <div @drop="drop" @dragover="allowDrop" @dragstart="drag" class="layout-wrapper" :style='style' @click="openAttributesPanel">
+  <div @drop.stop.prevent="drop" @dragover="allowDrop" @dragstart.stop="drag" class="layout-wrapper" :style='style' @click.stop="openAttributesPanel">
     <el-row>
       <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
         <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
@@ -19,6 +19,7 @@ export default {
       'componentsAttributes',
       'componentsStyles',
       'currentComponent',
+      'componentsDatas',
       'time'
     ]),
     watchObj() {
@@ -97,9 +98,9 @@ export default {
     // 向该布局中放置组件时触发
     drop(ev) {
       // 阻止放置默认事件
-      ev.preventDefault()
+      // ev.preventDefault()
       // 阻止向父级元素冒泡传递事件
-      ev.stopPropagation()
+      // ev.stopPropagation()
       const id = ev.dataTransfer.getData('componentId')
       const isMove = ev.dataTransfer.getData('move')
       // 获取布局的行和列ID，如果没有获取到，则循环查找其父级节点的行列ID，直到找到为止
@@ -119,6 +120,7 @@ export default {
       let name = ''
       let params = ''
       let attributes = ''
+      let datas = ''
       // 如果是从其他布局中移动过来的组件
       if (isMove) {
         // 从store中获取该组件的参数和属性
@@ -128,6 +130,7 @@ export default {
         params.rowId = rowId
         params.colId = colId
         attributes = this.componentsAttributes[id]
+        datas = this.componentsDatas[id]
       } else {
         name = ev.dataTransfer.getData('componentName')
         params = JSON.parse(
@@ -142,6 +145,11 @@ export default {
             ? ev.dataTransfer.getData('attributes')
             : ''
         )
+        datas = JSON.parse(
+          ev.dataTransfer.getData('datas')
+            ? ev.dataTransfer.getData('datas')
+            : ''
+        )
       }
       // 将拖拽的组件存储到store中对应的布局中
       this.$store.dispatch('addComponents', {
@@ -150,7 +158,8 @@ export default {
         componentName: name,
         componentId: id,
         params: params,
-        attributes: attributes
+        attributes: attributes,
+        datas: datas
       })
       // 设置当前组件为刚拖拽过来的组件
       this.$store.dispatch('setCurrentComponent', {
@@ -163,7 +172,7 @@ export default {
     // 从该布局组件中向其他布局拖拽组件时触发
     drag(ev) {
       // 阻止向父级元素冒泡传递事件
-      ev.stopPropagation()
+      // ev.stopPropagation()
       const node = ev.target
       const componentId = node.getAttribute('data-component-id')
 
@@ -187,7 +196,7 @@ export default {
     },
     openAttributesPanel(ev) {
       // 阻止向父级元素冒泡传递事件
-      ev.stopPropagation()
+      // ev.stopPropagation()
       if (this.currentComponent.componentId !== this.params.componentId) {
         this.$store.dispatch('setCurrentComponent', {
           componentId: this.params.componentId,
@@ -207,7 +216,7 @@ export default {
   overflow: auto;
   border: 1px dashed red;
 }
-.layout-wrapper{
+.layout-wrapper {
   width: 100%;
   height: 100%;
 }

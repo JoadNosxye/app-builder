@@ -12,6 +12,7 @@ const getters = {
   componentsParams: state => state.builder.componentsParams,
   componentsAttributes: state => state.builder.componentsAttributes,
   componentsStyles: state => state.builder.componentsStyles,
+  componentsDatas: state => state.builder.componentsDatas,
   currentComponent: state => state.builder.currentComponent,
   time: state => state.builder.time
 

@@ -21,8 +21,8 @@
       </div>
     </div>
     <div slot="table">
-      <el-table ref="multipleTable" border stripe highlight-current-row :data="users" tooltip-effect="dark" style="width: 100%" max-height="600" @selection-change="handleSelectionChange">
-        <el-table-column type="selection" disabled/>
+      <el-table border stripe highlight-current-row :data="users" tooltip-effect="dark" style="width: 100%" max-height="600" @selection-change="handleSelectionChange">
+        <el-table-column type="selection"/>
         <el-table-column prop="name" label="姓名" />
         <el-table-column prop="username" label="用户名" />
         <el-table-column prop="phone" label="手机" />
