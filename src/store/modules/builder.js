@@ -62,7 +62,7 @@ const builder = {
         }
         // 将放置到该列的组件和参数存储到state的layouts中
         const ele = {}
-        ele.componentName = componentName
+        // ele.componentName = componentName
         ele.componentId = componentId
         ele.componentType = componentType
         state.componentsLayouts[rowId][colId].push(ele)
@@ -133,6 +133,9 @@ const builder = {
     },
     SET_COMPONENT_STYLES: (state, component) => {
       state.componentsStyles[component.componentId] = component.styles
+    },
+    SET_COMPONENT_PARAMS: (state, component) => {
+      state.componentsParams[component.componentId] = component.params
     }
   },
   actions: {
@@ -173,6 +176,9 @@ const builder = {
     },
     setComponentStyles: ({ commit }, component) => {
       commit('SET_COMPONENT_STYLES', component)
+    },
+    setComponentParams: ({ commit }, component) => {
+      commit('SET_COMPONENT_PARAMS', component)
     }
   }
 }

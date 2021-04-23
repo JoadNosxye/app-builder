@@ -274,8 +274,8 @@ export default {
   },
   mounted() {
     if (this.currentComponent.componentId) {
-      getBus().$off(this.currentComponent.componentId + '-' + 'save')
-      getBus().$on(this.currentComponent.componentId + '-' + 'save', this.save)
+      getBus().$off(this.currentComponent.componentId + '-style-' + 'save')
+      getBus().$on(this.currentComponent.componentId + '-style-' + 'save', this.save)
       this.lastComponent = this.currentComponent
     }
     $('#color').colorpicker()
@@ -291,9 +291,9 @@ export default {
       if (
         this.lastComponent.componentId !== this.currentComponent.componentId
       ) {
-        getBus().$off(this.lastComponent.componentId + '-' + 'save')
+        getBus().$off(this.lastComponent.componentId + '-style-' + 'save')
         getBus().$on(
-          this.currentComponent.componentId + '-' + 'save',
+          this.currentComponent.componentId + '-style-' + 'save',
           this.save
         )
         this.lastComponent = this.currentComponent

@@ -71,12 +71,24 @@ export default {
   },
   mounted() {
     // 注册保存组件和删除组件事件
-    const topic = this.params.componentId + '-'
+    // const topic = this.params.componentId + '-'
+    // getBus().$off(topic + 'save')
+    // getBus().$off(topic + 'delete')
+    // getBus().$on(topic + 'save', this.save)
+    // getBus().$on(topic + 'delete', this.delete)
+
     // 因为config类组件每次都需要重新渲染，所以mounted方法会被回调多次，所以这里先删除之前注册的事件，再重新注册事件，以免事件注册多次，事件触发时就执行了多次，应确保同一个事件只注册一次
-    getBus().$off(topic + 'save')
-    getBus().$off(topic + 'delete')
-    getBus().$on(topic + 'save', this.save)
-    getBus().$on(topic + 'delete', this.delete)
+    getBus().$off(this.params.componentId + '-attribute-' + 'save')
+    getBus().$off(this.params.componentId + '-component-' + 'delete')
+    getBus().$on(this.params.componentId + '-attribute-' + 'save', this.save)
+    getBus().$on(this.params.componentId + '-component-' + 'delete', this.delete)
+  },
+  destroyed() {
+    // const topic = this.params.componentId + '-'
+    // getBus().$off(topic + 'save')
+    // getBus().$off(topic + 'delete')
+    getBus().$off(this.params.componentId + '-attribute-' + 'save')
+    getBus().$off(this.params.componentId + '-component-' + 'delete')
   },
   methods: {
     // 保存组件属性

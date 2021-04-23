@@ -90,11 +90,14 @@ export default {
   },
   mounted() {
     // 注册保存组件和删除组件的事件
-    const topic = this.params.componentId + '-'
-    getBus().$off(topic + 'save')
-    getBus().$off(topic + 'delete')
-    getBus().$on(topic + 'save', this.save)
-    getBus().$on(topic + 'delete', this.delete)
+    getBus().$off(this.params.componentId + '-attribute-' + 'save')
+    getBus().$off(this.params.componentId + '-component-' + 'delete')
+    getBus().$on(this.params.componentId + '-attribute-' + 'save', this.save)
+    getBus().$on(this.params.componentId + '-component-' + 'delete', this.delete)
+  },
+  destroyed() {
+    getBus().$off(this.params.componentId + '-attribute-' + 'save')
+    getBus().$off(this.params.componentId + '-component-' + 'delete')
   },
   methods: {
     // 保存组件属性

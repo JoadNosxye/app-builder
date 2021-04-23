@@ -27,10 +27,12 @@ export default {
   },
   methods: {
     saveComponent() {
-      getBus().$emit(this.currentComponent.componentId + '-save', '')
+      getBus().$emit(this.currentComponent.componentId + '-param-save', '')
+      getBus().$emit(this.currentComponent.componentId + '-attribute-save', '')
+      getBus().$emit(this.currentComponent.componentId + '-style-save', '')
     },
     deleteComponent() {
-      getBus().$emit(this.currentComponent.componentId + '-delete', '')
+      getBus().$emit(this.currentComponent.componentId + '-component-delete', '')
     }
   }
 }
