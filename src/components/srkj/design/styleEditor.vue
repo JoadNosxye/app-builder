@@ -286,7 +286,7 @@ export default {
     $('#borderBottomColor').colorpicker()
   },
   destroyed() {
-    // 取消注册保存事件，但是styleEditor这个组件会重复利用，所以destroyed是不会被回调的。
+    // 取消注册保存事件
     getBus().$off(this.currentComponent.componentId + '-style-' + 'save' + 'save')
   },
   watch: {
