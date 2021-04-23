@@ -1,5 +1,5 @@
 <template>
-  <el-form size="small" ref="form" :model="styleModel" label-width="70px">
+  <el-form :label-position="labelPosition" size="small" ref="form" :model="styleModel" label-width="70px">
     <el-tabs v-model="activeTab">
       <el-tab-pane label="宽高" name="heightWidth">
         <el-form-item label="整体宽度">
@@ -76,22 +76,22 @@
       </el-tab-pane>
       <el-tab-pane label="颜色" name="color">
         <el-form-item label="字体颜色">
-          <el-input id="color" v-model="styleModel.color" class="form-control input-lg" @blur='styleModel.color = $event.srcElement.value'></el-input>
+          <el-color-picker v-model="styleModel.color" show-alpha :predefine="predefineColors"/>
         </el-form-item>
         <el-form-item label="边框颜色">
-          <el-input id="borderColor" v-model="styleModel.borderColor" class="form-control input-lg" @blur='styleModel.borderColor = $event.srcElement.value'></el-input>
+          <el-color-picker v-model="styleModel.borderColor" show-alpha :predefine="predefineColors"/>
         </el-form-item>
         <el-form-item label="上边颜色">
-          <el-input id="borderTopColor" v-model="styleModel.borderTopColor" class="form-control input-lg" @blur='styleModel.borderTopColor = $event.srcElement.value'></el-input>
+          <el-color-picker v-model="styleModel.borderTopColor" show-alpha :predefine="predefineColors"/>
         </el-form-item>
         <el-form-item label="左边颜色">
-          <el-input id="borderLeftColor" v-model="styleModel.borderLeftColor" class="form-control input-lg" @blur='styleModel.borderLeftColor = $event.srcElement.value'></el-input>
+          <el-color-picker v-model="styleModel.borderLeftColor" show-alpha :predefine="predefineColors"/>
         </el-form-item>
         <el-form-item label="右边颜色">
-          <el-input id="borderRightColor" v-model="styleModel.borderRightColor" class="form-control input-lg" @blur='styleModel.borderRightColor = $event.srcElement.value'></el-input>
+          <el-color-picker v-model="styleModel.borderRightColor" show-alpha :predefine="predefineColors"/>
         </el-form-item>
         <el-form-item label="底边颜色">
-          <el-input id="borderBottomColor" v-model="styleModel.borderBottomColor" class="form-control input-lg" @blur='styleModel.borderBottomColor = $event.srcElement.value'></el-input>
+          <el-color-picker v-model="styleModel.borderBottomColor" show-alpha :predefine="predefineColors"/>
         </el-form-item>
       </el-tab-pane>
       <el-tab-pane label="边距" name="padding">
@@ -231,7 +231,7 @@
       </el-tab-pane>
       <el-tab-pane label="背景" name="background">
         <el-form-item label="背景颜色">
-          <el-input id="backgroundColor" v-model="styleModel.backgroundColor" class="form-control input-lg" @blur='styleModel.backgroundColor = $event.srcElement.value'></el-input>
+          <el-color-picker v-model="styleModel.backgroundColor" show-alpha :predefine="predefineColors"/>
         </el-form-item>
         <el-form-item label="背景图片">
           <el-input v-model="styleModel.backgroundImage" placeholder=""></el-input>
@@ -265,7 +265,6 @@ import { mapGetters } from 'vuex'
 import { getBus } from '@/utils/bus'
 import { deepCopy } from '@/utils'
 export default {
-  // props: ['component'],
   computed: {
     ...mapGetters(['componentsStyles', 'currentComponent'])
   },
@@ -274,20 +273,18 @@ export default {
   },
   mounted() {
     if (this.currentComponent.componentId) {
-      getBus().$on(this.currentComponent.componentId + '-style-' + 'save', this.save)
+      getBus().$on(
+        this.currentComponent.componentId + '-style-' + 'save',
+        this.save
+      )
       this.lastComponent = this.currentComponent
     }
-    $('#color').colorpicker()
-    $('#backgroundColor').colorpicker()
-    $('#borderColor').colorpicker()
-    $('#borderTopColor').colorpicker()
-    $('#borderLeftColor').colorpicker()
-    $('#borderRightColor').colorpicker()
-    $('#borderBottomColor').colorpicker()
   },
   destroyed() {
     // 取消注册保存事件
-    getBus().$off(this.currentComponent.componentId + '-style-' + 'save' + 'save')
+    getBus().$off(
+      this.currentComponent.componentId + '-style-' + 'save' + 'save'
+    )
   },
   watch: {
     currentComponent: function() {
@@ -306,6 +303,23 @@ export default {
   },
   data() {
     return {
+      labelPosition: 'right',
+      predefineColors: [
+        '#ff4500',
+        '#ff8c00',
+        '#ffd700',
+        '#90ee90',
+        '#00ced1',
+        '#1e90ff',
+        '#c71585',
+        'rgba(255, 69, 0, 0.68)',
+        'rgb(255, 120, 0)',
+        'hsv(51, 100, 98)',
+        'hsva(120, 40, 94, 0.5)',
+        'hsl(181, 100%, 37%)',
+        'hsla(209, 100%, 56%, 0.73)',
+        '#c7158577'
+      ],
       lastComponent: '',
       activeTab: 'heightWidth',
       styleModel: {
@@ -833,9 +847,9 @@ export default {
     getStyles() {
       // 从store中获取当前组件的样式，若获取到则对styleModel赋值，若没有获取到则重置styleModel的所有属性值为初始值
       if (this.componentsStyles[this.currentComponent.componentId]) {
-        this.styleModel = deepCopy(this.componentsStyles[
-          this.currentComponent.componentId
-        ])
+        this.styleModel = deepCopy(
+          this.componentsStyles[this.currentComponent.componentId]
+        )
       } else {
         this.restStyleModel(this.styleModel)
       }
@@ -849,3 +863,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>

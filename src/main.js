@@ -1,7 +1,7 @@
 import Vue from 'vue'
 // import $ from 'jquery'
-import 'bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js'
-import 'bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css'
+// import 'bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js'
+// import 'bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css'
 import components from '@/components'
 
 import 'normalize.css/normalize.css'// A modern alternative to CSS resets
