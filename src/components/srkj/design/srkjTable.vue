@@ -1,14 +1,14 @@
 <template>
   <div draggable="true" :data-component-id="params.componentId" @click.stop="openAttributesPanel">
-    <el-table border stripe highlight-current-row :data="datas.tableData" tooltip-effect="dark" style="width: 100%" max-height="600" @selection-change="handleSelectionChange">
-      <el-table-column :prop="column.prop" :label="column.label" v-for="column in datas.tableColumns" :key="column.prop"></el-table-column>
+    <el-table border stripe highlight-current-row :data="tableData" tooltip-effect="dark" style="width: 100%" max-height="600" @selection-change="handleSelectionChange">
+      <el-table-column :prop="column.prop" :label="column.label" v-for="column in tableColumns" :key="column.prop"></el-table-column>
     </el-table>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 export default {
-  props: ['params', 'datas'],
+  props: ['params'],
   computed: {
     ...mapGetters([
       'currentComponent',
@@ -33,7 +33,8 @@ export default {
   },
   data() {
     return {
-      // tableData: [],
+      tableData: [],
+      tableColumns: [],
       style: '',
       // 表格组件的属性默认值
       attributes: {}
@@ -43,12 +44,17 @@ export default {
     refresh() {
       this.getAttributes()
       this.getStyle()
+      this.getData()
     },
     getAttributes() {
       this.attributes = this.componentsAttributes[this.params.componentId]
     },
     getStyle() {
       this.style = this.componentsStyles[this.params.componentId]
+    },
+    getData() {
+      this.tableData = this.componentsDatas[this.params.componentId]['tableData']
+      this.tableColumns = this.componentsDatas[this.params.componentId]['tableColumns']
     },
     // 打开属性配置面板
     openAttributesPanel(ev) {
