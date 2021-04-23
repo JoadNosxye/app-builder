@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
         <!-- <component :is="item.componentName" :params="item.params" :datas="item.datas" v-for="item in col.items" :key="item.componentId"></component> -->
-        <component :is="item.componentName" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
+        <component :is="item.componentType" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
       </el-col>
     </el-row>
   </div>
@@ -125,6 +125,7 @@ export default {
         return
       }
       let name = ''
+      let type = ''
       let params = ''
       let attributes = ''
       let datas = ''
@@ -133,6 +134,7 @@ export default {
         // 从store中获取该组件的参数和属性
         params = this.componentsParams[id]
         name = params.componentName
+        type = params.componentType
         // 将该组件参数的行列ID更新为组件移动后的最新行列ID
         params.rowId = rowId
         params.colId = colId
@@ -140,6 +142,7 @@ export default {
         datas = this.componentsDatas[id] ? this.componentsDatas[id] : ''
       } else {
         name = ev.dataTransfer.getData('componentName')
+        type = ev.dataTransfer.getData('componentType')
         params = JSON.parse(
           ev.dataTransfer.getData('params')
             ? ev.dataTransfer.getData('params')
@@ -163,6 +166,7 @@ export default {
         rowId: rowId,
         colId: colId,
         componentName: name,
+        componentType: type,
         componentId: id,
         params: params,
         attributes: attributes,
@@ -171,7 +175,8 @@ export default {
       // 设置当前组件为刚拖拽过来的组件
       this.$store.dispatch('setCurrentComponent', {
         componentId: id,
-        componentName: name
+        componentName: name,
+        componentType: type
       })
       // 更新watch对象，以便当前布局在被放置组件后，重新获取组件列表
       this.dropTime = new Date().toLocaleTimeString()
@@ -211,7 +216,8 @@ export default {
       if (this.currentComponent.componentId !== this.params.componentId) {
         this.$store.dispatch('setCurrentComponent', {
           componentId: this.params.componentId,
-          componentName: this.params.componentName
+          componentName: this.params.componentName,
+          componentType: this.params.componentType
         })
       }
     }

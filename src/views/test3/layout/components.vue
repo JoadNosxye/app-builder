@@ -14,9 +14,11 @@ export default {
     drag(ev) {
       const componentId =
         ev.target.name + '-' + Math.round(Math.random() * 1000)
-      const componentName = ev.target.name
+      const componentType = ev.target.name
+      const componentName = componentId
       ev.dataTransfer.setData('componentName', componentName)
       ev.dataTransfer.setData('componentId', componentId)
+      ev.dataTransfer.setData('componentType', componentType)
       const params = {}
       let attributes = {}
       let datas = {}
@@ -90,6 +92,7 @@ export default {
       }
       params.componentId = componentId
       params.componentName = componentName
+      params.componentType = componentType
       ev.dataTransfer.setData('params', JSON.stringify(params))
       ev.dataTransfer.setData('attributes', JSON.stringify(attributes))
       ev.dataTransfer.setData('datas', JSON.stringify(datas))

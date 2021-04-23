@@ -45,6 +45,7 @@ const builder = {
       const colId = component.colId
       const componentId = component.componentId
       const componentName = component.componentName
+      const componentType = component.componentType
       const params = component.params
       const attributes = component.attributes
       const datas = component.datas
@@ -54,7 +55,7 @@ const builder = {
         state.componentsLayouts[rowId] = {}
       }
 
-      if (componentId && componentName) {
+      if (componentId && componentName && componentType) {
         // 若该列不存在，则在布局中创建该列
         if (!state.componentsLayouts[rowId][colId]) {
           state.componentsLayouts[rowId][colId] = []
@@ -63,6 +64,7 @@ const builder = {
         const ele = {}
         ele.componentName = componentName
         ele.componentId = componentId
+        ele.componentType = componentType
         state.componentsLayouts[rowId][colId].push(ele)
 
         // 存储组件的参数
@@ -122,6 +124,10 @@ const builder = {
     DELETE_COMPONENT_STYLES: (state, componentId) => {
       delete state.componentsStyles[componentId]
     },
+    // 删除该组件的数据
+    DELETE_COMPONENT_DATAS: (state, componentId) => {
+      delete state.componentsDatas[componentId]
+    },
     UPDATE_TIME: state => {
       state.time = getCurrentTime()
     },
@@ -149,6 +155,7 @@ const builder = {
         commit('DELETE_COMPONENT_ATTRIBUTES', componentId)
         commit('DELETE_COMPONENT_PARAMS', componentId)
         commit('DELETE_COMPONENT_STYLES', componentId)
+        commit('DELETE_COMPONENT_DATAS', componentId)
       })
       // 删除组件时，更新state.time，以便布局组件watch，及时更新布局中的组件
       commit('UPDATE_TIME')

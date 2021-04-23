@@ -7,15 +7,19 @@
 export default {
   computed: {
     componentName() {
-      return 'srkj-layout'
+      return 'preview-main-row'
     },
     componentId() {
       return 'preview-main-row'
+    },
+    componentType() {
+      return 'srkj-layout'
     },
     params() {
       const params = {}
       params.componentId = this.componentId
       params.componentName = this.componentName
+      params.componentType = this.componentType
       return params
     },
     attributes() {
@@ -31,6 +35,7 @@ export default {
       colId: 0,
       componentName: this.componentName,
       componentId: this.componentId,
+      componentType: this.componentType,
       params: this.params,
       attributes: this.attributes
     })
@@ -43,7 +48,8 @@ export default {
     // 设置当前组件为刚拖拽过来的组件
     this.$store.dispatch('setCurrentComponent', {
       componentId: this.componentId,
-      componentName: this.componentName
+      componentName: this.componentName,
+      componentType: this.componentType
     })
   }
 }

@@ -63,7 +63,8 @@ export default {
       if (this.currentComponent.componentId !== this.params.componentId) {
         this.$store.dispatch('setCurrentComponent', {
           componentId: this.params.componentId,
-          componentName: this.params.componentName
+          componentName: this.params.componentName,
+          componentType: this.params.componentType
         })
       }
     },
