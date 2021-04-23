@@ -2,7 +2,6 @@
   <div @drop.stop.prevent="drop" @dragover="allowDrop" @dragstart.stop="drag" class="layout-wrapper" :style='style' @click.stop="openAttributesPanel">
     <el-row>
       <el-col :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
-        <!-- <component :is="item.componentName" :params="item.params" :datas="item.datas" v-for="item in col.items" :key="item.componentId"></component> -->
         <component :is="item.componentType" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
       </el-col>
     </el-row>
@@ -53,6 +52,7 @@ export default {
       this.getStyle()
       this.getComponents()
     },
+    // 获取样式
     getStyle() {
       this.style = this.componentsStyles[this.params.componentId]
     },
@@ -88,8 +88,6 @@ export default {
             const element = col.items[index]
             // 从store中取出该组件的参数配置
             element.params = this.componentsParams[element.componentId]
-            // // 从store中取出该组件的数据
-            // element.datas = this.componentsDatas[element.componentId]
           }
         }
         this.$set(this.attributes.cols, i, col)
@@ -100,10 +98,6 @@ export default {
     },
     // 向该布局中放置组件时触发
     drop(ev) {
-      // 阻止放置默认事件
-      // ev.preventDefault()
-      // 阻止向父级元素冒泡传递事件
-      // ev.stopPropagation()
       const id = ev.dataTransfer.getData('componentId')
       if (!id || id === 'null') {
         console.log('移动的组件的html中缺少data-component-id')
@@ -183,8 +177,6 @@ export default {
     },
     // 从该布局组件中向其他布局拖拽组件时触发
     drag(ev) {
-      // 阻止向父级元素冒泡传递事件
-      // ev.stopPropagation()
       const node = ev.target
       const componentId = node.getAttribute('data-component-id')
       if (!componentId) {
@@ -196,23 +188,10 @@ export default {
       ev.dataTransfer.setData('move', true)
       ev.dataTransfer.setData('componentId', componentId)
 
-      // 如果被移动的组件上没有找到data-component-id，则循环查找其父级元素上是否有该属性
-      // while (componentId === null) {
-      //   node = node.parentElement
-      //   componentId = node.getAttribute('data-component-id')
-      // }
-      // // 如果遍历了所有的父节点还没有找到行列ID，则退出该方法，放置元素失败
-      // if (componentId === null) {
-      //   console.log('没有找到要移动的组件ID')
-      //   return
-      // }
-
       // 将store中被移动的组件布局数据删除
       this.$store.dispatch('moveComponent', componentId)
     },
     openAttributesPanel(ev) {
-      // 阻止向父级元素冒泡传递事件
-      // ev.stopPropagation()
       if (this.currentComponent.componentId !== this.params.componentId) {
         this.$store.dispatch('setCurrentComponent', {
           componentId: this.params.componentId,

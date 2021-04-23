@@ -74,14 +74,6 @@ export default {
       ]
     }
   },
-  // watch: {
-  //   // 当前组件变化时，获取store中当前组件的属性，对从store中取出的属性进行clone，使buttonModel和store中的属性不是同一个引用
-  //   currentComponent: function() {
-  //     this.buttonModel = deepCopy(
-  //       this.componentsAttributes[this.params.componentId]
-  //     )
-  //   }
-  // },
   created() {
     // 初始化按钮配置时，对从store中取出的属性进行clone，使buttonModel和store中的属性不是同一个引用
     this.buttonModel = deepCopy(
@@ -90,11 +82,13 @@ export default {
   },
   mounted() {
     // 注册保存组件和删除组件的事件
-    const topic = this.params.componentId + '-'
-    getBus().$off(topic + 'save')
-    getBus().$off(topic + 'delete')
-    getBus().$on(topic + 'save', this.save)
-    getBus().$on(topic + 'delete', this.delete)
+    getBus().$on(this.params.componentId + '-attribute-' + 'save', this.save)
+    getBus().$on(this.params.componentId + '-component-' + 'delete', this.delete)
+  },
+  destroyed() {
+    // 取消注册保存组件和删除组件的事件
+    getBus().$off(this.params.componentId + '-attribute-' + 'save')
+    getBus().$off(this.params.componentId + '-component-' + 'delete')
   },
   methods: {
     // 保存组件属性
@@ -102,7 +96,7 @@ export default {
       const componentAttributes = {
         componentId: this.params.componentId
       }
-      // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，这样在第一次提交后，只要修改model对象的值，不需要触发setComponentAttributes方法也会自动改变store中的值，因为他们使用的是相同的引用
+      // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，否则在第一次提交后，只要修改model对象的值，不需要触发setComponentAttributes方法也会自动改变store中的值，因为他们使用的是相同的引用
       componentAttributes[this.params.componentId] = deepCopy(this.buttonModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },

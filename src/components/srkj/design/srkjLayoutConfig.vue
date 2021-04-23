@@ -9,11 +9,11 @@
         <el-checkbox v-model="layoutModel.type"></el-checkbox>
       </el-form-item>
       <el-button type="primary" plain @click="addCols">增加列</el-button>
-      <div  v-for="col in layoutModel.cols">
+      <div v-for="col in layoutModel.cols">
         <div>列序号:{{col.id}}</div>
         <el-button type="primary" plain @click="deleteCols(col.id)">删除列</el-button>
         <el-form-item label="列宽">
-           <el-input-number v-model="col.span" :min="1" :max="24"></el-input-number>
+          <el-input-number v-model="col.span" :min="1" :max="24"></el-input-number>
         </el-form-item>
       </div>
     </el-form>
@@ -71,22 +71,14 @@ export default {
   },
   mounted() {
     // 注册保存组件和删除组件事件
-    // const topic = this.params.componentId + '-'
-    // getBus().$off(topic + 'save')
-    // getBus().$off(topic + 'delete')
-    // getBus().$on(topic + 'save', this.save)
-    // getBus().$on(topic + 'delete', this.delete)
-
-    // 因为config类组件每次都需要重新渲染，所以mounted方法会被回调多次，所以这里先删除之前注册的事件，再重新注册事件，以免事件注册多次，事件触发时就执行了多次，应确保同一个事件只注册一次
-    getBus().$off(this.params.componentId + '-attribute-' + 'save')
-    getBus().$off(this.params.componentId + '-component-' + 'delete')
     getBus().$on(this.params.componentId + '-attribute-' + 'save', this.save)
-    getBus().$on(this.params.componentId + '-component-' + 'delete', this.delete)
+    getBus().$on(
+      this.params.componentId + '-component-' + 'delete',
+      this.delete
+    )
   },
   destroyed() {
-    // const topic = this.params.componentId + '-'
-    // getBus().$off(topic + 'save')
-    // getBus().$off(topic + 'delete')
+    // 取消注册保存组件和删除组件事件
     getBus().$off(this.params.componentId + '-attribute-' + 'save')
     getBus().$off(this.params.componentId + '-component-' + 'delete')
   },
@@ -96,7 +88,7 @@ export default {
       const componentAttributes = {
         componentId: this.params.componentId
       }
-      // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，这样在第一次提交后，只要修改model对象的值，不需要触发save方法也会自动改变store中的值，因为他们使用的是相同的引用
+      // 将model对象clone之后再存储到store中，避免model对象与store使用相同的引用，否则在第一次提交后，只要修改model对象的值，不需要触发save方法也会自动改变store中的值，因为他们使用的是相同的引用
       componentAttributes[this.params.componentId] = deepCopy(this.layoutModel)
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
@@ -139,25 +131,16 @@ export default {
     },
     // 删除组件
     delete() {
-      // 删除布局组件时，需要将布局中的所有组件都删除，通过递归的方式，查找出当前布局组件中的所有组件
-
       if (this.params.componentId === 'preview-main-row') {
         console.log('不能删除preview-main-row')
         return
       }
+      // 删除布局组件时，需要将布局中的所有组件都删除，通过递归的方式，查找出当前布局组件中的所有组件
       const list = this.findAllComponents(this.params.componentId, {
         componentIdList: [],
         layoutIdList: []
       })
-      // // 将要删除的布局组件ID也添加到被删除的组件ID列表中
-      // componentIdList.push(this.params.componentId)
-      // for (let index = 0; index < list.componentIdList.length; index++) {
-      //   this.$store.dispatch('deleteComponent', list.componentIdList[index])
-      // }
 
-      // for (let index = 0; index < list.layoutIdList.length; index++) {
-      //   this.$store.dispatch('deleteLayout', list.layoutIdList[index])
-      // }
       this.$store.dispatch('deleteComponent', list.componentIdList)
       this.$store.dispatch('deleteLayout', list.layoutIdList)
     },

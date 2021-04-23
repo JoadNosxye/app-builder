@@ -274,7 +274,6 @@ export default {
   },
   mounted() {
     if (this.currentComponent.componentId) {
-      getBus().$off(this.currentComponent.componentId + '-style-' + 'save')
       getBus().$on(this.currentComponent.componentId + '-style-' + 'save', this.save)
       this.lastComponent = this.currentComponent
     }
@@ -285,6 +284,10 @@ export default {
     $('#borderLeftColor').colorpicker()
     $('#borderRightColor').colorpicker()
     $('#borderBottomColor').colorpicker()
+  },
+  destroyed() {
+    // 取消注册保存事件，但是styleEditor这个组件会重复利用，所以destroyed是不会被回调的。
+    getBus().$off(this.currentComponent.componentId + '-style-' + 'save' + 'save')
   },
   watch: {
     currentComponent: function() {

@@ -58,8 +58,6 @@ export default {
     },
     // 打开属性配置面板
     openAttributesPanel(ev) {
-      // 阻止点击事件向父级layout元素冒泡传递事件
-      // ev.stopPropagation()
       if (this.currentComponent.componentId !== this.params.componentId) {
         this.$store.dispatch('setCurrentComponent', {
           componentId: this.params.componentId,
