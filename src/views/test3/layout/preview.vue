@@ -25,7 +25,7 @@ export default {
     attributes() {
       const attributes = {}
       attributes.row = { gutter: 0 }
-      attributes.cols = [{ id: 0, span: 24 }]
+      attributes.cols = [{ id: '0', span: 24 }]
       return attributes
     }
   },
