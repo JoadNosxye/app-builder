@@ -3,10 +3,29 @@
     <div style="margin: 20px;">行属性配置</div>
     <el-form :label-position="labelPosition" label-width="70px" size='small' :model="layoutModel">
       <el-form-item label="栅格间隔">
-        <el-input v-model="layoutModel.gutter"></el-input>
+        <!-- <el-input v-model="layoutModel.row.gutter"></el-input> -->
+        <el-input-number v-model="layoutModel.row.gutter" :min="0" :max="24"></el-input-number>
       </el-form-item>
       <el-form-item label="布局模式">
-        <el-checkbox v-model="layoutModel.type"></el-checkbox>
+        <el-select v-model="layoutModel.row.type" placeholder="请选择">
+          <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="水平排列" v-show="this.layoutModel.row.type === 'flex'">
+        <el-select v-model="layoutModel.row.justify" placeholder="请选择">
+          <el-option v-for="item in justifyOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="垂直排列" v-show="this.layoutModel.row.type === 'flex'">
+        <el-select v-model="layoutModel.row.align" placeholder="请选择">
+          <el-option v-for="item in alignOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="标签">
+        <el-input v-model="layoutModel.row.tag" placeholder="" ></el-input>
       </el-form-item>
     </el-form>
     <el-button type="primary" plain @click="openColConfigPanel">配置列属性</el-button>
@@ -36,7 +55,7 @@
                 <el-form-item label="<768px 响应式栅格数">
                   <el-input-number v-model="col.xs" :min="0" :max="24"></el-input-number>
                 </el-form-item>
-                 <el-form-item label="≥768px 响应式栅格数">
+                <el-form-item label="≥768px 响应式栅格数">
                   <el-input-number v-model="col.sm" :min="0" :max="24"></el-input-number>
                 </el-form-item>
                 <el-form-item label="≥992px 响应式栅格数">
@@ -72,12 +91,59 @@ export default {
   },
   data() {
     return {
+      a: false,
       colDialogVisible: false,
       lastComponent: '',
       labelPosition: 'right',
       activeTab: 'attributeTab',
       layoutModel: {},
-      editableTabsValue: ''
+      editableTabsValue: '',
+      typeOptions: [
+        {
+          value: '',
+          label: '盒模型'
+        },
+        {
+          value: 'flex',
+          label: 'flex布局'
+        }
+      ],
+      justifyOptions: [
+        {
+          value: 'start',
+          label: 'start'
+        },
+        {
+          value: 'end',
+          label: 'end'
+        },
+        {
+          value: 'center',
+          label: 'center'
+        },
+        {
+          value: 'space-around',
+          label: 'space-around'
+        },
+        {
+          value: 'space-between',
+          label: 'space-between'
+        }
+      ],
+      alignOptions: [
+        {
+          value: 'top',
+          label: 'top'
+        },
+        {
+          value: 'middle',
+          label: 'middle'
+        },
+        {
+          value: 'bottom',
+          label: 'bottom'
+        }
+      ]
     }
   },
   watch: {
