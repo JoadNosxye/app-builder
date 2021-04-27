@@ -3,7 +3,6 @@
     <div style="margin: 20px;">行属性配置</div>
     <el-form :label-position="labelPosition" label-width="70px" size='small' :model="layoutModel">
       <el-form-item label="栅格间隔">
-        <!-- <el-input v-model="layoutModel.row.gutter"></el-input> -->
         <el-input-number v-model="layoutModel.row.gutter" :min="0" :max="24"></el-input-number>
       </el-form-item>
       <el-form-item label="布局模式">
@@ -25,10 +24,14 @@
         </el-select>
       </el-form-item>
       <el-form-item label="标签">
-        <el-input v-model="layoutModel.row.tag" placeholder="" ></el-input>
+        <el-input v-model="layoutModel.row.tag" placeholder=""></el-input>
       </el-form-item>
     </el-form>
-    <el-button type="primary" plain @click="openColConfigPanel">配置列属性</el-button>
+    <el-row>
+      <el-col :span=8 :offset=8>
+        <el-button type="primary" plain @click="openColConfigPanel">列属性配置</el-button>
+      </el-col>
+    </el-row>
     <el-dialog title="列属性配置" :visible.sync="colDialogVisible" top="5vh">
       <el-form :label-position="labelPosition" label-width="160px" size='small' :model="layoutModel">
         <el-tabs v-model="editableTabsValue" type="card" editable @edit="handleTabsEdit">
@@ -79,6 +82,7 @@
 import { mapGetters } from 'vuex'
 import { deepCopy } from '@/utils'
 import { getBus } from '@/utils/bus'
+import { showConfirmMsg } from '@/utils/index'
 export default {
   props: ['params'],
   computed: {
@@ -91,7 +95,6 @@ export default {
   },
   data() {
     return {
-      a: false,
       colDialogVisible: false,
       lastComponent: '',
       labelPosition: 'right',
@@ -174,12 +177,6 @@ export default {
     getBus().$off(this.params.componentId + '-component-' + 'delete')
   },
   methods: {
-    renameColsId(cols) {
-      for (let index = 0; index < cols.length; index++) {
-        const col = cols[index]
-        col.id = index
-      }
-    },
     handleTabsEdit(id, action) {
       if (action === 'add') {
         this.editableTabsValue = this.addCols().id
@@ -189,14 +186,15 @@ export default {
           console.log('不允许删除第0列')
           return
         }
-        this.deleteCols(id)
-        this.renameColsId(this.layoutModel.cols)
-        this.editableTabsValue = '0'
-        // this.editableTabsValue = this.layoutModel.cols[id + 1]
-        //   ? this.layoutModel.cols[id + 1].id
-        //   : this.layoutModel.cols[id - 1]
-        //     ? this.layoutModel.cols[id - 1].id
-        //     : ''
+
+        showConfirmMsg(this, '此操作将删除该列, 是否继续?')
+          .then(() => {
+            this.deleteCols(id)
+            this.editableTabsValue = '0'
+          })
+          .catch(msg => {
+            console.log(msg + '删除该列')
+          })
       }
     },
     openColConfigPanel() {
@@ -220,14 +218,6 @@ export default {
       const col = {}
       // 列的id必须是字符串类型，否则添加删除列时会有问题
       col.id = attributes.cols.length + ''
-      // col.offset = 0
-      // col.push = 0
-      // col.pull = 0
-      // col.xs = ''
-      // col.sm = ''
-      // col.md = ''
-      // col.lg = ''
-      // col.xl = ''
       attributes.cols.push(col)
       componentAttributes[this.params.componentId] = attributes
       this.$store.dispatch('setComponentAttributes', componentAttributes)
@@ -256,6 +246,10 @@ export default {
       // 删除指定列
       attributes.cols.splice(pos, 1)
       componentAttributes[this.params.componentId] = attributes
+      for (let index = 0; index < attributes.cols.length; index++) {
+        const col = attributes.cols[index]
+        col.id = index + ''
+      }
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
     // 删除组件
