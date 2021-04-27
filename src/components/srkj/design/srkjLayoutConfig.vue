@@ -119,8 +119,8 @@ export default {
         this.editableTabsValue = this.addCols().id
       }
       if (action === 'remove') {
-        if (this.layoutModel.cols.length === 1) {
-          console.log('不允许删除列，因为只有一列')
+        if (id === '0') {
+          console.log('不允许删除第0列')
           return
         }
         this.deleteCols(id)

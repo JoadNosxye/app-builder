@@ -31,13 +31,11 @@ export default {
             {
               // 第一列的id一定要从0开始
               id: '0',
-              span: 12,
-              offset: ''
+              span: 12
             },
             {
               id: '1',
-              span: 12,
-              offset: ''
+              span: 12
             }
           ]
         }
