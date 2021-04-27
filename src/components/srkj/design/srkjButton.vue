@@ -1,5 +1,5 @@
 <template>
-  <el-button draggable="true" :data-component-id="params.componentId" :type="attributes.type" :size="attributes.size" :plain="attributes.plain" :style='style' @click.stop="openAttributesPanel">{{attributes.name}}</el-button>
+  <el-button draggable="true" :data-component-id="params.componentId" :type="attributes.type" :round="attributes.round" :circle="attributes.circle" :loading="attributes.loading" :disabled="attributes.disabled" :autofocus="attributes.autofocus" :native-type="attributes.nativeType" :size="attributes.size" :plain="attributes.plain" :style='style' @click.stop="openAttributesPanel">{{attributes.name}}</el-button>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -20,12 +20,7 @@ export default {
   data() {
     return {
       style: '',
-      // 按钮组件的属性默认值
       attributes: {
-        name: '按钮',
-        type: 'primary',
-        size: 'medium',
-        plain: false
       }
     }
   },

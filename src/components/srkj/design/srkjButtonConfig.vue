@@ -3,9 +3,9 @@
     <el-form-item label="名称">
       <el-input v-model="buttonModel.name"></el-input>
     </el-form-item>
-    <el-form-item label="尺寸">
-      <el-select v-model="buttonModel.size" placeholder="请选择">
-        <el-option v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
+     <el-form-item label="原生类型">
+      <el-select v-model="buttonModel.nativeType" placeholder="请选择">
+        <el-option v-for="item in nativeTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
     </el-form-item>
     <el-form-item label="类型">
@@ -13,9 +13,34 @@
         <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
     </el-form-item>
-    <el-form-item label="是否朴素">
+    <el-form-item label="尺寸">
+      <el-select v-model="buttonModel.size" placeholder="请选择">
+        <el-option v-for="item in sizeOptions" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="图标类名">
+      <el-input v-model="buttonModel.icon"></el-input>
+    </el-form-item>
+    <el-form-item label="朴素">
       <el-checkbox v-model="buttonModel.plain"></el-checkbox>
     </el-form-item>
+    <el-form-item label="圆角">
+      <el-checkbox v-model="buttonModel.round"></el-checkbox>
+    </el-form-item>
+    <el-form-item label="圆形">
+      <el-checkbox v-model="buttonModel.circle"></el-checkbox>
+    </el-form-item>
+    <el-form-item label="加载中">
+      <el-checkbox v-model="buttonModel.loading"></el-checkbox>
+    </el-form-item>
+    <el-form-item label="禁用">
+      <el-checkbox v-model="buttonModel.disabled"></el-checkbox>
+    </el-form-item>
+    
+    <el-form-item label="默认聚焦">
+      <el-checkbox v-model="buttonModel.autofocus"></el-checkbox>
+    </el-form-item>
+   
   </el-form>
 </template>
 <script>
@@ -71,6 +96,20 @@ export default {
           value: 'text',
           label: 'text'
         }
+      ],
+      nativeTypeOptions: [
+        {
+          value: 'button',
+          label: 'button'
+        },
+        {
+          value: 'submit',
+          label: 'submit'
+        },
+        {
+          value: 'reset',
+          label: 'reset'
+        }
       ]
     }
   },
@@ -83,7 +122,10 @@ export default {
   mounted() {
     // 注册保存组件和删除组件的事件
     getBus().$on(this.params.componentId + '-attribute-' + 'save', this.save)
-    getBus().$on(this.params.componentId + '-component-' + 'delete', this.delete)
+    getBus().$on(
+      this.params.componentId + '-component-' + 'delete',
+      this.delete
+    )
   },
   destroyed() {
     // 取消注册保存组件和删除组件的事件

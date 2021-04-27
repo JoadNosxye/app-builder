@@ -1,7 +1,7 @@
 <template>
   <div @drop.stop.prevent="drop" @dragover="allowDrop" @dragstart.stop="drag" class="layout-wrapper" :style='style' @click.stop="openAttributesPanel">
     <el-row :gutter="attributes.row.gutter" :type="attributes.row.type" :justify="attributes.row.justify" :align="attributes.row.align" :tag="attributes.row.tag">
-      <el-col :tag="col.tag" :xl="col.xl" :lg="col.lg" :md="col.md" :sm="col.sm" :xs="col.xs" :pull="col.pull" :push="col.push" :offset="col.offset" :span="col.span" :data-component-id="params.componentId" :data-col-id="col.id" v-for="col in attributes.cols" :key="col.id">
+      <el-col :data-component-id="params.componentId" :data-col-id="col.id" :tag="col.tag" :xl="col.xl" :lg="col.lg" :md="col.md" :sm="col.sm" :xs="col.xs" :pull="col.pull" :push="col.push" :offset="col.offset" :span="col.span" v-for="col in attributes.cols" :key="col.id">
         <component :is="item.componentType" :params="item.params" v-for="item in col.items" :key="item.componentId"></component>
       </el-col>
     </el-row>

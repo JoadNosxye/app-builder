@@ -45,7 +45,8 @@ export default {
           name: '按钮',
           type: 'primary',
           size: 'medium',
-          plain: false
+          plain: false,
+          nativeType: 'button'
         }
       }
       if (ev.target.id === 'c') {
