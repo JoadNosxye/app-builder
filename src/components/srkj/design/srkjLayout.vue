@@ -137,23 +137,32 @@ export default {
       } else {
         name = ev.dataTransfer.getData('componentName')
         type = ev.dataTransfer.getData('componentType')
-        params = JSON.parse(
-          ev.dataTransfer.getData('params')
-            ? ev.dataTransfer.getData('params')
-            : ''
-        )
+        // params = JSON.parse(
+        //   ev.dataTransfer.getData('params')
+        //     ? ev.dataTransfer.getData('params')
+        //     : ''
+        //  )
+        params = ev.dataTransfer.getData('params')
+          ? JSON.parse(ev.dataTransfer.getData('params'))
+          : ''
         params.rowId = rowId
         params.colId = colId
-        attributes = JSON.parse(
-          ev.dataTransfer.getData('attributes')
-            ? ev.dataTransfer.getData('attributes')
-            : ''
-        )
-        datas = JSON.parse(
-          ev.dataTransfer.getData('datas')
-            ? ev.dataTransfer.getData('datas')
-            : ''
-        )
+        attributes = ev.dataTransfer.getData('attributes')
+          ? JSON.parse(ev.dataTransfer.getData('attributes'))
+          : ''
+        datas = ev.dataTransfer.getData('datas')
+          ? JSON.parse(ev.dataTransfer.getData('datas'))
+          : ''
+        // attributes = JSON.parse(
+        //   ev.dataTransfer.getData('attributes')
+        //     ? ev.dataTransfer.getData('attributes')
+        //     : ''
+        // )
+        // datas = JSON.parse(
+        //   ev.dataTransfer.getData('datas')
+        //     ? ev.dataTransfer.getData('datas')
+        //     : ''
+        // )
       }
       // 将拖拽的组件存储到store中对应的布局中
       this.$store.dispatch('addComponents', {

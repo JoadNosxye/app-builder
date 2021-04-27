@@ -217,7 +217,12 @@ export default {
       const attributes = deepCopy(this.layoutModel)
       const col = {}
       // 列的id必须是字符串类型，否则添加删除列时会有问题
-      col.id = attributes.cols.length + ''
+      if (attributes.cols) {
+        col.id = attributes.cols.length + ''
+      } else {
+        col.id = '0'
+        attributes.cols = []
+      }
       attributes.cols.push(col)
       componentAttributes[this.params.componentId] = attributes
       this.$store.dispatch('setComponentAttributes', componentAttributes)
@@ -245,11 +250,12 @@ export default {
       }
       // 删除指定列
       attributes.cols.splice(pos, 1)
-      componentAttributes[this.params.componentId] = attributes
+      // 更新所有列的id
       for (let index = 0; index < attributes.cols.length; index++) {
         const col = attributes.cols[index]
         col.id = index + ''
       }
+      componentAttributes[this.params.componentId] = attributes
       this.$store.dispatch('setComponentAttributes', componentAttributes)
     },
     // 删除组件

@@ -20,8 +20,11 @@ export default {
       ev.dataTransfer.setData('componentId', componentId)
       ev.dataTransfer.setData('componentType', componentType)
       const params = {}
-      let attributes = {}
-      let datas = {}
+      params.componentId = componentId
+      params.componentName = componentName
+      params.componentType = componentType
+      let attributes
+      let datas
       if (ev.target.id === 'a') {
         attributes = {
           row: {
@@ -50,51 +53,56 @@ export default {
         }
       }
       if (ev.target.id === 'c') {
-        datas = {
-          tableData: [
-            {
-              date: '2016-05-02',
-              name: 'a',
-              address: 'aa'
-            },
-            {
-              date: '2016-05-04',
-              name: 'b',
-              address: 'bb'
-            },
-            {
-              date: '2016-05-01',
-              name: 'c',
-              address: 'cc'
-            },
-            {
-              date: '2016-05-03',
-              name: 'd',
-              address: 'dd'
-            }
-          ],
-          tableColumns: [
-            {
-              prop: 'date',
-              label: '日期'
-            },
-            {
-              prop: 'name',
-              label: '姓名'
-            },
-            {
-              prop: 'address',
-              label: '地址'
-            }
-          ]
-        }
+        // attributes = {
+        //   cols: [
+        //     {
+        //       id: '0',
+        //       prop: 'date',
+        //       label: '日期11'
+        //     },
+        //     {
+        //       id: '1',
+        //       prop: 'name',
+        //       label: '姓名22'
+        //     },
+        //     {
+        //       id: '2',
+        //       prop: 'address',
+        //       label: '地址33'
+        //     }
+        //   ]
+        // }
+        // datas = [
+        //   {
+        //     date: '2016-05-02',
+        //     name: 'a',
+        //     address: 'aa'
+        //   },
+        //   {
+        //     date: '2016-05-04',
+        //     name: 'b',
+        //     address: 'bb'
+        //   },
+        //   {
+        //     date: '2016-05-01',
+        //     name: 'c',
+        //     address: 'cc'
+        //   },
+        //   {
+        //     date: '2016-05-03',
+        //     name: 'd',
+        //     address: 'dd'
+        //   }
+        // ]
       }
-      params.componentId = componentId
-      params.componentName = componentName
-      params.componentType = componentType
+
       ev.dataTransfer.setData('params', JSON.stringify(params))
-      ev.dataTransfer.setData('attributes', JSON.stringify(attributes))
-      ev.dataTransfer.setData('datas', JSON.stringify(datas))
+      if (attributes) {
+        ev.dataTransfer.setData('attributes', JSON.stringify(attributes))
+      }
+      if (datas) {
+        ev.dataTransfer.setData('datas', JSON.stringify(datas))
+      }
     }
   }
 }

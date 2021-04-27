@@ -59,6 +59,16 @@ export default {
     },
     b() {
       alert('b')
+    },
+    add() {
+      this.data1['tableData'].push({
+        date: '111',
+        name: '222',
+        address: '333'
+      })
+    },
+    subtract() {
+      this.data1['tableData'].splice(0, 1)
     }
   }
 }
